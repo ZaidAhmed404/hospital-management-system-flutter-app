@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "3090369065",
+    "project_id": "patient-doctor-app-ae024",
+    "storage_bucket": "patient-doctor-app-ae024.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3090369065:android:70334613a4bac8f728ea38",
+        "android_client_info": {
+          "package_name": "com.example.doctor_patient_management_system"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcsUNObIOhdLcraTmAm0nMeB0InMc8GLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
