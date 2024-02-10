@@ -132,6 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             textColor: Colors.white,
                             onPressedFunction: () {
                               if (_formKey.currentState!.validate()) {
+                                FocusScope.of(context).unfocus();
                                 appConstants.firebaseAuthServices.signUp(
                                     context: context,
                                     email: emailController.text.trim(),
@@ -158,14 +159,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               iconUrl: "assets/icons/facebook.svg",
                               text: "Facebook",
                               onPressedFunction: () {
-                                log("message");
+                                try {
+                                  appConstants.firebaseAuthServices
+                                      .signInWithFacebook();
+                                } catch (error) {
+                                  messageWidget(
+                                      context: context,
+                                      isError: true,
+                                      message: "$error");
+                                }
                               },
                             ),
                             IconTextWidget(
                               iconUrl: "assets/icons/google.svg",
                               text: "Google",
                               onPressedFunction: () {
-                                log("message");
+                                try {
+                                  appConstants.firebaseAuthServices
+                                      .signInWithGoogle();
+                                } catch (error) {
+                                  messageWidget(
+                                      context: context,
+                                      isError: true,
+                                      message: "$error");
+                                }
                               },
                             ),
                           ],
@@ -177,7 +194,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
-                              "Or Continue With",
+                              "Already have an account?",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 13,

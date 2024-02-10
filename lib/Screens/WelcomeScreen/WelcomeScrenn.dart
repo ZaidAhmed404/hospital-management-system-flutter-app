@@ -17,6 +17,7 @@ class WelcomeScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          const Spacer(),
           const Text(
             'Welcome to DoctorQ!',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
