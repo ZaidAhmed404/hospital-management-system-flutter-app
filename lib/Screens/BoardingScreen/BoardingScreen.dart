@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -44,7 +46,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
       isLoading = true;
     });
     _user = FirebaseAuth.instance.currentUser;
-
+    log("${_user?.displayName}");
     setState(() {
       isLoading = false;
     });
@@ -69,7 +71,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(10)),
             child: const CircularProgressIndicator()),
-        child: _user == null
+        child: FirebaseAuth.instance.currentUser != null
             ? PageView.builder(
                 controller: _pageController,
                 onPageChanged: (index) {},
