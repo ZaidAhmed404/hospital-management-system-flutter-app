@@ -11,7 +11,6 @@ void messageWidget(
     textColor: Colors.black,
     textStyle: const TextStyle(color: Colors.white),
     duration: const Duration(milliseconds: 4000),
-    backgroundColor:
-        isError ? Colors.red.withOpacity(0.8) : Colors.green.withOpacity(0.8),
+    backgroundColor: isError ? Colors.red : Colors.green,
   );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../Route/CustomPageRoute.dart';
 import '../../Widgets/ButtonWidget.dart';
@@ -15,37 +16,53 @@ class WelcomeScreen extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.65,
+            width: MediaQuery.of(context).size.width,
+            child: SvgPicture.asset(
+              "assets/icons/App Logo.svg",
+            ),
+          ),
           const Spacer(),
-          const Text(
-            'Welcome to DoctorQ!',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.3,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Spacer(),
+                const Text(
+                  'Welcome to DoctorQ!',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ButtonWidget(
+                    buttonText: "Sign Up",
+                    buttonColor: Colors.blueAccent,
+                    borderColor: Colors.blueAccent,
+                    textColor: Colors.white,
+                    onPressedFunction: () {
+                      Navigator.of(context)
+                          .push(CustomPageRoute(child: SignUpScreen()));
+                    }),
+                const SizedBox(
+                  height: 10,
+                ),
+                ButtonWidget(
+                    buttonText: "Sign In",
+                    buttonColor: Colors.white,
+                    borderColor: Colors.blueAccent,
+                    textColor: Colors.blueAccent,
+                    onPressedFunction: () {
+                      Navigator.of(context)
+                          .push(CustomPageRoute(child: SignInScreen()));
+                    }),
+              ],
+            ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          ButtonWidget(
-              buttonText: "Sign Up",
-              buttonColor: Colors.blueAccent,
-              borderColor: Colors.blueAccent,
-              textColor: Colors.white,
-              onPressedFunction: () {
-                Navigator.of(context)
-                    .push(CustomPageRoute(child: SignUpScreen()));
-              }),
-          const SizedBox(
-            height: 10,
-          ),
-          ButtonWidget(
-              buttonText: "Sign In",
-              buttonColor: Colors.white,
-              borderColor: Colors.blueAccent,
-              textColor: Colors.blueAccent,
-              onPressedFunction: () {
-                Navigator.of(context)
-                    .push(CustomPageRoute(child: SignInScreen()));
-              }),
         ],
       ),
     );

@@ -76,6 +76,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               return 'Email is required';
                             } else if (value.length < 8) {
                               return 'Email must have 8 characters';
+                            } else if (!value.contains("@") ||
+                                !value.contains(".com")) {
+                              return 'Please enter correct email';
                             }
                             return null;
                           },
@@ -132,7 +135,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             textColor: Colors.white,
                             onPressedFunction: () {
                               if (_formKey.currentState!.validate()) {
-                                FocusScope.of(context).unfocus();
                                 appConstants.firebaseAuthServices.signUp(
                                     context: context,
                                     email: emailController.text.trim(),
