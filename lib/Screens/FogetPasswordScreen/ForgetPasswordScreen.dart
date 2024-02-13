@@ -7,7 +7,6 @@ import '../../../Route/CustomPageRoute.dart';
 import '../../../Widgets/ButtonWidget.dart';
 import '../../../Widgets/TextFieldWidget.dart';
 import '../../cubit/loading/loading_cubit.dart';
-import '../OtpScreen/OtpScreen.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
@@ -58,7 +57,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                           ],
                         ),
                         const Text(
-                          "Please enter registered Email, we will send the OTP.",
+                          "Please enter registered Email, we will send the reset password email",
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w400,
@@ -95,9 +94,10 @@ class ForgetPasswordScreen extends StatelessWidget {
                             textColor: Colors.white,
                             onPressedFunction: () async {
                               if (_formKey.currentState!.validate()) {
-                                await appConstants.firebaseAuthServices.sendOtp(
-                                    context: context,
-                                    email: emailController.text.trim());
+                                await appConstants.firebaseAuthServices
+                                    .sendEmail(
+                                        context: context,
+                                        email: emailController.text.trim());
                               }
                             }),
                       ])),
