@@ -1,10 +1,12 @@
 import 'dart:developer';
 
+import 'package:doctor_patient_management_system/cubit/user/user_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_overlay/loading_overlay.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Widgets/ButtonWidget.dart';
+import '../RegisterUserRoleScreen/RegisterUserRolesScreen.dart';
 import '../WelcomeScreen/WelcomeScrenn.dart';
 
 class BoardingScreen extends StatefulWidget {
@@ -38,63 +40,41 @@ class _BoardingScreenState extends State<BoardingScreen> {
 
   final PageController _pageController = PageController(initialPage: 0);
 
-  bool isLoading = false;
-  User? _user;
-
-  void getUser() {
-    setState(() {
-      isLoading = true;
-    });
-    _user = FirebaseAuth.instance.currentUser;
-    log("${_user?.displayName}");
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getUser();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(0.98),
-      body: LoadingOverlay(
-          isLoading: isLoading,
-          color: Colors.black,
-          opacity: 0.5,
-          progressIndicator: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: const CircularProgressIndicator()),
-          child: StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (ctx, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    padding: const EdgeInsets.all(20),
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      ],
-                    ),
-                  );
-                }
-
-                if (snapshot.hasData) {
-                  return const Center(child: Text("Signed in"));
-                }
-
+        backgroundColor: Colors.white.withOpacity(0.98),
+        body: StreamBuilder(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (ctx, snapshot) {
+              if ((snapshot.connectionState == ConnectionState.waiting &&
+                  !snapshot.hasData)) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  padding: const EdgeInsets.all(20),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    ],
+                  ),
+                );
+              } else if (snapshot.hasData) {
+                User? user = snapshot.data;
+                BlocProvider.of<UserCubit>(context).updateUserMode(
+                    email: user!.email.toString(),
+                    uid: user.uid.toString(),
+                    displayName: user.displayName.toString(),
+                    photoUrl: user.photoURL.toString(),
+                    phoneNumber: user.phoneNumber.toString());
+                log("${snapshot.data}", name: "user");
+                // Navigator.of(context)
+                //     .push(CustomPageRoute(child: RegisterUserRoleScreen()));
+                return RegisterUserRoleScreen();
+              } else {
                 return PageView.builder(
                     controller: _pageController,
                     onPageChanged: (index) {},
@@ -190,7 +170,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
                               ),
                             );
                     });
-              })),
-    );
+              }
+            }));
   }
 }

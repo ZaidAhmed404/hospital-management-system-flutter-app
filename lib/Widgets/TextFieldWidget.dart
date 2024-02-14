@@ -6,14 +6,17 @@ class TextFieldWidget extends StatefulWidget {
   String hintText;
   bool isPassword;
   String? Function(String?) validationFunction;
+  bool isEnabled;
 
-  TextFieldWidget(
-      {super.key,
-      required this.controller,
-      required this.hintText,
-      required this.text,
-      required this.isPassword,
-      required this.validationFunction});
+  TextFieldWidget({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.text,
+    required this.isPassword,
+    required this.validationFunction,
+    required this.isEnabled,
+  });
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -61,6 +64,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           controller: widget.controller,
           textInputAction: TextInputAction.done,
           obscureText: !viewPassword,
+          enabled: widget.isEnabled,
           style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
           decoration: InputDecoration(
               fillColor: Colors.white,
@@ -94,6 +98,10 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(width: 1.5, color: Colors.blue),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(width: 0.5, color: Colors.black12),
                 borderRadius: BorderRadius.circular(50),
               ),
               errorBorder: OutlineInputBorder(

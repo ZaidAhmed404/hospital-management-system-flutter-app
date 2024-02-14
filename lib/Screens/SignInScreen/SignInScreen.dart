@@ -82,6 +82,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 text: "Email",
                                 controller: emailController,
                                 isPassword: false,
+                                isEnabled: true,
                                 validationFunction: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Email is required';
@@ -102,6 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 text: "Password",
                                 controller: passwordController,
                                 isPassword: true,
+                                isEnabled: true,
                                 validationFunction: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Password is required';

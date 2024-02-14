@@ -1,4 +1,5 @@
 import 'package:doctor_patient_management_system/Constants/AppConstants.dart';
+import 'package:doctor_patient_management_system/cubit/user/user_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoadingCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoadingCubit(),
+        ),
+        BlocProvider(
+          create: (context) => UserCubit(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,

@@ -73,6 +73,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             text: "Email",
                             controller: emailController,
                             isPassword: false,
+                            isEnabled: true,
                             validationFunction: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Email is required';
