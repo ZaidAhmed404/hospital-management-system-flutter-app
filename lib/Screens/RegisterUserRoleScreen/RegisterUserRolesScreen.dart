@@ -136,12 +136,9 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                     isEnabled: false,
                     validationFunction: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Email is required';
+                        return 'CNIC is required';
                       } else if (value.length < 8) {
-                        return 'Email must have 8 characters';
-                      } else if (!value.contains("@") ||
-                          !value.contains(".com")) {
-                        return 'Please enter correct email';
+                        return 'CNIC must have 8 characters';
                       }
                       return null;
                     },
