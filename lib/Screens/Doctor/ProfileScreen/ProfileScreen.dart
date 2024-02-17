@@ -63,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     doctorSpecializationController.text = widget.doctorModel.specialization;
     cnicController.text = widget.doctorModel.cnic;
     addressController.text = widget.doctorModel.address;
-    gender = widget.doctorModel.gender;
+    // gender = widget.doctorModel.gender;
   }
 
   @override
