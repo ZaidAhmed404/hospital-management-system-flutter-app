@@ -1,13 +1,13 @@
 import 'package:doctor_patient_management_system/Constants/AppConstants.dart';
-import 'package:doctor_patient_management_system/cubit/user/user_cubit.dart';
+import 'package:doctor_patient_management_system/cubit/UserCubit/user_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'Screens/BoardingScreen/BoardingScreen.dart';
-import 'Screens/SignUpScreen/SignUpScreen.dart';
-import 'Screens/WelcomeScreen/WelcomeScrenn.dart';
-import 'cubit/loading/loading_cubit.dart';
+import './Screens/SignUpFlow/BoardingScreen/BoardingScreen.dart';
+import './Screens/SignUpFlow/SignUpScreen/SignUpScreen.dart';
+import './Screens/SignUpFlow/WelcomeScreen/WelcomeScreen.dart';
+import 'cubit/LoadingCubit/loading_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -15,7 +15,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(const MyApp());
 }
 

@@ -6,7 +6,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import '../../../Route/CustomPageRoute.dart';
 import '../../../Widgets/ButtonWidget.dart';
 import '../../../Widgets/TextFieldWidget.dart';
-import '../../cubit/loading/loading_cubit.dart';
+import '../../../cubit/LoadingCubit/loading_cubit.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});

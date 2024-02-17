@@ -4,12 +4,14 @@ class DropdownWidget extends StatefulWidget {
   List<String> list;
   String selectedValue;
   Function(String) onPressedFunction;
+  String title;
 
   DropdownWidget(
       {super.key,
       required this.onPressedFunction,
       required this.list,
-      required this.selectedValue});
+      required this.selectedValue,
+      required this.title});
 
   @override
   State<DropdownWidget> createState() => _DropdownWidgetState();
@@ -20,22 +22,22 @@ class _DropdownWidgetState extends State<DropdownWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Row(
+        Row(
           children: [
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Text(
-              "Role",
-              style: TextStyle(
+              widget.title,
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
                   color: Colors.black54),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
-            Text(
+            const Text(
               "*",
               style: TextStyle(color: Colors.red),
             ),

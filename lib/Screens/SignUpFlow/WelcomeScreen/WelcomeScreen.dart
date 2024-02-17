@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../Route/CustomPageRoute.dart';
 
-import '../../Route/CustomPageRoute.dart';
-import '../../Widgets/ButtonWidget.dart';
+import '../../../Widgets/ButtonWidget.dart';
 import '../SignInScreen/SignInScreen.dart';
 import '../SignUpScreen/SignUpScreen.dart';
 

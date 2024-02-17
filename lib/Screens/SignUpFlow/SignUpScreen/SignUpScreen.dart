@@ -1,6 +1,5 @@
 import 'dart:developer';
-
-import 'package:doctor_patient_management_system/Screens/SignInScreen/SignInScreen.dart';
+import '../SignInScreen/SignInScreen.dart';
 import 'package:doctor_patient_management_system/Widgets/MessageWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_snackbar/floating_snackbar.dart';
@@ -8,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import '../../Route/CustomPageRoute.dart';
-import '../../Widgets/ButtonWidget.dart';
-import '../../Widgets/IconTextWidget.dart';
-import '../../Widgets/TextFieldWidget.dart';
-import '../../cubit/loading/loading_cubit.dart';
-import '../../main.dart';
+import '../../../Route/CustomPageRoute.dart';
+import '../../../Widgets/ButtonWidget.dart';
+import '../../../Widgets/IconTextWidget.dart';
+import '../../../Widgets/TextFieldWidget.dart';
+import '../../../cubit/LoadingCubit/loading_cubit.dart';
+import '../../../main.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({super.key});

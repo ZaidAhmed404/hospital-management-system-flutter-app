@@ -1,18 +1,18 @@
 import 'dart:developer';
 
-import 'package:doctor_patient_management_system/Screens/SignUpScreen/SignUpScreen.dart';
+import '../SignUpScreen/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import '../../Route/CustomPageRoute.dart';
-import '../../Widgets/ButtonWidget.dart';
-import '../../Widgets/IconTextWidget.dart';
-import '../../Widgets/MessageWidget.dart';
-import '../../Widgets/TextFieldWidget.dart';
-import '../../cubit/loading/loading_cubit.dart';
-import '../../main.dart';
+import '../../../Route/CustomPageRoute.dart';
+import '../../../Widgets/ButtonWidget.dart';
+import '../../../Widgets/IconTextWidget.dart';
+import '../../../Widgets/MessageWidget.dart';
+import '../../../Widgets/TextFieldWidget.dart';
+import '../../../cubit/LoadingCubit/loading_cubit.dart';
+import '../../../main.dart';
 import '../FogetPasswordScreen/ForgetPasswordScreen.dart';
 
 class SignInScreen extends StatefulWidget {
