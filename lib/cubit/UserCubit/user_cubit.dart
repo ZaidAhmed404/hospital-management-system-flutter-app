@@ -9,7 +9,7 @@ class UserCubit extends Cubit<UserState> {
             userModel:
                 UserModel(displayName: "", email: "", photoUrl: "", uid: "")));
 
-  updateUserMode({
+  updateUserModel({
     required String email,
     required String uid,
     required String displayName,

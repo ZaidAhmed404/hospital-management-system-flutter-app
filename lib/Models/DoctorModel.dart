@@ -1,5 +1,4 @@
 class DoctorModel {
-  String id;
   String address;
   String cnic;
   String phoneNumber;
@@ -8,7 +7,6 @@ class DoctorModel {
   String specialization;
 
   DoctorModel({
-    required this.id,
     required this.address,
     required this.cnic,
     required this.phoneNumber,
@@ -19,7 +17,6 @@ class DoctorModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'address': address,
       'cnic': cnic,
       'phoneNumber': phoneNumber,
@@ -31,7 +28,6 @@ class DoctorModel {
 
   factory DoctorModel.fromMap(Map<String, dynamic> map) {
     return DoctorModel(
-      id: map['id'],
       address: map['address'],
       cnic: map['cnic'],
       phoneNumber: map['phoneNumber'],

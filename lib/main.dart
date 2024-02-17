@@ -1,5 +1,7 @@
 import 'package:doctor_patient_management_system/Constants/AppConstants.dart';
+import 'package:doctor_patient_management_system/cubit/DoctorCubit/doctor_cubit.dart';
 import 'package:doctor_patient_management_system/cubit/UserCubit/user_cubit.dart';
+import 'package:doctor_patient_management_system/cubit/patient/patient_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +34,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => UserCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DoctorCubit(),
+        ),
+        BlocProvider(
+          create: (context) => PatientCubit(),
         ),
       ],
       child: MaterialApp(

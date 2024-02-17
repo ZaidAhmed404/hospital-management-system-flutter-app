@@ -28,9 +28,6 @@ const List<String> roles = <String>['Doctor', "Patient"];
 const List<String> genders = <String>['Male', "Female", "Others"];
 
 class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
-  final TextEditingController emailController =
-      TextEditingController(text: "dummy");
-
   final TextEditingController nameController = TextEditingController();
 
   final TextEditingController phoneNumberController = TextEditingController();
@@ -228,7 +225,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             title: "Gender",
                             onPressedFunction: (value) {
                               setState(() {
-                                role = value;
+                                gender = value;
                               });
                             }),
                         const SizedBox(

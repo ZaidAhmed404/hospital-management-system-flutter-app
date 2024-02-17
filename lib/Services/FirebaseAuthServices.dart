@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:doctor_patient_management_system/Models/DoctorModel.dart';
+import 'package:doctor_patient_management_system/cubit/DoctorCubit/doctor_cubit.dart';
 import 'package:doctor_patient_management_system/cubit/LoadingCubit/loading_cubit.dart';
 import 'package:doctor_patient_management_system/cubit/UserCubit/user_cubit.dart';
 
@@ -244,7 +246,90 @@ class FirebaseAuthServices {
             context: context, isError: true, message: "Something went wrong");
       }
       log("$error", name: "error registering user");
-      return {};
+    }
+    if (context.mounted) {
+      BlocProvider.of<LoadingCubit>(context).setLoading(false);
+    }
+  }
+
+  Future updateDoctorData(
+      {required BuildContext context,
+      required User? user,
+      required String photoPath,
+      required String name,
+      required String phoneNumber,
+      required String cnic,
+      required String address,
+      required String gender,
+      required String licenseNumber,
+      required String specialization}) async {
+    BlocProvider.of<LoadingCubit>(context).setLoading(true);
+    FocusScope.of(context).unfocus();
+    try {
+      if (photoPath != "") {
+        final file = File(photoPath);
+        final metadata = SettableMetadata(contentType: "image/jpeg");
+
+        final storageRef = FirebaseStorage.instance.ref();
+        final uploadTask = storageRef
+            .child("profile images/${user?.uid}")
+            .putFile(file, metadata);
+        final snapshot = await uploadTask.whenComplete(() => null);
+
+        String url = await snapshot.ref.getDownloadURL();
+        await user?.updatePhotoURL(url);
+        if (context.mounted) {
+          BlocProvider.of<UserCubit>(context).updatePhotoUrl(url);
+        }
+      }
+      await user?.updateDisplayName(name);
+      if (context.mounted) {
+        BlocProvider.of<UserCubit>(context).updateDisplayName(name);
+      }
+      CollectionReference doctor =
+          FirebaseFirestore.instance.collection('doctors');
+
+      doctor
+          .doc(user?.uid)
+          .update({
+            'cnic': cnic,
+            'address': address,
+            'phoneNumber': phoneNumber,
+            "licenseNumber": licenseNumber,
+            "specialization": specialization
+          })
+          .then((value) => print("User Added"))
+          .catchError((error) => print("Failed to add user: $error"));
+      BlocProvider.of<DoctorCubit>(context).updateDoctorModel(
+          singleDoctorModel: DoctorModel(
+              address: address,
+              cnic: cnic,
+              phoneNumber: phoneNumber,
+              gender: gender,
+              licenseNumber: licenseNumber,
+              specialization: specialization));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        log('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        log('The account already exists for that email.');
+      }
+      if (context.mounted) {
+        messageWidget(
+            context: context, isError: true, message: e.message.toString());
+      }
+    } catch (error) {
+      if (context.mounted) {
+        messageWidget(
+            context: context, isError: true, message: "Something went wrong");
+      }
+      log("$error", name: "error updating user");
+    }
+    if (context.mounted) {
+      messageWidget(
+          context: context,
+          isError: false,
+          message: "Profile Updated Successfully");
     }
     if (context.mounted) {
       BlocProvider.of<LoadingCubit>(context).setLoading(false);

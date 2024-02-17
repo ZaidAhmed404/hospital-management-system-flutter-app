@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_patient_management_system/Models/DoctorModel.dart';
+import 'package:doctor_patient_management_system/cubit/DoctorCubit/doctor_cubit.dart';
 import 'package:doctor_patient_management_system/cubit/UserCubit/user_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +46,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
   bool isLoading = false;
   bool gotCollectionData = false;
   String role = "";
+  Map<String, dynamic> data = {};
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +55,12 @@ class _BoardingScreenState extends State<BoardingScreen> {
         body: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (ctx, snapshot) {
+              User? user = snapshot.data;
+
               if (snapshot.connectionState == ConnectionState.waiting &&
                   !snapshot.hasData &&
-                  gotCollectionData == false) {
+                  gotCollectionData == false &&
+                  isLoading == true) {
                 return Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
@@ -71,7 +77,9 @@ class _BoardingScreenState extends State<BoardingScreen> {
               } else if (snapshot.hasData &&
                   gotCollectionData &&
                   role == "doctor") {
-                return DoctorLandingScreen();
+                return DoctorLandingScreen(
+                  user: user,
+                );
               } else if (snapshot.hasData &&
                   gotCollectionData &&
                   role == "patient") {
@@ -79,8 +87,6 @@ class _BoardingScreenState extends State<BoardingScreen> {
                   child: Text("Patient"),
                 );
               } else if (snapshot.hasData && gotCollectionData == false) {
-                User? user = snapshot.data;
-
                 FirebaseFirestore.instance
                     .collection('doctors')
                     .doc(user?.uid)
@@ -88,13 +94,20 @@ class _BoardingScreenState extends State<BoardingScreen> {
                     .then((DocumentSnapshot documentSnapshot) {
                   if (documentSnapshot.exists) {
                     log("${documentSnapshot.data()}", name: "collection data");
-
+                    if (documentSnapshot.exists) {
+                      data = documentSnapshot.data() as Map<String, dynamic>;
+                    }
+                  }
+                }).whenComplete(() {
+                  if (data.isNotEmpty) {
                     if (context.mounted) {
                       setState(() {
                         gotCollectionData = true;
                         role = "doctor";
                       });
                     }
+                    BlocProvider.of<DoctorCubit>(context).updateDoctorModel(
+                        singleDoctorModel: DoctorModel.fromMap(data));
                   }
                 });
                 if (gotCollectionData == false) {
@@ -104,9 +117,11 @@ class _BoardingScreenState extends State<BoardingScreen> {
                       .get()
                       .then((DocumentSnapshot documentSnapshot) {
                     if (documentSnapshot.exists) {
-                      log("${documentSnapshot.data()}",
-                          name: "collection data");
-                      if (context.mounted) {
+                      data = documentSnapshot.data() as Map<String, dynamic>;
+                    }
+                  }).whenComplete(() {
+                    if (context.mounted) {
+                      if (data.isNotEmpty) {
                         setState(() {
                           gotCollectionData = true;
                           role = "patient";
@@ -116,7 +131,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
                   });
                 }
 
-                BlocProvider.of<UserCubit>(context).updateUserMode(
+                BlocProvider.of<UserCubit>(context).updateUserModel(
                   email: user!.email.toString(),
                   uid: user.uid.toString(),
                   displayName: user.displayName.toString(),
