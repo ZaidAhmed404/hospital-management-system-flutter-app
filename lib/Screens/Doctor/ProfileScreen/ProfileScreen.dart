@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:doctor_patient_management_system/Screens/SignUpFlow/SignInScreen/SignInScreen.dart';
 import 'package:doctor_patient_management_system/cubit/DoctorCubit/doctor_cubit.dart';
 import 'package:doctor_patient_management_system/cubit/LoadingCubit/loading_cubit.dart';
 import 'package:doctor_patient_management_system/cubit/UserCubit/user_cubit.dart';
@@ -18,17 +19,17 @@ import '../../../Widgets/DropdownWidget.dart';
 import '../../../Widgets/MessageWidget.dart';
 import '../../../Widgets/TextFieldWidget.dart';
 import '../../../main.dart';
+import '../../SignUpFlow/BoardingScreen/BoardingScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   DoctorModel doctorModel;
   UserModel userModel;
-  User? user;
 
-  ProfileScreen(
-      {super.key,
-      required this.doctorModel,
-      required this.userModel,
-      required this.user});
+  ProfileScreen({
+    super.key,
+    required this.doctorModel,
+    required this.userModel,
+  });
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -91,6 +92,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              if (isEnabled == true) {
+                                setState(() {
+                                  isEnabled = false;
+                                });
+                              } else {
+                                setState(() {
+                                  isEnabled = true;
+                                });
+                              }
+                            },
+                            child: const Text(
+                              "Edit",
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w600),
+                            ))
+                      ],
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -183,31 +209,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ],
                               ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              if (isEnabled == true) {
-                                setState(() {
-                                  isEnabled = false;
-                                });
-                              } else {
-                                setState(() {
-                                  isEnabled = true;
-                                });
-                              }
-                            },
-                            child: const Text(
-                              "Edit",
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
-                            ))
-                      ],
                     ),
                     const SizedBox(
                       height: 20,
@@ -340,11 +341,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         onPressedFunction: () {
                           if (isEnabled == false) {
                             FirebaseAuth.instance.signOut();
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignInScreen()),
+                              (route) => false,
+                            );
                           } else if (_formKey.currentState!.validate()) {
                             appConstants.firebaseAuthServices.updateDoctorData(
                                 context: context,
                                 photoPath: imagePath,
-                                user: widget.user,
                                 name: nameController.text.trim(),
                                 cnic: cnicController.text.trim(),
                                 address: addressController.text.trim(),

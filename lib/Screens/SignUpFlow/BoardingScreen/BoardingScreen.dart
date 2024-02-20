@@ -58,9 +58,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
               User? user = snapshot.data;
 
               if (snapshot.connectionState == ConnectionState.waiting &&
-                  !snapshot.hasData &&
-                  gotCollectionData == false &&
-                  isLoading == true) {
+                  !snapshot.hasData) {
                 return Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
@@ -74,72 +72,8 @@ class _BoardingScreenState extends State<BoardingScreen> {
                     ],
                   ),
                 );
-              } else if (snapshot.hasData &&
-                  gotCollectionData &&
-                  role == "doctor") {
-                return DoctorLandingScreen(
-                  user: user,
-                );
-              } else if (snapshot.hasData &&
-                  gotCollectionData &&
-                  role == "patient") {
-                return const Center(
-                  child: Text("Patient"),
-                );
-              } else if (snapshot.hasData && gotCollectionData == false) {
-                FirebaseFirestore.instance
-                    .collection('doctors')
-                    .doc(user?.uid)
-                    .get()
-                    .then((DocumentSnapshot documentSnapshot) {
-                  if (documentSnapshot.exists) {
-                    log("${documentSnapshot.data()}", name: "collection data");
-                    if (documentSnapshot.exists) {
-                      data = documentSnapshot.data() as Map<String, dynamic>;
-                    }
-                  }
-                }).whenComplete(() {
-                  if (data.isNotEmpty) {
-                    if (context.mounted) {
-                      setState(() {
-                        gotCollectionData = true;
-                        role = "doctor";
-                      });
-                    }
-                    BlocProvider.of<DoctorCubit>(context).updateDoctorModel(
-                        singleDoctorModel: DoctorModel.fromMap(data));
-                  }
-                });
-                if (gotCollectionData == false) {
-                  FirebaseFirestore.instance
-                      .collection('patients')
-                      .doc(user?.uid)
-                      .get()
-                      .then((DocumentSnapshot documentSnapshot) {
-                    if (documentSnapshot.exists) {
-                      data = documentSnapshot.data() as Map<String, dynamic>;
-                    }
-                  }).whenComplete(() {
-                    if (context.mounted) {
-                      if (data.isNotEmpty) {
-                        setState(() {
-                          gotCollectionData = true;
-                          role = "patient";
-                        });
-                      }
-                    }
-                  });
-                }
-
-                BlocProvider.of<UserCubit>(context).updateUserModel(
-                  email: user!.email.toString(),
-                  uid: user.uid.toString(),
-                  displayName: user.displayName.toString(),
-                  photoUrl: user.photoURL.toString(),
-                );
-                return RegisterUserRoleScreen(
-                  user: user,
-                );
+              } else if (snapshot.hasData) {
+                return const OpenScreen();
               } else {
                 return PageView.builder(
                     controller: _pageController,
@@ -238,5 +172,126 @@ class _BoardingScreenState extends State<BoardingScreen> {
                     });
               }
             }));
+  }
+}
+
+class OpenScreen extends StatefulWidget {
+  const OpenScreen({super.key});
+
+  @override
+  State<OpenScreen> createState() => _OpenScreenState();
+}
+
+class _OpenScreenState extends State<OpenScreen> {
+  Map<String, dynamic> data = {};
+  bool gotCollectionData = false;
+  String role = "";
+  bool isLoading = false;
+  bool firstTimeRan = false;
+
+  Future fetchData({required BuildContext context}) async {
+    if (firstTimeRan != true) {
+      setState(() {
+        isLoading = true;
+      });
+      await FirebaseFirestore.instance
+          .collection('doctors')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          log("${documentSnapshot.data()}", name: "collection data");
+          if (documentSnapshot.exists) {
+            data = documentSnapshot.data() as Map<String, dynamic>;
+          }
+        }
+      }).whenComplete(() {
+        if (data.isNotEmpty) {
+          if (context.mounted) {
+            setState(() {
+              gotCollectionData = true;
+              role = "doctor";
+            });
+          }
+          BlocProvider.of<DoctorCubit>(context)
+              .updateDoctorModel(singleDoctorModel: DoctorModel.fromMap(data));
+        }
+      });
+      if (gotCollectionData == false) {
+        await FirebaseFirestore.instance
+            .collection('patients')
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .get()
+            .then((DocumentSnapshot documentSnapshot) {
+          if (documentSnapshot.exists) {
+            data = documentSnapshot.data() as Map<String, dynamic>;
+          }
+        }).whenComplete(() {
+          if (context.mounted) {
+            if (data.isNotEmpty) {
+              setState(() {
+                gotCollectionData = true;
+                role = "patient";
+              });
+            }
+          }
+        });
+      }
+      if (context.mounted) {
+        BlocProvider.of<UserCubit>(context).updateUserModel(
+          email: FirebaseAuth.instance.currentUser!.email.toString(),
+          uid: FirebaseAuth.instance.currentUser!.uid.toString(),
+          displayName:
+              FirebaseAuth.instance.currentUser!.displayName.toString(),
+          photoUrl: FirebaseAuth.instance.currentUser!.photoURL.toString(),
+        );
+      }
+      setState(() {
+        isLoading = false;
+        firstTimeRan = true;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: fetchData(context: context),
+        builder: (context, snapshot) {
+          if (isLoading == true) {
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              padding: const EdgeInsets.all(20),
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Center(
+                    child: CircularProgressIndicator(),
+                  )
+                ],
+              ),
+            );
+          } else if (gotCollectionData && role == "doctor") {
+            return DoctorLandingScreen();
+          } else if (gotCollectionData && role == "patient") {
+            return const Center(
+              child: Text("patient"),
+            );
+          } else if (role == "" && isLoading == false) {}
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            padding: const EdgeInsets.all(20),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Center(
+                  child: CircularProgressIndicator(),
+                )
+              ],
+            ),
+          );
+        });
   }
 }

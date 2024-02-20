@@ -16,9 +16,9 @@ import '../../../Widgets/TextFieldWidget.dart';
 import '../../../cubit/LoadingCubit/loading_cubit.dart';
 
 class RegisterUserRoleScreen extends StatefulWidget {
-  User user;
-
-  RegisterUserRoleScreen({super.key, required this.user});
+  RegisterUserRoleScreen({
+    super.key,
+  });
 
   @override
   State<RegisterUserRoleScreen> createState() => _RegisterUserRoleScreenState();
@@ -288,7 +288,6 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                                     .registerUserRole(
                                   context: context,
                                   photoPath: imagePath,
-                                  user: widget.user,
                                   displayName: nameController.text.trim(),
                                   cnic: cnicController.text.trim(),
                                   address: addressController.text.trim(),

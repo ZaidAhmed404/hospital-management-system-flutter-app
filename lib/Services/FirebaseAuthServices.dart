@@ -162,18 +162,18 @@ class FirebaseAuthServices {
     }
   }
 
-  Future registerUserRole(
-      {required BuildContext context,
-      required String photoPath,
-      required String displayName,
-      required String cnic,
-      required String address,
-      required String phoneNumber,
-      required String role,
-      required String gender,
-      required String doctorLicense,
-      required String doctorSpecialization,
-      required User user}) async {
+  Future registerUserRole({
+    required BuildContext context,
+    required String photoPath,
+    required String displayName,
+    required String cnic,
+    required String address,
+    required String phoneNumber,
+    required String role,
+    required String gender,
+    required String doctorLicense,
+    required String doctorSpecialization,
+  }) async {
     BlocProvider.of<LoadingCubit>(context).setLoading(true);
     FocusScope.of(context).unfocus();
     try {
@@ -182,20 +182,20 @@ class FirebaseAuthServices {
 
       final storageRef = FirebaseStorage.instance.ref();
       final uploadTask = storageRef
-          .child("profile images/${user.uid}")
+          .child("profile images/${FirebaseAuth.instance.currentUser?.uid}")
           .putFile(file, metadata);
       final snapshot = await uploadTask.whenComplete(() => null);
 
       String url = await snapshot.ref.getDownloadURL();
-      await user.updateDisplayName(displayName);
-      await user.updatePhotoURL(url);
+      await FirebaseAuth.instance.currentUser?.updateDisplayName(displayName);
+      await FirebaseAuth.instance.currentUser?.updatePhotoURL(url);
 
       if (role == "Doctor") {
         CollectionReference doctor =
             FirebaseFirestore.instance.collection('doctors');
 
         doctor
-            .doc(user.uid)
+            .doc(FirebaseAuth.instance.currentUser?.uid)
             .set({
               'cnic': cnic,
               'address': address,
@@ -211,7 +211,7 @@ class FirebaseAuthServices {
             FirebaseFirestore.instance.collection('patients');
 
         patient
-            .doc(user.uid)
+            .doc(FirebaseAuth.instance.currentUser?.uid)
             .set({
               'cnic': cnic,
               'address': address,
@@ -254,7 +254,6 @@ class FirebaseAuthServices {
 
   Future updateDoctorData(
       {required BuildContext context,
-      required User? user,
       required String photoPath,
       required String name,
       required String phoneNumber,
@@ -272,17 +271,17 @@ class FirebaseAuthServices {
 
         final storageRef = FirebaseStorage.instance.ref();
         final uploadTask = storageRef
-            .child("profile images/${user?.uid}")
+            .child("profile images/${FirebaseAuth.instance.currentUser?.uid}")
             .putFile(file, metadata);
         final snapshot = await uploadTask.whenComplete(() => null);
 
         String url = await snapshot.ref.getDownloadURL();
-        await user?.updatePhotoURL(url);
+        await FirebaseAuth.instance.currentUser?.updatePhotoURL(url);
         if (context.mounted) {
           BlocProvider.of<UserCubit>(context).updatePhotoUrl(url);
         }
       }
-      await user?.updateDisplayName(name);
+      await FirebaseAuth.instance.currentUser?.updateDisplayName(name);
       if (context.mounted) {
         BlocProvider.of<UserCubit>(context).updateDisplayName(name);
       }
@@ -290,7 +289,7 @@ class FirebaseAuthServices {
           FirebaseFirestore.instance.collection('doctors');
 
       doctor
-          .doc(user?.uid)
+          .doc(FirebaseAuth.instance.currentUser?.uid)
           .update({
             'cnic': cnic,
             'address': address,

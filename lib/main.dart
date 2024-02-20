@@ -21,6 +21,7 @@ void main() async {
 }
 
 AppConstants appConstants = AppConstants();
+final FirebaseAuth auth = FirebaseAuth.instance;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

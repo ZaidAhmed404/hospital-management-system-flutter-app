@@ -8,10 +8,6 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../ProfileScreen/ProfileScreen.dart';
 
 class DoctorLandingScreen extends StatefulWidget {
-  User? user;
-
-  DoctorLandingScreen({required this.user});
-
   @override
   _DoctorLandingScreenState createState() => _DoctorLandingScreenState();
 }
@@ -31,7 +27,6 @@ class _DoctorLandingScreenState extends State<DoctorLandingScreen> {
                     ? ProfileScreen(
                         doctorModel: doctorState.doctorModel,
                         userModel: userState.userModel,
-                        user: widget.user,
                       )
                     : Center(child: Text("Other")),
                 bottomNavigationBar: SalomonBottomBar(
