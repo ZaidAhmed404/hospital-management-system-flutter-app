@@ -151,7 +151,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => BoardingScreen()),
+                                        builder: (context) =>
+                                            const BoardingScreen()),
                                     (route) =>
                                         false, // Close all existing routes
                                   );

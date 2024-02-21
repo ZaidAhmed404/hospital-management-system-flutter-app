@@ -14,6 +14,7 @@ import '../../../Widgets/DropdownWidget.dart';
 import '../../../Widgets/MessageWidget.dart';
 import '../../../Widgets/TextFieldWidget.dart';
 import '../../../cubit/LoadingCubit/loading_cubit.dart';
+import '../BoardingScreen/BoardingScreen.dart';
 
 class RegisterUserRoleScreen extends StatefulWidget {
   RegisterUserRoleScreen({
@@ -275,7 +276,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             buttonColor: Colors.blueAccent,
                             borderColor: Colors.blueAccent,
                             textColor: Colors.white,
-                            onPressedFunction: () {
+                            onPressedFunction: () async {
                               if (imagePath == "") {
                                 if (context.mounted) {
                                   messageWidget(
@@ -284,7 +285,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                                       message: "User Photo required");
                                 }
                               } else if (_formKey.currentState!.validate()) {
-                                appConstants.firebaseAuthServices
+                                await appConstants.firebaseAuthServices
                                     .registerUserRole(
                                   context: context,
                                   photoPath: imagePath,
@@ -301,6 +302,15 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                                       doctorSpecializationController.text
                                           .trim(),
                                 );
+                                if (context.mounted) {
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => BoardingScreen()),
+                                    (route) =>
+                                        false, // Close all existing routes
+                                  );
+                                }
                               }
                             }),
                         const SizedBox(
