@@ -1,19 +1,5 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doctor_patient_management_system/Models/DoctorModel.dart';
-import 'package:doctor_patient_management_system/Screens/Patient/LandingScreen/LandingScreen.dart';
-import 'package:doctor_patient_management_system/cubit/DoctorCubit/doctor_cubit.dart';
-import 'package:doctor_patient_management_system/cubit/UserCubit/user_cubit.dart';
-import 'package:doctor_patient_management_system/cubit/patient/patient_cubit.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../Models/PatientModel.dart';
 import '../../../Widgets/ButtonWidget.dart';
-import '../../Doctor/LandingScreen/LandingScreen.dart';
-import '../RegisterUserRoleScreen/RegisterUserRolesScreen.dart';
 import '../WelcomeScreen/WelcomeScreen.dart';
 
 class BoardingScreen extends StatefulWidget {

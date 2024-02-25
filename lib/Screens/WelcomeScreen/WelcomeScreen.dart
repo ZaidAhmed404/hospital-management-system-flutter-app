@@ -20,8 +20,8 @@ class WelcomeScreen extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.65,
             width: MediaQuery.of(context).size.width,
-            child: SvgPicture.asset(
-              "assets/icons/App Logo.svg",
+            child: Image.asset(
+              "assets/images/logo.png",
             ),
           ),
           const Spacer(),

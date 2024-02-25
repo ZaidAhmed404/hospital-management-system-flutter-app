@@ -48,6 +48,8 @@ dependencies:
   firebase_storage: ^11.6.5
   cloud_firestore: ^4.15.4
   salomon_bottom_bar: ^3.3.2
+  share_plus: ^7.2.2
+  mailto: ^2.0.0
 
 dev_dependencies:
   flutter_test:

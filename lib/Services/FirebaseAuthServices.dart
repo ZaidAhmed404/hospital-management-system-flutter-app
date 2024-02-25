@@ -17,6 +17,8 @@ import '../Route/CustomPageRoute.dart';
 import '../Widgets/MessageWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../main.dart';
+
 class FirebaseAuthServices {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -122,6 +124,10 @@ class FirebaseAuthServices {
       if (context.mounted) {
         messageWidget(context: context, isError: true, message: e.toString());
       }
+    }
+
+    if (context.mounted) {
+      await appConstants.commonServices.initializeSetting(context: context);
     }
     if (context.mounted) {
       BlocProvider.of<LoadingCubit>(context).setLoading(false);
@@ -248,87 +254,7 @@ class FirebaseAuthServices {
       log("$error", name: "error registering user");
     }
     if (context.mounted) {
-      BlocProvider.of<LoadingCubit>(context).setLoading(false);
-    }
-  }
-
-  Future updateDoctorData(
-      {required BuildContext context,
-      required String photoPath,
-      required String name,
-      required String phoneNumber,
-      required String cnic,
-      required String address,
-      required String gender,
-      required String licenseNumber,
-      required String specialization}) async {
-    BlocProvider.of<LoadingCubit>(context).setLoading(true);
-    FocusScope.of(context).unfocus();
-    try {
-      if (photoPath != "") {
-        final file = File(photoPath);
-        final metadata = SettableMetadata(contentType: "image/jpeg");
-
-        final storageRef = FirebaseStorage.instance.ref();
-        final uploadTask = storageRef
-            .child("profile images/${FirebaseAuth.instance.currentUser?.uid}")
-            .putFile(file, metadata);
-        final snapshot = await uploadTask.whenComplete(() => null);
-
-        String url = await snapshot.ref.getDownloadURL();
-        await FirebaseAuth.instance.currentUser?.updatePhotoURL(url);
-        if (context.mounted) {
-          BlocProvider.of<UserCubit>(context).updatePhotoUrl(url);
-        }
-      }
-      await FirebaseAuth.instance.currentUser?.updateDisplayName(name);
-      if (context.mounted) {
-        BlocProvider.of<UserCubit>(context).updateDisplayName(name);
-      }
-      CollectionReference doctor =
-          FirebaseFirestore.instance.collection('doctors');
-
-      doctor
-          .doc(FirebaseAuth.instance.currentUser?.uid)
-          .update({
-            'cnic': cnic,
-            'address': address,
-            'phoneNumber': phoneNumber,
-            "licenseNumber": licenseNumber,
-            "specialization": specialization
-          })
-          .then((value) => print("User Added"))
-          .catchError((error) => print("Failed to add user: $error"));
-      BlocProvider.of<DoctorCubit>(context).updateDoctorModel(
-          singleDoctorModel: DoctorModel(
-              address: address,
-              cnic: cnic,
-              phoneNumber: phoneNumber,
-              gender: gender,
-              licenseNumber: licenseNumber,
-              specialization: specialization));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        log('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        log('The account already exists for that email.');
-      }
-      if (context.mounted) {
-        messageWidget(
-            context: context, isError: true, message: e.message.toString());
-      }
-    } catch (error) {
-      if (context.mounted) {
-        messageWidget(
-            context: context, isError: true, message: "Something went wrong");
-      }
-      log("$error", name: "error updating user");
-    }
-    if (context.mounted) {
-      messageWidget(
-          context: context,
-          isError: false,
-          message: "Profile Updated Successfully");
+      await appConstants.commonServices.initializeSetting(context: context);
     }
     if (context.mounted) {
       BlocProvider.of<LoadingCubit>(context).setLoading(false);

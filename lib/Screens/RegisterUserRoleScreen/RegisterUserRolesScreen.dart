@@ -302,15 +302,6 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                                       doctorSpecializationController.text
                                           .trim(),
                                 );
-                                if (context.mounted) {
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => BoardingScreen()),
-                                    (route) =>
-                                        false, // Close all existing routes
-                                  );
-                                }
                               }
                             }),
                         const SizedBox(

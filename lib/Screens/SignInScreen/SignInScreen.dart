@@ -1,11 +1,19 @@
 import 'dart:developer';
 
-import 'package:doctor_patient_management_system/Screens/SignUpFlow/BoardingScreen/BoardingScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../Models/DoctorModel.dart';
+import '../../Models/PatientModel.dart';
+import '../../cubit/DoctorCubit/doctor_cubit.dart';
+import '../../cubit/UserCubit/user_cubit.dart';
+import '../../cubit/patient/patient_cubit.dart';
+import '../BoardingScreen/BoardingScreen.dart';
+import '../LandingScreen/LandingScreen.dart';
+import '../RegisterUserRoleScreen/RegisterUserRolesScreen.dart';
 import '../SignUpScreen/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
 import '../../../Route/CustomPageRoute.dart';
@@ -51,16 +59,21 @@ class _SignInScreenState extends State<SignInScreen> {
                     borderRadius: BorderRadius.circular(10)),
                 child: const CircularProgressIndicator()),
             child: SingleChildScrollView(
-              child: Container(
+              child: Padding(
                 padding: const EdgeInsets.all(20),
-                height: height,
-                width: width,
                 child: Center(
                   child: Form(
                     key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          width: MediaQuery.of(context).size.width,
+                          child: Image.asset(
+                            "assets/images/logo.png",
+                          ),
+                        ),
                         const Text(
                           'Sign in your account',
                           style: TextStyle(
@@ -147,16 +160,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                             emailController.text.trim(),
                                         password:
                                             passwordController.text.trim());
-                                if (context.mounted) {
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const BoardingScreen()),
-                                    (route) =>
-                                        false, // Close all existing routes
-                                  );
-                                }
                               }
                             }),
                         const SizedBox(

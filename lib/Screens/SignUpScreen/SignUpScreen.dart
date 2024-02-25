@@ -47,16 +47,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     borderRadius: BorderRadius.circular(10)),
                 child: const CircularProgressIndicator()),
             child: SingleChildScrollView(
-              child: Container(
+              child: Padding(
                 padding: const EdgeInsets.all(20),
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: Form(
                     key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          width: MediaQuery.of(context).size.width,
+                          child: Image.asset(
+                            "assets/images/logo.png",
+                          ),
+                        ),
                         const Text(
                           'Sign up for free',
                           style: TextStyle(

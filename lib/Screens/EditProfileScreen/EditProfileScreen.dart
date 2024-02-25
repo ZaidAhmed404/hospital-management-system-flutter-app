@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:doctor_patient_management_system/Models/PatientModel.dart';
-import 'package:doctor_patient_management_system/Screens/SignUpFlow/SignInScreen/SignInScreen.dart';
 import 'package:doctor_patient_management_system/cubit/DoctorCubit/doctor_cubit.dart';
 import 'package:doctor_patient_management_system/cubit/LoadingCubit/loading_cubit.dart';
 import 'package:doctor_patient_management_system/cubit/UserCubit/user_cubit.dart';
@@ -21,17 +20,20 @@ import '../../../Widgets/DropdownWidget.dart';
 import '../../../Widgets/MessageWidget.dart';
 import '../../../Widgets/TextFieldWidget.dart';
 import '../../../main.dart';
-import '../../SignUpFlow/BoardingScreen/BoardingScreen.dart';
+import '../SignInScreen/SignInScreen.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  PatientModel patientModel;
+  PatientModel? patientModel;
   UserModel userModel;
+  DoctorModel? doctorModel;
+  Function(int) backPressedFunction;
 
-  EditProfileScreen({
-    super.key,
-    required this.patientModel,
-    required this.userModel,
-  });
+  EditProfileScreen(
+      {super.key,
+      this.patientModel,
+      this.doctorModel,
+      required this.userModel,
+      required this.backPressedFunction});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -46,22 +48,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   String imagePath = "";
   final TextEditingController nameController = TextEditingController();
-  bool isEnabled = false;
+  bool isEnabled = true;
   final TextEditingController phoneNumberController = TextEditingController();
 
   final TextEditingController cnicController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  final TextEditingController doctorLicenseNumberController =
+      TextEditingController();
+  final TextEditingController doctorSpecializationController =
+      TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     nameController.text = widget.userModel.displayName;
-    phoneNumberController.text = widget.patientModel.phoneNumber;
-    cnicController.text = widget.patientModel.cnic;
-    addressController.text = widget.patientModel.address;
-    gender = widget.patientModel.gender;
-    log("${widget.patientModel.gender}", name: "gender");
+    if (widget.patientModel != null) {
+      phoneNumberController.text = widget.patientModel!.phoneNumber;
+      cnicController.text = widget.patientModel!.cnic;
+      addressController.text = widget.patientModel!.address;
+      // gender = widget.patientModel!.gender;
+    } else {
+      phoneNumberController.text = widget.doctorModel!.phoneNumber;
+      cnicController.text = widget.doctorModel!.cnic;
+      addressController.text = widget.doctorModel!.address;
+      // gender = widget.doctorModel!.gender;
+      doctorLicenseNumberController.text = widget.doctorModel!.licenseNumber;
+      doctorSpecializationController.text = widget.doctorModel!.specialization;
+    }
   }
 
   @override
@@ -93,34 +107,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: 20,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.blue.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: IconButton(
+                              onPressed: () => widget.backPressedFunction(0),
+                              icon: const Icon(
+                                Icons.arrow_back_outlined,
+                                color: Colors.blue,
+                              )),
+                        ),
+                        const Spacer(),
                         const Text(
-                          "Profile",
+                          "Edit Profile",
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 20),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.blue.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: IconButton(
-                              onPressed: () {
-                                if (isEnabled == true) {
-                                  setState(() {
-                                    isEnabled = false;
-                                  });
-                                } else {
-                                  setState(() {
-                                    isEnabled = true;
-                                  });
-                                }
-                              },
-                              icon: const Icon(
-                                Icons.edit,
-                                color: Colors.blue,
-                              )),
-                        )
+                        const Spacer(),
                       ],
                     ),
                     const SizedBox(
@@ -300,24 +305,83 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         return null;
                       },
                     ),
+                    if (appConstants.role == "doctor")
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    if (appConstants.role == "doctor")
+                      TextFieldWidget(
+                        hintText: "License Number",
+                        text: "License Number",
+                        controller: doctorLicenseNumberController,
+                        isPassword: false,
+                        isEnabled: isEnabled,
+                        validationFunction: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'License is required';
+                          } else if (value.length < 8) {
+                            return 'License must have 8 characters';
+                          }
+                          return null;
+                        },
+                      ),
+                    if (appConstants.role == "doctor")
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    if (appConstants.role == "doctor")
+                      TextFieldWidget(
+                        hintText: "Specialization",
+                        text: "Specialization",
+                        controller: doctorSpecializationController,
+                        isPassword: false,
+                        isEnabled: isEnabled,
+                        validationFunction: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Specialization is required';
+                          } else if (value.length < 4) {
+                            return 'Specialization must have 4 characters';
+                          }
+                          return null;
+                        },
+                      ),
                     const SizedBox(
                       height: 20,
                     ),
                     ButtonWidget(
-                        buttonText: isEnabled ? "Save" : "Log out",
+                        buttonText: "Save",
                         buttonColor: Colors.blueAccent,
                         borderColor: Colors.blueAccent,
                         textColor: Colors.white,
                         onPressedFunction: () {
-                          if (isEnabled == false) {
-                            FirebaseAuth.instance.signOut();
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignInScreen()),
-                              (route) => false,
-                            );
-                          } else if (_formKey.currentState!.validate()) {}
+                          if (_formKey.currentState!.validate()) {
+                            if (appConstants.role == "doctor") {
+                              appConstants.doctorServices.updateDoctorData(
+                                  context: context,
+                                  photoPath: imagePath,
+                                  name: nameController.text.trim(),
+                                  cnic: cnicController.text.trim(),
+                                  address: addressController.text.trim(),
+                                  phoneNumber:
+                                      phoneNumberController.text.trim(),
+                                  licenseNumber:
+                                      doctorLicenseNumberController.text.trim(),
+                                  specialization: doctorSpecializationController
+                                      .text
+                                      .trim(),
+                                  gender: gender);
+                            } else {
+                              appConstants.patientServices.updatePatientData(
+                                  context: context,
+                                  photoPath: imagePath,
+                                  name: nameController.text.trim(),
+                                  phoneNumber:
+                                      phoneNumberController.text.trim(),
+                                  cnic: cnicController.text.trim(),
+                                  address: addressController.text.trim(),
+                                  gender: gender);
+                            }
+                          }
                         }),
                     const SizedBox(
                       height: 20,
