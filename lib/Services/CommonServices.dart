@@ -44,10 +44,10 @@ class CommonServices {
         }
       }
     } catch (error) {
-      if (context.mounted) {
-        messageWidget(
-            context: context, isError: true, message: error.toString());
-      }
+      // if (context.mounted) {
+      //   messageWidget(
+      //       context: context, isError: true, message: error.toString());
+      // }
     }
 
     if (gotCollectionData == false) {
@@ -71,10 +71,10 @@ class CommonServices {
           }
         }
       } catch (error) {
-        if (context.mounted) {
-          messageWidget(
-              context: context, isError: true, message: error.toString());
-        }
+        // if (context.mounted) {
+        //   messageWidget(
+        //       context: context, isError: true, message: error.toString());
+        // }
       }
     }
     if (context.mounted && FirebaseAuth.instance.currentUser != null) {

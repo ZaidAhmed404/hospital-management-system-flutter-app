@@ -29,7 +29,7 @@ class _FAQWidgetState extends State<FAQWidget> {
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.grey)),
+            border: Border.all(color: isShow ? Colors.blue : Colors.grey)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
