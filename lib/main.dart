@@ -89,9 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Image.asset("assets/images/logo.png"),
             const Center(
-              child: CircularProgressIndicator(
-                color: Colors.blue,
-              ),
+              child: CircularProgressIndicator(color: Colors.blue),
             )
           ],
         ),
