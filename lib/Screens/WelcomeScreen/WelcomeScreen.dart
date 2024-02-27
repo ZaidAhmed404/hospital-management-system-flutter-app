@@ -17,12 +17,8 @@ class WelcomeScreen extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.65,
-            width: MediaQuery.of(context).size.width,
-            child: Image.asset(
-              "assets/images/logo.png",
-            ),
+          Image.asset(
+            "assets/images/logo.png",
           ),
           const Spacer(),
           SizedBox(
@@ -33,7 +29,7 @@ class WelcomeScreen extends StatelessWidget {
               children: <Widget>[
                 const Spacer(),
                 const Text(
-                  'Welcome to DoctorQ!',
+                  'Welcome to Sehat Sakoon!',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
                 ),
                 const SizedBox(

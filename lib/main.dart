@@ -87,10 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.7,
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: Image.asset("assets/images/logo.png")),
+            Image.asset("assets/images/logo.png"),
             const Center(
               child: CircularProgressIndicator(
                 color: Colors.blue,
