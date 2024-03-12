@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
+import '../AdminDoctorScreen/AdminDoctorScreen.dart';
 import '../AdminMedicineScreen/AdminMedicineScreen.dart';
+import '../AdminProfileScreen/AdminProfileScreen.dart';
 
 class AdminLandingScreen extends StatefulWidget {
   const AdminLandingScreen({super.key});
@@ -22,7 +24,11 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
           padding: const EdgeInsets.all(20),
           child: _currentIndex == 0
               ? const AdminMedicineScreen()
-              : const Center(child: Text("Admin login")),
+              : _currentIndex == 1
+                  ? const AdminDoctorScreen()
+                  : _currentIndex == 2
+                      ? const AdminProfileScreen()
+                      : const Center(child: Text("Admin login")),
         ),
         bottomNavigationBar: SalomonBottomBar(
           currentIndex: _currentIndex,

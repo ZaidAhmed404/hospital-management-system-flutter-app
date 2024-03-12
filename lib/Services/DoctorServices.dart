@@ -14,6 +14,8 @@ import '../cubit/LoadingCubit/loading_cubit.dart';
 import '../cubit/UserCubit/user_cubit.dart';
 
 class DoctorServices {
+  CollectionReference doctor = FirebaseFirestore.instance.collection('doctors');
+
   Future updateDoctorData(
       {required BuildContext context,
       required String photoPath,
@@ -47,12 +49,12 @@ class DoctorServices {
       if (context.mounted) {
         BlocProvider.of<UserCubit>(context).updateDisplayName(name);
       }
-      CollectionReference doctor =
-          FirebaseFirestore.instance.collection('doctors');
 
       doctor
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .update({
+            "name": FirebaseAuth.instance.currentUser?.displayName,
+            "photoUrl": FirebaseAuth.instance.currentUser?.photoURL,
             'cnic': cnic,
             'address': address,
             'phoneNumber': phoneNumber,
@@ -65,6 +67,8 @@ class DoctorServices {
         BlocProvider.of<DoctorCubit>(context).updateDoctorModel(
             singleDoctorModel: DoctorModel(
                 address: address,
+                name: FirebaseAuth.instance.currentUser?.displayName ?? "",
+                photoUrl: FirebaseAuth.instance.currentUser?.photoURL ?? "",
                 cnic: cnic,
                 phoneNumber: phoneNumber,
                 gender: gender,
@@ -96,6 +100,26 @@ class DoctorServices {
     }
     if (context.mounted) {
       BlocProvider.of<LoadingCubit>(context).setLoading(false);
+    }
+  }
+
+  updateProfileStatus(
+      {required String docId,
+      required BuildContext context,
+      required String status}) async {
+    try {
+      await doctor.doc(docId).update({"profileState": "approved"});
+      if (context.mounted) {
+        messageWidget(
+            context: context,
+            isError: false,
+            message: "Profile Approved Successfully");
+      }
+    } catch (error) {
+      if (context.mounted) {
+        messageWidget(
+            context: context, isError: true, message: error.toString());
+      }
     }
   }
 }

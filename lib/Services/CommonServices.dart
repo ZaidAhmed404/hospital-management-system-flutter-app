@@ -12,6 +12,7 @@ import '../Route/CustomPageRoute.dart';
 import '../Screens/AdminLandingScreen/AdminLandingScreen.dart';
 import '../Screens/BoardingScreen/BoardingScreen.dart';
 import '../Screens/LandingScreen/LandingScreen.dart';
+import '../Screens/ProfileNotApprovedScreen/ProfileNotApprovedScreen.dart';
 import '../Screens/RegisterUserRoleScreen/RegisterUserRolesScreen.dart';
 import '../Widgets/MessageWidget.dart';
 import '../cubit/DoctorCubit/doctor_cubit.dart';
@@ -24,6 +25,8 @@ class CommonServices {
   Future initializeSetting({required BuildContext context}) async {
     Map<String, dynamic> data = {};
     bool gotCollectionData = false;
+
+    String doctorProfileStatus = "";
 
     bool isLoading = false;
     try {
@@ -41,6 +44,9 @@ class CommonServices {
         if (context.mounted) {
           gotCollectionData = true;
           appConstants.role = "doctor";
+          if (data['profileState'] == "approved") {
+            doctorProfileStatus = "approved";
+          }
           BlocProvider.of<DoctorCubit>(context)
               .updateDoctorModel(singleDoctorModel: DoctorModel.fromMap(data));
         }
@@ -87,7 +93,8 @@ class CommonServices {
         photoUrl: FirebaseAuth.instance.currentUser!.photoURL.toString(),
       );
     }
-
+    log("${auth.currentUser?.uid}", name: "user id");
+    log("${auth.currentUser?.displayName}", name: "user name");
     if (auth.currentUser?.uid == "SoLtSmVuldhx055d8g0XHqB3Ez23") {
       if (context.mounted) {
         Navigator.pushAndRemoveUntil(
@@ -96,7 +103,19 @@ class CommonServices {
           (route) => false, // Close all existing routes
         );
       }
-    } else if (gotCollectionData &&
+    } else if (auth.currentUser?.uid != null &&
+        gotCollectionData &&
+        appConstants.role == "doctor" &&
+        doctorProfileStatus != "approved") {
+      if (context.mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          CustomPageRoute(child: const ProfileNotApprovedScreen()),
+          (route) => false, // Close all existing routes
+        );
+      }
+    } else if (auth.currentUser?.uid != null &&
+        gotCollectionData &&
         (appConstants.role == "doctor" || appConstants.role == "patient") &&
         isLoading == false) {
       if (context.mounted) {
@@ -106,9 +125,10 @@ class CommonServices {
           (route) => false, // Close all existing routes
         );
       }
-    } else if (appConstants.role == "" &&
+    } else if (auth.currentUser?.uid != null &&
+        appConstants.role == "" &&
         isLoading == false &&
-        gotCollectionData == true) {
+        gotCollectionData == false) {
       if (context.mounted) {
         Navigator.pushAndRemoveUntil(
           context,

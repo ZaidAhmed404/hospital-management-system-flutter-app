@@ -89,13 +89,17 @@ class FirebaseAuthServices {
     FocusScope.of(context).unfocus();
 
     try {
-      await FirebaseAuth.instance
+      var response = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailAddress, password: password);
+      log("$response", name: "response");
       if (context.mounted) {
         messageWidget(
             context: context,
             isError: false,
             message: "User Signed in successfully");
+      }
+      if (context.mounted) {
+        await appConstants.commonServices.initializeSetting(context: context);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -114,9 +118,6 @@ class FirebaseAuthServices {
       }
     }
 
-    if (context.mounted) {
-      await appConstants.commonServices.initializeSetting(context: context);
-    }
     if (context.mounted) {
       BlocProvider.of<LoadingCubit>(context).setLoading(false);
     }
@@ -196,7 +197,9 @@ class FirebaseAuthServices {
               'phoneNumber': phoneNumber,
               "gender": gender,
               "licenseNumber": doctorLicense,
-              "specialization": doctorSpecialization
+              "specialization": doctorSpecialization,
+              "name": FirebaseAuth.instance.currentUser?.displayName,
+              "photoUrl": FirebaseAuth.instance.currentUser?.photoURL
             })
             .then((value) => print("User Added"))
             .catchError((error) => print("Failed to add user: $error"));

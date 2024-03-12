@@ -14,6 +14,9 @@ import '../cubit/LoadingCubit/loading_cubit.dart';
 import '../cubit/UserCubit/user_cubit.dart';
 
 class PatientServices {
+  CollectionReference patient =
+      FirebaseFirestore.instance.collection('patients');
+
   Future updatePatientData({
     required BuildContext context,
     required String photoPath,
@@ -46,10 +49,8 @@ class PatientServices {
       if (context.mounted) {
         BlocProvider.of<UserCubit>(context).updateDisplayName(name);
       }
-      CollectionReference doctor =
-          FirebaseFirestore.instance.collection('patients');
 
-      doctor
+      patient
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .update({
             'cnic': cnic,

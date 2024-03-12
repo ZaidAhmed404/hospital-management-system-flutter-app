@@ -12,7 +12,9 @@ class DoctorCubit extends Cubit<DoctorState> {
                 cnic: "",
                 gender: "",
                 licenseNumber: '',
-                specialization: '')));
+                specialization: '',
+                photoUrl: "",
+                name: "")));
 
   updateDoctorModel({required DoctorModel singleDoctorModel}) {
     emit(DoctorState(doctorModel: singleDoctorModel));
