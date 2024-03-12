@@ -37,6 +37,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 ButtonWidget(
                     buttonText: "Sign Up",
+                    buttonWidth: MediaQuery.of(context).size.width,
                     buttonColor: Colors.blueAccent,
                     borderColor: Colors.blueAccent,
                     textColor: Colors.white,
@@ -49,6 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 ButtonWidget(
                     buttonText: "Sign In",
+                    buttonWidth: MediaQuery.of(context).size.width,
                     buttonColor: Colors.white,
                     borderColor: Colors.blueAccent,
                     textColor: Colors.blueAccent,

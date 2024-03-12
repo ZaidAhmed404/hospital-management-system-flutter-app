@@ -8,15 +8,17 @@ class TextFieldWidget extends StatefulWidget {
   String? Function(String?) validationFunction;
   bool isEnabled;
 
-  TextFieldWidget({
-    super.key,
-    required this.controller,
-    required this.hintText,
-    required this.text,
-    required this.isPassword,
-    required this.validationFunction,
-    required this.isEnabled,
-  });
+  TextInputType textInputType;
+
+  TextFieldWidget(
+      {super.key,
+      required this.controller,
+      required this.hintText,
+      required this.text,
+      required this.isPassword,
+      required this.validationFunction,
+      required this.isEnabled,
+      required this.textInputType});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -63,6 +65,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         TextFormField(
           controller: widget.controller,
           textInputAction: TextInputAction.done,
+          keyboardType: widget.textInputType,
           obscureText: !viewPassword,
           enabled: widget.isEnabled,
           style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),

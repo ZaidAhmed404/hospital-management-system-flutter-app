@@ -238,6 +238,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return null;
                       },
+                      textInputType: TextInputType.text,
                     ),
                     const SizedBox(
                       height: 10,
@@ -268,6 +269,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return null;
                       },
+                      textInputType: TextInputType.text,
                     ),
                     const SizedBox(
                       height: 10,
@@ -286,6 +288,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return null;
                       },
+                      textInputType: TextInputType.text,
                     ),
                     const SizedBox(
                       height: 10,
@@ -304,6 +307,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return null;
                       },
+                      textInputType: TextInputType.text,
                     ),
                     if (appConstants.role == "doctor")
                       const SizedBox(
@@ -324,6 +328,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           }
                           return null;
                         },
+                        textInputType: TextInputType.text,
                       ),
                     if (appConstants.role == "doctor")
                       const SizedBox(
@@ -344,12 +349,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           }
                           return null;
                         },
+                        textInputType: TextInputType.text,
                       ),
                     const SizedBox(
                       height: 20,
                     ),
                     ButtonWidget(
                         buttonText: "Save",
+                        buttonWidth: MediaQuery.of(context).size.width,
                         buttonColor: Colors.blueAccent,
                         borderColor: Colors.blueAccent,
                         textColor: Colors.white,

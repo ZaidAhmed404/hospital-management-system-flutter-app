@@ -56,15 +56,17 @@ class PatientServices {
             'address': address,
             'phoneNumber': phoneNumber,
           })
-          .then((value) => print("User Added"))
-          .catchError((error) => print("Failed to add user: $error"));
-      BlocProvider.of<PatientCubit>(context).updatePatientModel(
-          singlePatientModel: PatientModel(
-        address: address,
-        cnic: cnic,
-        phoneNumber: phoneNumber,
-        gender: gender,
-      ));
+          .then((value) => log("User Added"))
+          .catchError((error) => log("Failed to add user: $error"));
+      if (context.mounted) {
+        BlocProvider.of<PatientCubit>(context).updatePatientModel(
+            singlePatientModel: PatientModel(
+          address: address,
+          cnic: cnic,
+          phoneNumber: phoneNumber,
+          gender: gender,
+        ));
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         log('The password provided is too weak.');

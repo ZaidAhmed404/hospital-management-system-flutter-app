@@ -85,11 +85,13 @@ class ForgetPasswordScreen extends StatelessWidget {
                               }
                               return null;
                             },
+                            textInputType: TextInputType.text,
                           ),
                         ),
                         const Spacer(flex: 3),
                         ButtonWidget(
                             buttonText: "Continue",
+                            buttonWidth: MediaQuery.of(context).size.width,
                             buttonColor: Colors.blueAccent,
                             borderColor: Colors.blueAccent,
                             textColor: Colors.white,

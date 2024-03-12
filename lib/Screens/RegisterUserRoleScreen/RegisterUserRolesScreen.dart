@@ -53,7 +53,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
     final height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white.withOpacity(0.98),
+        backgroundColor: Colors.white,
         body: BlocBuilder<LoadingCubit, LoadingState>(
           builder: (context, state) {
             return LoadingOverlay(
@@ -150,6 +150,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             }
                             return null;
                           },
+                          textInputType: TextInputType.text,
                         ),
                         const SizedBox(
                           height: 10,
@@ -168,6 +169,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             }
                             return null;
                           },
+                          textInputType: TextInputType.text,
                         ),
                         const SizedBox(
                           height: 10,
@@ -186,6 +188,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             }
                             return null;
                           },
+                          textInputType: TextInputType.text,
                         ),
                         const SizedBox(
                           height: 10,
@@ -204,6 +207,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             }
                             return null;
                           },
+                          textInputType: TextInputType.text,
                         ),
                         const SizedBox(
                           height: 10,
@@ -247,6 +251,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                               }
                               return null;
                             },
+                            textInputType: TextInputType.text,
                           ),
                         if (role == roles[0])
                           const SizedBox(
@@ -267,12 +272,14 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                               }
                               return null;
                             },
+                            textInputType: TextInputType.text,
                           ),
                         const SizedBox(
                           height: 20,
                         ),
                         ButtonWidget(
                             buttonText: "Save",
+                            buttonWidth: MediaQuery.of(context).size.width,
                             buttonColor: Colors.blueAccent,
                             borderColor: Colors.blueAccent,
                             textColor: Colors.white,

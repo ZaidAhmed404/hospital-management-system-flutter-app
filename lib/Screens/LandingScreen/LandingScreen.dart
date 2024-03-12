@@ -25,7 +25,7 @@ class _LandingScreenState extends State<LandingScreen> {
               builder: (context, patientState) {
                 return SafeArea(
                   child: Scaffold(
-                    backgroundColor: Colors.white.withOpacity(0.98),
+                    backgroundColor: Colors.white,
                     body: _currentIndex == 3
                         ? ProfileScreen(
                             patientModel: patientState.patientModel,

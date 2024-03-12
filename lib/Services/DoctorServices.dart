@@ -59,16 +59,18 @@ class DoctorServices {
             "licenseNumber": licenseNumber,
             "specialization": specialization
           })
-          .then((value) => print("User Added"))
-          .catchError((error) => print("Failed to add user: $error"));
-      BlocProvider.of<DoctorCubit>(context).updateDoctorModel(
-          singleDoctorModel: DoctorModel(
-              address: address,
-              cnic: cnic,
-              phoneNumber: phoneNumber,
-              gender: gender,
-              licenseNumber: licenseNumber,
-              specialization: specialization));
+          .then((value) => log("User Added"))
+          .catchError((error) => log("Failed to add user: $error"));
+      if (context.mounted) {
+        BlocProvider.of<DoctorCubit>(context).updateDoctorModel(
+            singleDoctorModel: DoctorModel(
+                address: address,
+                cnic: cnic,
+                phoneNumber: phoneNumber,
+                gender: gender,
+                licenseNumber: licenseNumber,
+                specialization: specialization));
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         log('The password provided is too weak.');

@@ -45,7 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(0.98),
+      backgroundColor: Colors.white,
       body: BlocBuilder<LoadingCubit, LoadingState>(
         builder: (context, state) {
           return LoadingOverlay(
@@ -99,6 +99,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             }
                             return null;
                           },
+                          textInputType: TextInputType.text,
                         ),
                         const SizedBox(
                           height: 10,
@@ -117,6 +118,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             }
                             return null;
                           },
+                          textInputType: TextInputType.text,
                         ),
                         const SizedBox(
                           height: 20,
@@ -148,6 +150,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         ButtonWidget(
                             buttonText: "Sign In",
+                            buttonWidth: MediaQuery.of(context).size.width,
                             buttonColor: Colors.blueAccent,
                             borderColor: Colors.blueAccent,
                             textColor: Colors.white,

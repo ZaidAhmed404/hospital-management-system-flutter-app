@@ -108,6 +108,8 @@ class _BoardingScreenState extends State<BoardingScreen> {
                                   )),
                               ButtonWidget(
                                   buttonText: "Next",
+                                  buttonWidth:
+                                      MediaQuery.of(context).size.width,
                                   buttonColor: Colors.blueAccent,
                                   borderColor: Colors.blueAccent,
                                   textColor: Colors.white,

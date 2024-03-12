@@ -8,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../Models/DoctorModel.dart';
 import '../Models/PatientModel.dart';
+import '../Route/CustomPageRoute.dart';
+import '../Screens/AdminLandingScreen/AdminLandingScreen.dart';
 import '../Screens/BoardingScreen/BoardingScreen.dart';
 import '../Screens/LandingScreen/LandingScreen.dart';
 import '../Screens/RegisterUserRoleScreen/RegisterUserRolesScreen.dart';
@@ -86,13 +88,21 @@ class CommonServices {
       );
     }
 
-    if (gotCollectionData &&
+    if (auth.currentUser?.uid == "SoLtSmVuldhx055d8g0XHqB3Ez23") {
+      if (context.mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          CustomPageRoute(child: const AdminLandingScreen()),
+          (route) => false, // Close all existing routes
+        );
+      }
+    } else if (gotCollectionData &&
         (appConstants.role == "doctor" || appConstants.role == "patient") &&
         isLoading == false) {
       if (context.mounted) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => LandingScreen()),
+          CustomPageRoute(child: LandingScreen()),
           (route) => false, // Close all existing routes
         );
       }
@@ -102,7 +112,7 @@ class CommonServices {
       if (context.mounted) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => RegisterUserRoleScreen()),
+          CustomPageRoute(child: RegisterUserRoleScreen()),
           (route) => false, // Close all existing routes
         );
       }
@@ -110,7 +120,7 @@ class CommonServices {
       if (context.mounted) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const BoardingScreen()),
+          CustomPageRoute(child: const BoardingScreen()),
           (route) => false, // Close all existing routes
         );
       }

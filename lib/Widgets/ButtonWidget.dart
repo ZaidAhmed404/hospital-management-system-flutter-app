@@ -6,15 +6,16 @@ class ButtonWidget extends StatelessWidget {
   Function onPressedFunction;
   Color borderColor;
   Color textColor;
+  double buttonWidth;
 
-  ButtonWidget({
-    super.key,
-    required this.onPressedFunction,
-    required this.buttonText,
-    required this.buttonColor,
-    required this.borderColor,
-    required this.textColor,
-  });
+  ButtonWidget(
+      {super.key,
+      required this.onPressedFunction,
+      required this.buttonText,
+      required this.buttonColor,
+      required this.borderColor,
+      required this.textColor,
+      required this.buttonWidth});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class ButtonWidget extends StatelessWidget {
       onTap: () => onPressedFunction(),
       child: Container(
         alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width,
+        width: buttonWidth,
         padding: const EdgeInsets.only(top: 12, bottom: 12),
         decoration: BoxDecoration(
             border: Border.all(color: borderColor, width: 2),

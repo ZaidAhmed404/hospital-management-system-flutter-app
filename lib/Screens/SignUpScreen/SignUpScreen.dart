@@ -33,7 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(0.98),
+      backgroundColor: Colors.white,
       body: BlocBuilder<LoadingCubit, LoadingState>(
         builder: (context, state) {
           return LoadingOverlay(
@@ -87,6 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
                             return null;
                           },
+                          textInputType: TextInputType.text,
                         ),
                         const SizedBox(
                           height: 10,
@@ -104,6 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
                             return null;
                           },
+                          textInputType: TextInputType.text,
                           isPassword: true,
                         ),
                         const SizedBox(
@@ -136,6 +138,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         ButtonWidget(
                             buttonText: "Sign Up",
+                            buttonWidth: MediaQuery.of(context).size.width,
                             buttonColor: Colors.blueAccent,
                             borderColor: Colors.blueAccent,
                             textColor: Colors.white,
