@@ -151,6 +151,9 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             return null;
                           },
                           textInputType: TextInputType.text,
+                          textFieldWidth: MediaQuery.of(context).size.width,
+                          haveText: true,
+                          onValueChange: (value) {},
                         ),
                         const SizedBox(
                           height: 10,
@@ -170,6 +173,9 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             return null;
                           },
                           textInputType: TextInputType.text,
+                          textFieldWidth: MediaQuery.of(context).size.width,
+                          haveText: true,
+                          onValueChange: (value) {},
                         ),
                         const SizedBox(
                           height: 10,
@@ -189,6 +195,9 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             return null;
                           },
                           textInputType: TextInputType.text,
+                          textFieldWidth: MediaQuery.of(context).size.width,
+                          haveText: true,
+                          onValueChange: (value) {},
                         ),
                         const SizedBox(
                           height: 10,
@@ -208,6 +217,9 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             return null;
                           },
                           textInputType: TextInputType.text,
+                          textFieldWidth: MediaQuery.of(context).size.width,
+                          haveText: true,
+                          onValueChange: (value) {},
                         ),
                         const SizedBox(
                           height: 10,
@@ -252,6 +264,9 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                               return null;
                             },
                             textInputType: TextInputType.text,
+                            textFieldWidth: MediaQuery.of(context).size.width,
+                            haveText: true,
+                            onValueChange: (value) {},
                           ),
                         if (role == roles[0])
                           const SizedBox(
@@ -273,6 +288,9 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                               return null;
                             },
                             textInputType: TextInputType.text,
+                            textFieldWidth: MediaQuery.of(context).size.width,
+                            haveText: true,
+                            onValueChange: (value) {},
                           ),
                         const SizedBox(
                           height: 20,

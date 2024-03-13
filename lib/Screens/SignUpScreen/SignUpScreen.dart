@@ -88,6 +88,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             return null;
                           },
                           textInputType: TextInputType.text,
+                          textFieldWidth: MediaQuery.of(context).size.width,
+                          haveText: true,
+                          onValueChange: (value) {},
                         ),
                         const SizedBox(
                           height: 10,
@@ -107,6 +110,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                           textInputType: TextInputType.text,
                           isPassword: true,
+                          textFieldWidth: MediaQuery.of(context).size.width,
+                          haveText: true,
+                          onValueChange: (value) {},
                         ),
                         const SizedBox(
                           height: 20,
@@ -137,19 +143,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 20,
                         ),
                         ButtonWidget(
-                            buttonText: "Sign Up",
-                            buttonWidth: MediaQuery.of(context).size.width,
-                            buttonColor: Colors.blueAccent,
-                            borderColor: Colors.blueAccent,
-                            textColor: Colors.white,
-                            onPressedFunction: () {
-                              if (_formKey.currentState!.validate()) {
-                                appConstants.firebaseAuthServices.signUp(
-                                    context: context,
-                                    email: emailController.text.trim(),
-                                    password: passwordController.text.trim());
-                              }
-                            }),
+                          buttonText: "Sign Up",
+                          buttonWidth: MediaQuery.of(context).size.width,
+                          buttonColor: Colors.blueAccent,
+                          borderColor: Colors.blueAccent,
+                          textColor: Colors.white,
+                          onPressedFunction: () {
+                            if (_formKey.currentState!.validate()) {
+                              appConstants.firebaseAuthServices.signUp(
+                                  context: context,
+                                  email: emailController.text.trim(),
+                                  password: passwordController.text.trim());
+                            }
+                          },
+                        ),
                         const SizedBox(
                           height: 20,
                         ),

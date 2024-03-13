@@ -15,8 +15,15 @@ class ProfileNotApprovedScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset("assets/images/pending.png"),
-        const Text("Profile not Approved Yet"),
+        Image.asset(
+          "assets/images/pending.png",
+          width: 200,
+          height: 200,
+        ),
+        const Text(
+          "Profile not Approved Yet",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+        ),
         const SizedBox(
           height: 20,
         ),

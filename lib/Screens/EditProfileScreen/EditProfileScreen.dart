@@ -239,6 +239,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         return null;
                       },
                       textInputType: TextInputType.text,
+                      textFieldWidth: MediaQuery.of(context).size.width,
+                      haveText: true,
+                      onValueChange: (value) {},
                     ),
                     const SizedBox(
                       height: 10,
@@ -270,6 +273,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         return null;
                       },
                       textInputType: TextInputType.text,
+                      textFieldWidth: MediaQuery.of(context).size.width,
+                      haveText: true,
+                      onValueChange: (value) {},
                     ),
                     const SizedBox(
                       height: 10,
@@ -289,6 +295,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         return null;
                       },
                       textInputType: TextInputType.text,
+                      textFieldWidth: MediaQuery.of(context).size.width,
+                      haveText: true,
+                      onValueChange: (value) {},
                     ),
                     const SizedBox(
                       height: 10,
@@ -308,6 +317,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         return null;
                       },
                       textInputType: TextInputType.text,
+                      textFieldWidth: MediaQuery.of(context).size.width,
+                      haveText: true,
+                      onValueChange: (value) {},
                     ),
                     if (appConstants.role == "doctor")
                       const SizedBox(
@@ -329,6 +341,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           return null;
                         },
                         textInputType: TextInputType.text,
+                        textFieldWidth: MediaQuery.of(context).size.width,
+                        haveText: true,
+                        onValueChange: (value) {},
                       ),
                     if (appConstants.role == "doctor")
                       const SizedBox(
@@ -350,6 +365,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           return null;
                         },
                         textInputType: TextInputType.text,
+                        textFieldWidth: MediaQuery.of(context).size.width,
+                        haveText: true,
+                        onValueChange: (value) {},
                       ),
                     const SizedBox(
                       height: 20,

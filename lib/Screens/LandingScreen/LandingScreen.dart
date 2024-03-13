@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
+import '../AppointmentScreen/AppointmentScreen.dart';
 import '../ProfileScreen/ProfileScreen.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -26,13 +27,15 @@ class _LandingScreenState extends State<LandingScreen> {
                 return SafeArea(
                   child: Scaffold(
                     backgroundColor: Colors.white,
-                    body: _currentIndex == 3
-                        ? ProfileScreen(
-                            patientModel: patientState.patientModel,
-                            userModel: userState.userModel,
-                            doctorModel: doctorState.doctorModel,
-                          )
-                        : const Center(child: Text("Other")),
+                    body: _currentIndex == 0
+                        ? const AppointmentScreen()
+                        : _currentIndex == 3
+                            ? ProfileScreen(
+                                patientModel: patientState.patientModel,
+                                userModel: userState.userModel,
+                                doctorModel: doctorState.doctorModel,
+                              )
+                            : const Center(child: Text("Other")),
                     bottomNavigationBar: SalomonBottomBar(
                       currentIndex: _currentIndex,
                       onTap: (i) => setState(() => _currentIndex = i),
@@ -46,12 +49,12 @@ class _LandingScreenState extends State<LandingScreen> {
                                     : Colors.blue.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(8)),
                             child: const Icon(
-                              Icons.home,
+                              Icons.call_to_action,
                               color: Colors.blue,
                             ),
                           ),
                           title: const Text(
-                            "Home",
+                            "Appointments",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w800,

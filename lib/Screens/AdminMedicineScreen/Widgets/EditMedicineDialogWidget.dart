@@ -70,6 +70,9 @@ class _EditMedicineDialogWidgetState extends State<EditMedicineDialogWidget> {
                   return null;
                 },
                 textInputType: TextInputType.text,
+                textFieldWidth: MediaQuery.of(context).size.width,
+                haveText: true,
+                onValueChange: (value) {},
               ),
               const SizedBox(
                 height: 20,
@@ -87,6 +90,9 @@ class _EditMedicineDialogWidgetState extends State<EditMedicineDialogWidget> {
                   return null;
                 },
                 textInputType: TextInputType.number,
+                textFieldWidth: MediaQuery.of(context).size.width,
+                haveText: true,
+                onValueChange: (value) {},
               ),
               const SizedBox(
                 height: 20,
