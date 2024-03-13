@@ -100,188 +100,187 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
               height: 30,
             ),
             SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('doctors')
-                      .snapshots(),
-                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: CircularProgressIndicator(
-                          color: Colors.blue,
-                        ),
-                      );
-                    }
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('doctors')
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: CircularProgressIndicator(
+                        color: Colors.blue,
+                      ),
+                    );
+                  }
 
-                    if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    }
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }
 
-                    if (searchController.text.isNotEmpty) {
-                      if (filter == "Name") {
-                        doctorData = snapshot.data!.docs
-                            .map((doc) {
-                              Map<String, dynamic> data =
-                                  doc.data() as Map<String, dynamic>;
-                              return DoctorModel.fromMap(data);
-                            })
-                            .where((doctor) => doctor.name
-                                .contains(searchController.text.trim()))
-                            .toList();
-                      } else if (filter == "Specialization") {
-                        doctorData = snapshot.data!.docs
-                            .map((doc) {
-                              Map<String, dynamic> data =
-                                  doc.data() as Map<String, dynamic>;
-                              return DoctorModel.fromMap(data);
-                            })
-                            .where((doctor) => doctor.specialization
-                                .contains(searchController.text.trim()))
-                            .toList();
-                      }
-                    } else {
-                      doctorData = [];
+                  if (searchController.text.isNotEmpty) {
+                    if (filter == "Name") {
+                      doctorData = snapshot.data!.docs
+                          .map((doc) {
+                            Map<String, dynamic> data =
+                                doc.data() as Map<String, dynamic>;
+                            return DoctorModel.fromMap(data);
+                          })
+                          .where((doctor) => doctor.name
+                              .contains(searchController.text.trim()))
+                          .toList();
+                    } else if (filter == "Specialization") {
+                      doctorData = snapshot.data!.docs
+                          .map((doc) {
+                            Map<String, dynamic> data =
+                                doc.data() as Map<String, dynamic>;
+                            return DoctorModel.fromMap(data);
+                          })
+                          .where((doctor) => doctor.specialization
+                              .contains(searchController.text.trim()))
+                          .toList();
                     }
+                  } else {
+                    doctorData = [];
+                  }
 
-                    // final documents = snapshot.data!.docs;
-                    return SizedBox(
-                      child: doctorData.isEmpty
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/images/pending.png",
-                                  width: 200,
-                                  height: 200,
-                                ),
-                                const Text(
-                                  "No Doctors Found",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18),
-                                ),
-                              ],
-                            )
-                          : ListView.builder(
-                              itemCount: doctorData.length,
-                              itemBuilder: (context, index) {
-                                DoctorModel doctor = doctorData[index];
-                                return Container(
-                                  margin:
-                                      const EdgeInsets.only(top: 5, bottom: 5),
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 7,
-                                          offset: Offset(0,
-                                              3), // changes position of shadow
-                                        ),
-                                      ]),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Row(
-                                          children: [
-                                            ClipOval(
-                                              child: SizedBox.fromSize(
-                                                size: const Size.fromRadius(20),
-                                                child: Image.network(
-                                                  doctor.photoUrl,
-                                                  frameBuilder: (context, child,
-                                                      frame, was) {
+                  // final documents = snapshot.data!.docs;
+                  return SizedBox(
+                    child: doctorData.isEmpty
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/pending.png",
+                                width: 200,
+                                height: 200,
+                              ),
+                              const Text(
+                                "No Doctors Found",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 18),
+                              ),
+                            ],
+                          )
+                        : ListView.builder(
+                            itemCount: doctorData.length,
+                            itemBuilder: (context, index) {
+                              DoctorModel doctor = doctorData[index];
+                              return Container(
+                                margin:
+                                    const EdgeInsets.only(top: 5, bottom: 5),
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ]),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Row(
+                                        children: [
+                                          ClipOval(
+                                            child: SizedBox.fromSize(
+                                              size: const Size.fromRadius(20),
+                                              child: Image.network(
+                                                doctor.photoUrl,
+                                                frameBuilder: (context, child,
+                                                    frame, was) {
+                                                  return child;
+                                                },
+                                                loadingBuilder: (context, child,
+                                                    loadingProgress) {
+                                                  if (loadingProgress == null) {
                                                     return child;
-                                                  },
-                                                  loadingBuilder: (context,
-                                                      child, loadingProgress) {
-                                                    if (loadingProgress ==
-                                                        null) {
-                                                      return child;
-                                                    }
-                                                    return Center(
-                                                        child: SizedBox(
-                                                            width: 70,
-                                                            height: 70,
-                                                            child: Container(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(20),
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10)),
-                                                              child:
-                                                                  const CircularProgressIndicator(
-                                                                color: Color(
-                                                                    0xff3FA8F9),
-                                                              ),
-                                                            )));
-                                                  },
-                                                  fit: BoxFit.fill,
-                                                  width: width * 0.75,
-                                                ),
+                                                  }
+                                                  return Center(
+                                                      child: SizedBox(
+                                                          width: 70,
+                                                          height: 70,
+                                                          child: Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(20),
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .white,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10)),
+                                                            child:
+                                                                const CircularProgressIndicator(
+                                                              color: Color(
+                                                                  0xff3FA8F9),
+                                                            ),
+                                                          )));
+                                                },
+                                                fit: BoxFit.fill,
+                                                width: width * 0.75,
                                               ),
                                             ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  doctor.name,
-                                                  maxLines: 1,
-                                                  style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                                Text(
-                                                  doctor.specialization,
-                                                  maxLines: 1,
-                                                  style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                doctor.name,
+                                                maxLines: 1,
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              Text(
+                                                doctor.specialization,
+                                                maxLines: 1,
+                                                style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                      ElevatedButton(
-                                          onPressed: () {},
-                                          child: const Text(
-                                            "Book",
-                                            style: TextStyle(
-                                                color: Colors.green,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14),
-                                          ))
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                    );
-                  },
-                )),
+                                    ),
+                                    ElevatedButton(
+                                        onPressed: () {},
+                                        child: const Text(
+                                          "Book",
+                                          style: TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14),
+                                        ))
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
