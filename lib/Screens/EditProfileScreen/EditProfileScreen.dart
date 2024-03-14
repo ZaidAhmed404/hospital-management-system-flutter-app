@@ -58,24 +58,35 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController doctorSpecializationController =
       TextEditingController();
 
+  final TextEditingController cardController = TextEditingController();
+  final TextEditingController doctorHourlyRateController =
+      TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     nameController.text = widget.userModel.displayName;
-    if (widget.patientModel != null) {
+    if (appConstants.role == "patient") {
+      log("message");
       phoneNumberController.text = widget.patientModel!.phoneNumber;
       cnicController.text = widget.patientModel!.cnic;
       addressController.text = widget.patientModel!.address;
+      cardController.text = widget.patientModel!.cardNumber;
       // gender = widget.patientModel!.gender;
     } else {
+      log("here");
       phoneNumberController.text = widget.doctorModel!.phoneNumber;
       cnicController.text = widget.doctorModel!.cnic;
       addressController.text = widget.doctorModel!.address;
       // gender = widget.doctorModel!.gender;
       doctorLicenseNumberController.text = widget.doctorModel!.licenseNumber;
       doctorSpecializationController.text = widget.doctorModel!.specialization;
+      cardController.text = widget.doctorModel!.cardNumber;
+      doctorHourlyRateController.text = widget.doctorModel!.hourlyRate;
     }
+    log(phoneNumberController.text, name: "phone number");
+    log(cnicController.text, name: "cnic");
   }
 
   @override
@@ -272,7 +283,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return null;
                       },
-                      textInputType: TextInputType.text,
+                      textInputType: TextInputType.number,
                       textFieldWidth: MediaQuery.of(context).size.width,
                       haveText: true,
                       onValueChange: (value) {},
@@ -294,7 +305,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return null;
                       },
-                      textInputType: TextInputType.text,
+                      textInputType: TextInputType.number,
                       textFieldWidth: MediaQuery.of(context).size.width,
                       haveText: true,
                       onValueChange: (value) {},
@@ -340,7 +351,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           }
                           return null;
                         },
-                        textInputType: TextInputType.text,
+                        textInputType: TextInputType.number,
                         textFieldWidth: MediaQuery.of(context).size.width,
                         haveText: true,
                         onValueChange: (value) {},
@@ -369,6 +380,50 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         haveText: true,
                         onValueChange: (value) {},
                       ),
+                    if (appConstants.role == "doctor")
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    if (appConstants.role == "doctor")
+                      TextFieldWidget(
+                        hintText: "Hourly Rate",
+                        text: "Hourly Rate",
+                        controller: doctorHourlyRateController,
+                        isPassword: false,
+                        isEnabled: true,
+                        validationFunction: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Hourly Rate is required';
+                          }
+                          return null;
+                        },
+                        textInputType: TextInputType.number,
+                        textFieldWidth: MediaQuery.of(context).size.width,
+                        haveText: true,
+                        onValueChange: (value) {},
+                      ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFieldWidget(
+                      hintText: "0000-0000-0000-0000",
+                      text: "Card Number",
+                      controller: cardController,
+                      isPassword: false,
+                      isEnabled: true,
+                      validationFunction: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Card Number is required';
+                        } else if (value.length < 16) {
+                          return 'Card Number must have 16 characters';
+                        }
+                        return null;
+                      },
+                      textInputType: TextInputType.number,
+                      textFieldWidth: MediaQuery.of(context).size.width,
+                      haveText: true,
+                      onValueChange: (value) {},
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -394,7 +449,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   specialization: doctorSpecializationController
                                       .text
                                       .trim(),
-                                  gender: gender);
+                                  gender: gender,
+                                  cardNumber: cardController.text.trim(),
+                                  hourlyRate:
+                                      doctorHourlyRateController.text.trim());
                             } else {
                               appConstants.patientServices.updatePatientData(
                                   context: context,
@@ -404,7 +462,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       phoneNumberController.text.trim(),
                                   cnic: cnicController.text.trim(),
                                   address: addressController.text.trim(),
-                                  gender: gender);
+                                  gender: gender,
+                                  cardNumber: cardController.text.trim());
                             }
                           }
                         }),

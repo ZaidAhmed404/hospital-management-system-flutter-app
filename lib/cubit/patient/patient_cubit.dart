@@ -8,11 +8,12 @@ class PatientCubit extends Cubit<PatientState> {
   PatientCubit()
       : super(PatientState(
             patientModel: PatientModel(
-          phoneNumber: "",
-          address: "",
-          cnic: "",
-          gender: "",
-        )));
+                userId: "",
+                phoneNumber: "",
+                address: "",
+                cnic: "",
+                gender: "",
+                cardNumber: "")));
 
   updatePatientModel({required PatientModel singlePatientModel}) {
     emit(PatientState(patientModel: singlePatientModel));

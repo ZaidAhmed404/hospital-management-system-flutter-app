@@ -17,15 +17,15 @@ class PatientServices {
   CollectionReference patient =
       FirebaseFirestore.instance.collection('patients');
 
-  Future updatePatientData({
-    required BuildContext context,
-    required String photoPath,
-    required String name,
-    required String phoneNumber,
-    required String cnic,
-    required String address,
-    required String gender,
-  }) async {
+  Future updatePatientData(
+      {required BuildContext context,
+      required String photoPath,
+      required String name,
+      required String phoneNumber,
+      required String cnic,
+      required String address,
+      required String gender,
+      required String cardNumber}) async {
     BlocProvider.of<LoadingCubit>(context).setLoading(true);
     FocusScope.of(context).unfocus();
     try {
@@ -56,17 +56,19 @@ class PatientServices {
             'cnic': cnic,
             'address': address,
             'phoneNumber': phoneNumber,
+            'cardNumber': cardNumber
           })
           .then((value) => log("User Added"))
           .catchError((error) => log("Failed to add user: $error"));
       if (context.mounted) {
         BlocProvider.of<PatientCubit>(context).updatePatientModel(
             singlePatientModel: PatientModel(
-          address: address,
-          cnic: cnic,
-          phoneNumber: phoneNumber,
-          gender: gender,
-        ));
+                address: address,
+                userId: FirebaseAuth.instance.currentUser?.uid ?? "",
+                cnic: cnic,
+                phoneNumber: phoneNumber,
+                gender: gender,
+                cardNumber: cardNumber));
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

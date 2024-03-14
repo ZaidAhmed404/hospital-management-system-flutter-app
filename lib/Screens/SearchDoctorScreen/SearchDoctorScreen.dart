@@ -183,8 +183,7 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                                           color: Colors.grey.withOpacity(0.5),
                                           spreadRadius: 1,
                                           blurRadius: 7,
-                                          offset: Offset(0,
-                                              3), // changes position of shadow
+                                          offset: const Offset(0, 3),
                                         ),
                                       ]),
                                   child: Row(

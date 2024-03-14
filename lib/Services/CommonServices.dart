@@ -28,7 +28,6 @@ class CommonServices {
 
     String doctorProfileStatus = "";
 
-    bool isLoading = false;
     try {
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection('doctors')
@@ -116,8 +115,7 @@ class CommonServices {
       }
     } else if (auth.currentUser?.uid != null &&
         gotCollectionData &&
-        (appConstants.role == "doctor" || appConstants.role == "patient") &&
-        isLoading == false) {
+        (appConstants.role == "doctor" || appConstants.role == "patient")) {
       if (context.mounted) {
         Navigator.pushAndRemoveUntil(
           context,
@@ -127,7 +125,6 @@ class CommonServices {
       }
     } else if (auth.currentUser?.uid != null &&
         appConstants.role == "" &&
-        isLoading == false &&
         gotCollectionData == false) {
       if (context.mounted) {
         Navigator.pushAndRemoveUntil(

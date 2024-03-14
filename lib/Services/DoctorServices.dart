@@ -25,7 +25,9 @@ class DoctorServices {
       required String address,
       required String gender,
       required String licenseNumber,
-      required String specialization}) async {
+      required String specialization,
+      required String cardNumber,
+      required String hourlyRate}) async {
     BlocProvider.of<LoadingCubit>(context).setLoading(true);
     FocusScope.of(context).unfocus();
     try {
@@ -59,13 +61,16 @@ class DoctorServices {
             'address': address,
             'phoneNumber': phoneNumber,
             "licenseNumber": licenseNumber,
-            "specialization": specialization
+            "specialization": specialization,
+            'cardNumber': cardNumber,
+            'hourlyRate': hourlyRate
           })
           .then((value) => log("User Added"))
           .catchError((error) => log("Failed to add user: $error"));
       if (context.mounted) {
         BlocProvider.of<DoctorCubit>(context).updateDoctorModel(
             singleDoctorModel: DoctorModel(
+                userId: FirebaseAuth.instance.currentUser?.uid ?? "",
                 address: address,
                 name: FirebaseAuth.instance.currentUser?.displayName ?? "",
                 photoUrl: FirebaseAuth.instance.currentUser?.photoURL ?? "",
@@ -73,7 +78,9 @@ class DoctorServices {
                 phoneNumber: phoneNumber,
                 gender: gender,
                 licenseNumber: licenseNumber,
-                specialization: specialization));
+                specialization: specialization,
+                hourlyRate: hourlyRate,
+                cardNumber: cardNumber));
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

@@ -57,6 +57,18 @@ class AdminDoctorScreen extends StatelessWidget {
                       DoctorModel doctor = doctorData[index];
                       return Container(
                         margin: const EdgeInsets.only(top: 5, bottom: 5),
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ]),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -74,7 +86,7 @@ class AdminDoctorScreen extends StatelessWidget {
                                 children: [
                                   ClipOval(
                                     child: SizedBox.fromSize(
-                                      size: const Size.fromRadius(15),
+                                      size: const Size.fromRadius(20),
                                       child: Image.network(
                                         doctor.photoUrl,
                                         frameBuilder:

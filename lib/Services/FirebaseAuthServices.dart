@@ -157,18 +157,19 @@ class FirebaseAuthServices {
     }
   }
 
-  Future registerUserRole({
-    required BuildContext context,
-    required String photoPath,
-    required String displayName,
-    required String cnic,
-    required String address,
-    required String phoneNumber,
-    required String role,
-    required String gender,
-    required String doctorLicense,
-    required String doctorSpecialization,
-  }) async {
+  Future registerUserRole(
+      {required BuildContext context,
+      required String photoPath,
+      required String displayName,
+      required String cnic,
+      required String address,
+      required String phoneNumber,
+      required String role,
+      required String gender,
+      required String doctorLicense,
+      required String doctorSpecialization,
+      required String hourlyRate,
+      required String cardNumber}) async {
     BlocProvider.of<LoadingCubit>(context).setLoading(true);
     FocusScope.of(context).unfocus();
     try {
@@ -189,9 +190,10 @@ class FirebaseAuthServices {
         CollectionReference doctor =
             FirebaseFirestore.instance.collection('doctors');
 
-        doctor
+        await doctor
             .doc(FirebaseAuth.instance.currentUser?.uid)
             .set({
+              "userId": FirebaseAuth.instance.currentUser?.uid,
               'cnic': cnic,
               'address': address,
               'phoneNumber': phoneNumber,
@@ -199,7 +201,9 @@ class FirebaseAuthServices {
               "licenseNumber": doctorLicense,
               "specialization": doctorSpecialization,
               "name": FirebaseAuth.instance.currentUser?.displayName,
-              "photoUrl": FirebaseAuth.instance.currentUser?.photoURL
+              "photoUrl": FirebaseAuth.instance.currentUser?.photoURL,
+              'cardNumber': cardNumber,
+              'hourlyRate': hourlyRate
             })
             .then((value) => print("User Added"))
             .catchError((error) => print("Failed to add user: $error"));
@@ -207,13 +211,15 @@ class FirebaseAuthServices {
         CollectionReference patient =
             FirebaseFirestore.instance.collection('patients');
 
-        patient
+        await patient
             .doc(FirebaseAuth.instance.currentUser?.uid)
             .set({
+              "userId": FirebaseAuth.instance.currentUser?.uid,
               'cnic': cnic,
               'address': address,
               'phoneNumber': phoneNumber,
-              "gender": gender
+              "gender": gender,
+              'cardNumber': cardNumber,
             })
             .then((value) => print("User Added"))
             .catchError((error) => print("Failed to add user: $error"));

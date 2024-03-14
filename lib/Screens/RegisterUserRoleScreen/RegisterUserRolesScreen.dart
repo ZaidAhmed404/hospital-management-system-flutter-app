@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:doctor_patient_management_system/Widgets/ConfirmationDialogWidget.dart';
 import 'package:doctor_patient_management_system/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +31,14 @@ const List<String> genders = <String>['Male', "Female", "Others"];
 
 class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController cardController = TextEditingController();
 
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController doctorLicenseNumberController =
       TextEditingController();
   final TextEditingController doctorSpecializationController =
+      TextEditingController();
+  final TextEditingController doctorHourlyRateController =
       TextEditingController();
 
   final TextEditingController cnicController = TextEditingController();
@@ -172,7 +176,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             }
                             return null;
                           },
-                          textInputType: TextInputType.text,
+                          textInputType: TextInputType.number,
                           textFieldWidth: MediaQuery.of(context).size.width,
                           haveText: true,
                           onValueChange: (value) {},
@@ -216,7 +220,7 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                             }
                             return null;
                           },
-                          textInputType: TextInputType.text,
+                          textInputType: TextInputType.number,
                           textFieldWidth: MediaQuery.of(context).size.width,
                           haveText: true,
                           onValueChange: (value) {},
@@ -248,6 +252,31 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                         const SizedBox(
                           height: 10,
                         ),
+                        TextFieldWidget(
+                          hintText: "0000-0000-0000-0000",
+                          text: "Card Number",
+                          controller: cardController,
+                          isPassword: false,
+                          isEnabled: true,
+                          validationFunction: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Card Number is required';
+                            } else if (value.length < 16) {
+                              return 'Card Number must have 16 characters';
+                            }
+                            return null;
+                          },
+                          textInputType: TextInputType.number,
+                          textFieldWidth: MediaQuery.of(context).size.width,
+                          haveText: true,
+                          onValueChange: (value) {},
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         if (role == roles[0])
                           TextFieldWidget(
                             hintText: "Doctor License Number",
@@ -263,7 +292,29 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                               }
                               return null;
                             },
-                            textInputType: TextInputType.text,
+                            textInputType: TextInputType.number,
+                            textFieldWidth: MediaQuery.of(context).size.width,
+                            haveText: true,
+                            onValueChange: (value) {},
+                          ),
+                        if (role == roles[0])
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        if (role == roles[0])
+                          TextFieldWidget(
+                            hintText: "Hourly Rate",
+                            text: "Hourly Rate",
+                            controller: doctorHourlyRateController,
+                            isPassword: false,
+                            isEnabled: true,
+                            validationFunction: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Hourly Rate is required';
+                              }
+                              return null;
+                            },
+                            textInputType: TextInputType.number,
                             textFieldWidth: MediaQuery.of(context).size.width,
                             haveText: true,
                             onValueChange: (value) {},
@@ -312,21 +363,25 @@ class _RegisterUserRoleScreenState extends State<RegisterUserRoleScreen> {
                               } else if (_formKey.currentState!.validate()) {
                                 await appConstants.firebaseAuthServices
                                     .registerUserRole(
-                                  context: context,
-                                  photoPath: imagePath,
-                                  displayName: nameController.text.trim(),
-                                  cnic: cnicController.text.trim(),
-                                  address: addressController.text.trim(),
-                                  phoneNumber:
-                                      phoneNumberController.text.trim(),
-                                  role: role,
-                                  gender: gender,
-                                  doctorLicense:
-                                      doctorLicenseNumberController.text.trim(),
-                                  doctorSpecialization:
-                                      doctorSpecializationController.text
-                                          .trim(),
-                                );
+                                        context: context,
+                                        photoPath: imagePath,
+                                        displayName: nameController.text.trim(),
+                                        cnic: cnicController.text.trim(),
+                                        address: addressController.text.trim(),
+                                        phoneNumber:
+                                            phoneNumberController.text.trim(),
+                                        role: role,
+                                        gender: gender,
+                                        doctorLicense:
+                                            doctorLicenseNumberController.text
+                                                .trim(),
+                                        doctorSpecialization:
+                                            doctorSpecializationController.text
+                                                .trim(),
+                                        hourlyRate: doctorHourlyRateController
+                                            .text
+                                            .trim(),
+                                        cardNumber: cardController.text.trim());
                               }
                             }),
                         const SizedBox(

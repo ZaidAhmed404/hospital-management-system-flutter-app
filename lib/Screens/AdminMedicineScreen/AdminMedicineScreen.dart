@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_patient_management_system/Screens/AdminMedicineScreen/Widgets/EditMedicineDialogWidget.dart';
+import 'package:doctor_patient_management_system/Widgets/ConfirmationDialogWidget.dart';
 import 'package:flutter/material.dart';
 
 import '../../Models/MedicineModel.dart';
+import '../../main.dart';
 import 'Widgets/AddMedicineDialogWidget.dart';
-import 'Widgets/DeleteMedicineDialogWidget.dart';
 
 class AdminMedicineScreen extends StatelessWidget {
   const AdminMedicineScreen({super.key});
@@ -179,9 +180,25 @@ class AdminMedicineScreen extends StatelessWidget {
                                                         const EdgeInsets.all(
                                                             20),
                                                     child:
-                                                        DeleteMedicineDialogWidget(
-                                                      docId:
-                                                          documents[index].id,
+                                                        ConfirmationDialogWidget(
+                                                      message:
+                                                          'Are you sure, you want to delete this medicine?',
+                                                      onCancelFunction: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      onConfirmFunction:
+                                                          () async {
+                                                        appConstants
+                                                            .medicineServices
+                                                            .delete(
+                                                                docId: documents[
+                                                                        index]
+                                                                    .id,
+                                                                context:
+                                                                    context);
+                                                        Navigator.pop(context);
+                                                      },
+                                                      title: "Delete Medicine",
                                                     )));
                                       },
                                       child: Container(

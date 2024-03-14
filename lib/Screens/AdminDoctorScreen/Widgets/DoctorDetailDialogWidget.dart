@@ -135,6 +135,22 @@ class DoctorDetailDialogWidget extends StatelessWidget {
                 ),
               ],
             ),
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Hourly Rate",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "Rs.${doctorModel.hourlyRate}",
+                  style: const TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
