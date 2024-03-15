@@ -56,6 +56,8 @@ class _AddMedicineDialogWidgetState extends State<AddMedicineDialogWidget> {
                 textFieldWidth: MediaQuery.of(context).size.width,
                 haveText: true,
                 onValueChange: (value) {},
+                maxLines: 1,
+                borderCircular: 50,
               ),
               const SizedBox(
                 height: 20,
@@ -76,6 +78,8 @@ class _AddMedicineDialogWidgetState extends State<AddMedicineDialogWidget> {
                 textFieldWidth: MediaQuery.of(context).size.width,
                 haveText: true,
                 onValueChange: (value) {},
+                maxLines: 1,
+                borderCircular: 50,
               ),
               const SizedBox(
                 height: 20,

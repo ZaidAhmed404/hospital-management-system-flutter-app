@@ -103,6 +103,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           textFieldWidth: MediaQuery.of(context).size.width,
                           haveText: true,
                           onValueChange: (value) {},
+                          maxLines: 1,
+                          borderCircular: 50,
                         ),
                         const SizedBox(
                           height: 10,
@@ -125,6 +127,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           textFieldWidth: MediaQuery.of(context).size.width,
                           haveText: true,
                           onValueChange: (value) {},
+                          maxLines: 1,
+                          borderCircular: 50,
                         ),
                         const SizedBox(
                           height: 20,

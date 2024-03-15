@@ -11,6 +11,8 @@ class TextFieldWidget extends StatefulWidget {
   TextInputType textInputType;
   double textFieldWidth;
   Function(String?) onValueChange;
+  int maxLines;
+  double borderCircular;
 
   TextFieldWidget(
       {super.key,
@@ -23,7 +25,9 @@ class TextFieldWidget extends StatefulWidget {
       required this.textInputType,
       required this.textFieldWidth,
       required this.haveText,
-      required this.onValueChange});
+      required this.onValueChange,
+      required this.maxLines,
+      required this.borderCircular});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -77,6 +81,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             obscureText: !viewPassword,
             enabled: widget.isEnabled,
             onChanged: widget.onValueChange,
+            maxLines: viewPassword ? widget.maxLines : 1,
             style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
             decoration: InputDecoration(
                 fillColor: Colors.white,
@@ -109,24 +114,24 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 enabledBorder: OutlineInputBorder(
                   borderSide:
                       const BorderSide(width: 0.5, color: Colors.black12),
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(widget.borderCircular),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(width: 1.5, color: Colors.blue),
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(widget.borderCircular),
                 ),
                 disabledBorder: OutlineInputBorder(
                   borderSide:
                       const BorderSide(width: 0.5, color: Colors.black12),
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(widget.borderCircular),
                 ),
                 errorBorder: OutlineInputBorder(
                   borderSide: const BorderSide(width: 1.5, color: Colors.red),
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(widget.borderCircular),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderSide: const BorderSide(width: 1.5, color: Colors.red),
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(widget.borderCircular),
                 )),
             validator: widget.validationFunction,
           ),

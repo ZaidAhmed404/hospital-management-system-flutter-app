@@ -9,9 +9,11 @@ import '../../Widgets/DropdownWidget.dart';
 import '../../Widgets/TextFieldWidget.dart';
 
 class SearchDoctorScreen extends StatefulWidget {
-  SearchDoctorScreen({super.key, required this.onBackPressed});
+  SearchDoctorScreen(
+      {super.key, required this.onBackPressed, required this.onBookPressed});
 
   Function(int) onBackPressed;
+  Function(int, String) onBookPressed;
 
   @override
   State<SearchDoctorScreen> createState() => _SearchDoctorScreenState();
@@ -95,6 +97,8 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
               onValueChange: (value) {
                 setState(() {});
               },
+              maxLines: 1,
+              borderCircular: 50,
             ),
             const SizedBox(
               height: 30,
@@ -265,7 +269,15 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                                         ),
                                       ),
                                       ElevatedButton(
-                                          onPressed: () {},
+                                          // onPressed: () {
+                                          //
+                                          //   doctorId = doctor.userId;
+                                          //   setState(() {
+                                          //     index = 2;
+                                          //   });
+                                          // },
+                                          onPressed: () => widget.onBookPressed(
+                                              2, doctor.userId),
                                           child: const Text(
                                             "Book",
                                             style: TextStyle(

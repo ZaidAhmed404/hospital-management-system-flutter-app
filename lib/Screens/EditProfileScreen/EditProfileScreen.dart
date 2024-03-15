@@ -253,6 +253,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       textFieldWidth: MediaQuery.of(context).size.width,
                       haveText: true,
                       onValueChange: (value) {},
+                      maxLines: 1,
+                      borderCircular: 50,
                     ),
                     const SizedBox(
                       height: 10,
@@ -287,6 +289,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       textFieldWidth: MediaQuery.of(context).size.width,
                       haveText: true,
                       onValueChange: (value) {},
+                      maxLines: 1,
+                      borderCircular: 50,
                     ),
                     const SizedBox(
                       height: 10,
@@ -309,6 +313,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       textFieldWidth: MediaQuery.of(context).size.width,
                       haveText: true,
                       onValueChange: (value) {},
+                      maxLines: 1,
+                      borderCircular: 50,
                     ),
                     const SizedBox(
                       height: 10,
@@ -331,6 +337,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       textFieldWidth: MediaQuery.of(context).size.width,
                       haveText: true,
                       onValueChange: (value) {},
+                      maxLines: 1,
+                      borderCircular: 50,
                     ),
                     if (appConstants.role == "doctor")
                       const SizedBox(
@@ -355,6 +363,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         textFieldWidth: MediaQuery.of(context).size.width,
                         haveText: true,
                         onValueChange: (value) {},
+                        maxLines: 1,
+                        borderCircular: 50,
                       ),
                     if (appConstants.role == "doctor")
                       const SizedBox(
@@ -379,6 +389,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         textFieldWidth: MediaQuery.of(context).size.width,
                         haveText: true,
                         onValueChange: (value) {},
+                        maxLines: 1,
+                        borderCircular: 50,
                       ),
                     if (appConstants.role == "doctor")
                       const SizedBox(
@@ -401,6 +413,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         textFieldWidth: MediaQuery.of(context).size.width,
                         haveText: true,
                         onValueChange: (value) {},
+                        maxLines: 1,
+                        borderCircular: 50,
                       ),
                     const SizedBox(
                       height: 10,
@@ -423,6 +437,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       textFieldWidth: MediaQuery.of(context).size.width,
                       haveText: true,
                       onValueChange: (value) {},
+                      maxLines: 1,
+                      borderCircular: 50,
                     ),
                     const SizedBox(
                       height: 20,

@@ -1,6 +1,7 @@
 import 'package:doctor_patient_management_system/main.dart';
 import 'package:flutter/material.dart';
 
+import '../BookAppointmentScreen/BookAppointmentScreen.dart';
 import '../SearchDoctorScreen/SearchDoctorScreen.dart';
 
 class AppointmentScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class AppointmentScreen extends StatefulWidget {
 
 class _AppointmentScreenState extends State<AppointmentScreen> {
   int index = 0;
+  String doctorId = "";
 
   @override
   Widget build(BuildContext context) {
@@ -22,46 +24,63 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             onBackPressed: (ind) {
               setState(() {
                 index = ind;
+                doctorId = "";
+              });
+            },
+            onBookPressed: (ind, id) {
+              setState(() {
+                index = ind;
+                doctorId = id;
               });
             },
           )
-        : Container(
-            width: width,
-            height: height,
-            padding: const EdgeInsets.all(20),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        : index == 2
+            ? BookAppointmentScreen(
+                onBackPressed: (ind) {
+                  setState(() {
+                    index = ind;
+                    doctorId = "";
+                  });
+                },
+                doctorId: doctorId,
+              )
+            : Container(
+                width: width,
+                height: height,
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      const Text(
-                        "Appointments",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 20),
-                      ),
-                      if (appConstants.role == "patient")
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              index = 1;
-                            });
-                          },
-                          child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Colors.blue.withOpacity(0.2)),
-                              child: const Icon(
-                                Icons.add,
-                                color: Colors.blue,
-                              )),
-                        )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Appointments",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 20),
+                          ),
+                          if (appConstants.role == "patient")
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  index = 1;
+                                });
+                              },
+                              child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.blue.withOpacity(0.2)),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.blue,
+                                  )),
+                            )
+                        ],
+                      )
                     ],
-                  )
-                ],
-              ),
-            ),
-          );
+                  ),
+                ),
+              );
   }
 }

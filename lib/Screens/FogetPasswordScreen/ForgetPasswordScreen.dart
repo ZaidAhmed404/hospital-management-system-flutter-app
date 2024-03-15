@@ -89,6 +89,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                             textFieldWidth: MediaQuery.of(context).size.width,
                             haveText: true,
                             onValueChange: (value) {},
+                            maxLines: 1,
+                            borderCircular: 50,
                           ),
                         ),
                         const Spacer(flex: 3),
