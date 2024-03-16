@@ -8,7 +8,9 @@ import 'package:loading_overlay/loading_overlay.dart';
 import '../../Widgets/ButtonWidget.dart';
 import '../../Widgets/MessageWidget.dart';
 import '../../Widgets/PickDateWidget.dart';
+import '../../Widgets/PickTimeWidget.dart';
 import '../../Widgets/TextFieldWidget.dart';
+import 'Widgets/SelectTimeSlotWidget.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
   BookAppointmentScreen(
@@ -39,6 +41,17 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
     _pickedDate = await showDatePicker(
         context: context, firstDate: DateTime(2000), lastDate: DateTime(2500));
     log("${_pickedDate!.day}-${_pickedDate!.month}-${_pickedDate!.year}");
+    setState(() {});
+  }
+
+  TimeOfDay? _pickedTime;
+
+  _selectTime() async {
+    _pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    setState(() {});
   }
 
   String selectedSlot = "30 Minutes";
@@ -142,75 +155,31 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    PickDataWidget(onPressedFunction: _selectDate),
+                    PickDataWidget(
+                        onPressedFunction: _selectDate,
+                        pickedDate: _pickedDate),
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              selectedSlot = "30 Minutes";
-                            });
-                          },
-                          child: Container(
-                            width: width * 0.4,
-                            padding: const EdgeInsets.only(top: 15, bottom: 15),
-                            decoration: BoxDecoration(
-                                color: (selectedSlot == "30 Minutes")
-                                    ? Colors.blue
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.blue)),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "30 Minutes",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: (selectedSlot == "30 Minutes")
-                                      ? Colors.white
-                                      : Colors.blue),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              selectedSlot = "1 Hour";
-                            });
-                          },
-                          child: Container(
-                            width: width * 0.4,
-                            padding: const EdgeInsets.only(top: 15, bottom: 15),
-                            decoration: BoxDecoration(
-                                color: (selectedSlot == "1 Hour")
-                                    ? Colors.blue
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.blue)),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "1 Hour",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: (selectedSlot == "1 Hour")
-                                      ? Colors.white
-                                      : Colors.blue),
-                            ),
-                          ),
-                        ),
-                      ],
+                    SelectTimeSlotWidget(
+                        selectedSlot: selectedSlot,
+                        onSlotSelectedFunction: (value) {
+                          setState(() {
+                            selectedSlot = value;
+                          });
+                        }),
+                    const SizedBox(
+                      height: 10,
                     ),
+                    PickTimeWidget(
+                        onPressedFunction: _selectTime,
+                        pickedTime: _pickedTime),
                     const SizedBox(
                       height: 20,
                     ),
                     ButtonWidget(
                         buttonText: "Book",
-                        buttonWidth: MediaQuery.of(context).size.width,
+                        buttonWidth: width,
                         buttonColor: Colors.blueAccent,
                         borderColor: Colors.blueAccent,
                         textColor: Colors.white,
@@ -221,6 +190,13 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                   context: context,
                                   isError: true,
                                   message: "Date is required");
+                            }
+                          } else if (_pickedTime == null) {
+                            if (context.mounted) {
+                              messageWidget(
+                                  context: context,
+                                  isError: true,
+                                  message: "Time is required");
                             }
                           } else if (_formKey.currentState!.validate()) {}
                         }),

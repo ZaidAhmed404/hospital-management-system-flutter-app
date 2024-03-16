@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 
-class PickDataWidget extends StatefulWidget {
-  PickDataWidget(
-      {super.key, required this.onPressedFunction, required this.pickedDate});
+import 'package:intl/intl.dart';
 
-  DateTime? pickedDate;
+class PickTimeWidget extends StatefulWidget {
+  PickTimeWidget(
+      {super.key, required this.onPressedFunction, required this.pickedTime});
+
+  TimeOfDay? pickedTime;
   Function() onPressedFunction;
 
   @override
-  State<PickDataWidget> createState() => _PickDataWidgetState();
+  State<PickTimeWidget> createState() => _PickTimeWidgetState();
 }
 
-class _PickDataWidgetState extends State<PickDataWidget> {
+class _PickTimeWidgetState extends State<PickTimeWidget> {
+  convert24Into12Hours(TimeOfDay timeOfDay) {
+    String timeString = '${timeOfDay.hour}:${timeOfDay.minute}';
+
+    DateFormat parser = DateFormat.Hms();
+    DateTime dateTime = parser.parse(timeString);
+
+    String formattedTime = DateFormat('hh:mm a').format(dateTime);
+
+    return Text(formattedTime);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,7 +35,7 @@ class _PickDataWidgetState extends State<PickDataWidget> {
               width: 20,
             ),
             Text(
-              "Date",
+              "Time",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
@@ -54,9 +67,9 @@ class _PickDataWidgetState extends State<PickDataWidget> {
                   width: 10,
                 ),
                 Text(
-                  widget.pickedDate != null
-                      ? "${widget.pickedDate!.day}-${widget.pickedDate!.month}-${widget.pickedDate!.year}"
-                      : "Date",
+                  widget.pickedTime != null
+                      ? "${(widget.pickedTime!.hour % 12 == 0 ? 12 : widget.pickedTime!.hour % 12).toString().padLeft(2, '0')}:${widget.pickedTime!.minute.toString().padLeft(2, '0')} ${widget.pickedTime!.period.name}"
+                      : "Time",
                   style: const TextStyle(
                       fontWeight: FontWeight.w600, fontSize: 14),
                 )
