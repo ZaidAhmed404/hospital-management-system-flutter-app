@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:doctor_patient_management_system/Widgets/ConfirmationDialogWidget.dart';
 import 'package:doctor_patient_management_system/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +13,6 @@ import '../../../Widgets/DropdownWidget.dart';
 import '../../../Widgets/MessageWidget.dart';
 import '../../../Widgets/TextFieldWidget.dart';
 import '../../../cubit/LoadingCubit/loading_cubit.dart';
-import '../BoardingScreen/BoardingScreen.dart';
 
 class RegisterUserRoleScreen extends StatefulWidget {
   RegisterUserRoleScreen({
