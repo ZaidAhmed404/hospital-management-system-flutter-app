@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:doctor_patient_management_system/cubit/LoadingCubit/loading_cubit.dart';
+import 'package:doctor_patient_management_system/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
 import '../../Widgets/ButtonWidget.dart';
@@ -80,6 +82,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
               child: Form(
                 key: _formKey,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
@@ -174,6 +177,20 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                     PickTimeWidget(
                         onPressedFunction: _selectTime,
                         pickedTime: _pickedTime),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    // const Text(
+                    //   "Card Details",
+                    //   style:
+                    //       TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                    // ),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    // CardFormField(
+                    //   controller: CardFormEditController(),
+                    // ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -184,21 +201,23 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                         borderColor: Colors.blueAccent,
                         textColor: Colors.white,
                         onPressedFunction: () async {
-                          if (_pickedDate == null) {
-                            if (context.mounted) {
-                              messageWidget(
-                                  context: context,
-                                  isError: true,
-                                  message: "Date is required");
-                            }
-                          } else if (_pickedTime == null) {
-                            if (context.mounted) {
-                              messageWidget(
-                                  context: context,
-                                  isError: true,
-                                  message: "Time is required");
-                            }
-                          } else if (_formKey.currentState!.validate()) {}
+                          appConstants.paymentServices
+                              .makePayment(context: context);
+                          // if (_pickedDate == null) {
+                          //   if (context.mounted) {
+                          //     messageWidget(
+                          //         context: context,
+                          //         isError: true,
+                          //         message: "Date is required");
+                          //   }
+                          // } else if (_pickedTime == null) {
+                          //   if (context.mounted) {
+                          //     messageWidget(
+                          //         context: context,
+                          //         isError: true,
+                          //         message: "Time is required");
+                          //   }
+                          // } else if (_formKey.currentState!.validate()) {}
                         }),
                     const SizedBox(
                       height: 20,

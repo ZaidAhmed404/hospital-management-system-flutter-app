@@ -18,19 +18,19 @@ import 'Screens/RegisterUserRoleScreen/RegisterUserRolesScreen.dart';
 import 'cubit/LoadingCubit/loading_cubit.dart';
 import 'firebase_options.dart';
 
+AppConstants appConstants = AppConstants();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  Stripe.publishableKey =
-      "pk_test_51OutwwP5SW1IvPMLZRGaeqVwBJ5LB9UeDUtTdPvZq86MU3tiRAg4KixmuMCMd62fSIMAVKuOzTwmDBM1SFHK3OAe00JLCyHAT7";
+  Stripe.publishableKey = appConstants.stripePublishableKey;
+
   await Stripe.instance.applySettings();
 
   runApp(const MyApp());
 }
-
-AppConstants appConstants = AppConstants();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
