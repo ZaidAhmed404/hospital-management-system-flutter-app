@@ -16,9 +16,15 @@ import 'Widgets/SelectTimeSlotWidget.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
   BookAppointmentScreen(
-      {super.key, required this.onBackPressed, required this.doctorId});
+      {super.key,
+      required this.onBackPressed,
+      required this.doctorId,
+      required this.doctorName,
+      required this.doctorPhotoUrl});
 
   String doctorId;
+  String doctorName;
+  String doctorPhotoUrl;
   Function(int) onBackPressed;
 
   @override
@@ -137,7 +143,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                     TextFieldWidget(
                       hintText: "Describe your problem",
                       text: "Problem",
-                      controller: nameController,
+                      controller: descriptionController,
                       isPassword: false,
                       isEnabled: true,
                       validationFunction: (value) {
@@ -201,23 +207,34 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                         borderColor: Colors.blueAccent,
                         textColor: Colors.white,
                         onPressedFunction: () async {
-                          appConstants.paymentServices
-                              .makePayment(context: context);
-                          // if (_pickedDate == null) {
-                          //   if (context.mounted) {
-                          //     messageWidget(
-                          //         context: context,
-                          //         isError: true,
-                          //         message: "Date is required");
-                          //   }
-                          // } else if (_pickedTime == null) {
-                          //   if (context.mounted) {
-                          //     messageWidget(
-                          //         context: context,
-                          //         isError: true,
-                          //         message: "Time is required");
-                          //   }
-                          // } else if (_formKey.currentState!.validate()) {}
+                          if (_pickedDate == null) {
+                            if (context.mounted) {
+                              messageWidget(
+                                  context: context,
+                                  isError: true,
+                                  message: "Date is required");
+                            }
+                          } else if (_pickedTime == null) {
+                            if (context.mounted) {
+                              messageWidget(
+                                  context: context,
+                                  isError: true,
+                                  message: "Time is required");
+                            }
+                          } else if (_formKey.currentState!.validate()) {
+                            appConstants.appointmentServices.addAppointment(
+                                name: nameController.text.trim(),
+                                date: _pickedDate!,
+                                slot: selectedSlot,
+                                time: _pickedTime!,
+                                description: descriptionController.text.trim(),
+                                doctorId: widget.doctorId,
+                                doctorName: widget.doctorName,
+                                doctorPhotoUrl: widget.doctorPhotoUrl,
+                                context: context);
+                            // appConstants.paymentServices
+                            //     .makePayment(context: context);
+                          }
                         }),
                     const SizedBox(
                       height: 20,

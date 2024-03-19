@@ -20,16 +20,13 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Padding(
-          padding: const EdgeInsets.all(20),
-          child: _currentIndex == 0
-              ? const AdminMedicineScreen()
-              : _currentIndex == 1
-                  ? const AdminDoctorScreen()
-                  : _currentIndex == 2
-                      ? const AdminProfileScreen()
-                      : const Center(child: Text("Admin login")),
-        ),
+        body: _currentIndex == 0
+            ? const AdminMedicineScreen()
+            : _currentIndex == 1
+                ? const AdminDoctorScreen()
+                : _currentIndex == 2
+                    ? const AdminProfileScreen()
+                    : const Center(child: Text("Admin login")),
         bottomNavigationBar: SalomonBottomBar(
           currentIndex: _currentIndex,
           onTap: (i) => setState(() => _currentIndex = i),

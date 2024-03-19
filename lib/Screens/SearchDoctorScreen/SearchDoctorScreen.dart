@@ -13,7 +13,7 @@ class SearchDoctorScreen extends StatefulWidget {
       {super.key, required this.onBackPressed, required this.onBookPressed});
 
   Function(int) onBackPressed;
-  Function(int, String) onBookPressed;
+  Function(int, String, String, String) onBookPressed;
 
   @override
   State<SearchDoctorScreen> createState() => _SearchDoctorScreenState();
@@ -277,7 +277,10 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                                           //   });
                                           // },
                                           onPressed: () => widget.onBookPressed(
-                                              2, doctor.userId),
+                                              2,
+                                              doctor.userId,
+                                              doctor.name,
+                                              doctor.photoUrl),
                                           child: const Text(
                                             "Book",
                                             style: TextStyle(

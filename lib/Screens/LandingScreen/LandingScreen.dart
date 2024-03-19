@@ -71,11 +71,11 @@ class _LandingScreenState extends State<LandingScreen> {
                                       ? null
                                       : Colors.blue.withOpacity(0.2)),
                               child: const Icon(
-                                Icons.favorite_border,
+                                Icons.chat,
                                 color: Colors.blue,
                               )),
                           title: const Text(
-                            "Likes",
+                            "Chat",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w800,
@@ -92,11 +92,11 @@ class _LandingScreenState extends State<LandingScreen> {
                                       ? null
                                       : Colors.blue.withOpacity(0.2)),
                               child: const Icon(
-                                Icons.search,
+                                Icons.call,
                                 color: Colors.blue,
                               )),
                           title: const Text(
-                            "Search",
+                            "Call Log",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w800,

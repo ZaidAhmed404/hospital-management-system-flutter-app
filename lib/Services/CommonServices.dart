@@ -61,7 +61,7 @@ class CommonServices {
       try {
         DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
             .collection('patients')
-            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .doc(auth.currentUser?.uid)
             .get();
         if (documentSnapshot.exists) {
           log("${documentSnapshot.data()}", name: "patient data");

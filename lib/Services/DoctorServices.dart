@@ -115,7 +115,7 @@ class DoctorServices {
       required BuildContext context,
       required String status}) async {
     try {
-      await doctor.doc(docId).update({"profileState": "approved"});
+      doctor.doc(docId).update({"profileState": "approved"});
       if (context.mounted) {
         messageWidget(
             context: context,
