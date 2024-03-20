@@ -12,39 +12,40 @@ class AppointmentModel {
   final String patientPhotoUrl;
   final String startTime;
   final String timeSlot;
+  final String appointmentType;
 
-  AppointmentModel({
-    required this.appointmentDate,
-    required this.date,
-    required this.description,
-    required this.doctorId,
-    required this.doctorName,
-    required this.doctorPhotoUrl,
-    required this.endTime,
-    required this.name,
-    required this.patientId,
-    required this.patientName,
-    required this.patientPhotoUrl,
-    required this.startTime,
-    required this.timeSlot,
-  });
+  AppointmentModel(
+      {required this.appointmentDate,
+      required this.date,
+      required this.description,
+      required this.doctorId,
+      required this.doctorName,
+      required this.doctorPhotoUrl,
+      required this.endTime,
+      required this.name,
+      required this.patientId,
+      required this.patientName,
+      required this.patientPhotoUrl,
+      required this.startTime,
+      required this.timeSlot,
+      required this.appointmentType});
 
   factory AppointmentModel.fromJson(Map<String, dynamic> json) {
     return AppointmentModel(
-      appointmentDate: json['appointmentDate'],
-      date: json['date'],
-      description: json['description'],
-      doctorId: json['doctorId'],
-      doctorName: json['doctorName'],
-      doctorPhotoUrl: json['doctorPhotoUrl'],
-      endTime: json['endTime'],
-      name: json['name'],
-      patientId: json['patientId'],
-      patientName: json['patientName'],
-      patientPhotoUrl: json['patientPhotoUrl'],
-      startTime: json['startTime'],
-      timeSlot: json['timeSlot'],
-    );
+        appointmentDate: json['appointmentDate'],
+        date: json['date'],
+        description: json['description'],
+        doctorId: json['doctorId'],
+        doctorName: json['doctorName'],
+        doctorPhotoUrl: json['doctorPhotoUrl'],
+        endTime: json['endTime'],
+        name: json['name'],
+        patientId: json['patientId'],
+        patientName: json['patientName'],
+        patientPhotoUrl: json['patientPhotoUrl'],
+        startTime: json['startTime'],
+        timeSlot: json['timeSlot'],
+        appointmentType: json['appointmentType']);
   }
 
   Map<String, dynamic> toJson() {
@@ -62,6 +63,7 @@ class AppointmentModel {
       'patientPhotoUrl': patientPhotoUrl,
       'startTime': startTime,
       'timeSlot': timeSlot,
+      'appointmentType': appointmentType
     };
   }
 }

@@ -1,3 +1,4 @@
+import 'package:doctor_patient_management_system/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -58,14 +59,8 @@ class AdminProfileScreen extends StatelessWidget {
               buttonColor: Colors.blueAccent,
               borderColor: Colors.blueAccent,
               textColor: Colors.white,
-              onPressedFunction: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  CustomPageRoute(child: SignInScreen()),
-                  (route) => false,
-                );
-              }),
+              onPressedFunction: () =>
+                  appConstants.firebaseAuthServices.logout(context: context)),
         ],
       ),
     );

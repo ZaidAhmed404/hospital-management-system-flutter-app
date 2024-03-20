@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:doctor_patient_management_system/Screens/BookAppointmentScreen/Widgets/SelectAppointmentTypeWidget.dart';
 import 'package:doctor_patient_management_system/cubit/LoadingCubit/loading_cubit.dart';
 import 'package:doctor_patient_management_system/main.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   }
 
   String selectedSlot = "30 Minutes";
+  String selectedType = "Message";
 
   @override
   Widget build(BuildContext context) {
@@ -117,8 +119,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                       height: 30,
                     ),
                     TextFieldWidget(
-                      hintText: "Enter name",
-                      text: "Name",
+                      hintText: "Enter Problem name",
+                      text: "Problem Name",
                       controller: nameController,
                       isPassword: false,
                       isEnabled: true,
@@ -180,6 +182,16 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                     const SizedBox(
                       height: 10,
                     ),
+                    SelectAppointmentTypeWidget(
+                        selectedType: selectedType,
+                        onTypeSelectedFunction: (value) {
+                          setState(() {
+                            selectedType = value;
+                          });
+                        }),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     PickTimeWidget(
                         onPressedFunction: _selectTime,
                         pickedTime: _pickedTime),
@@ -222,18 +234,23 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                   message: "Time is required");
                             }
                           } else if (_formKey.currentState!.validate()) {
-                            appConstants.appointmentServices.addAppointment(
-                                name: nameController.text.trim(),
-                                date: _pickedDate!,
-                                slot: selectedSlot,
-                                time: _pickedTime!,
-                                description: descriptionController.text.trim(),
-                                doctorId: widget.doctorId,
-                                doctorName: widget.doctorName,
-                                doctorPhotoUrl: widget.doctorPhotoUrl,
-                                context: context);
-                            // appConstants.paymentServices
-                            //     .makePayment(context: context);
+                            bool state = await appConstants.appointmentServices
+                                .addAppointment(
+                                    name: nameController.text.trim(),
+                                    date: _pickedDate!,
+                                    slot: selectedSlot,
+                                    appointmentType: selectedType,
+                                    time: _pickedTime!,
+                                    description:
+                                        descriptionController.text.trim(),
+                                    doctorId: widget.doctorId,
+                                    doctorName: widget.doctorName,
+                                    doctorPhotoUrl: widget.doctorPhotoUrl,
+                                    context: context);
+                            if (state == true && context.mounted) {
+                              appConstants.paymentServices
+                                  .makePayment(context: context);
+                            }
                           }
                         }),
                     const SizedBox(

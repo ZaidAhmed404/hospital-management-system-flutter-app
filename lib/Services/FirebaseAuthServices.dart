@@ -13,7 +13,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import '../Route/CustomPageRoute.dart';
+import '../Screens/SignInScreen/SignInScreen.dart';
 import '../Widgets/MessageWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -256,5 +258,15 @@ class FirebaseAuthServices {
     if (context.mounted) {
       BlocProvider.of<LoadingCubit>(context).setLoading(false);
     }
+  }
+
+  logout({required BuildContext context}) {
+    FirebaseAuth.instance.signOut();
+    Navigator.pushAndRemoveUntil(
+      context,
+      CustomPageRoute(child: SignInScreen()),
+      (route) => false,
+    );
+    ZegoUIKitPrebuiltCallInvitationService().uninit();
   }
 }

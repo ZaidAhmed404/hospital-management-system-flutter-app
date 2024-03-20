@@ -5,6 +5,8 @@ import 'package:doctor_patient_management_system/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 import '../Models/DoctorModel.dart';
 import '../Models/PatientModel.dart';
@@ -31,7 +33,7 @@ class CommonServices {
     try {
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection('doctors')
-          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .doc(auth.currentUser?.uid)
           .get();
       if (documentSnapshot.exists) {
         log("${documentSnapshot.data()}", name: "doctor data");
@@ -84,12 +86,22 @@ class CommonServices {
         // }
       }
     }
-    if (context.mounted && FirebaseAuth.instance.currentUser != null) {
+    if (auth.currentUser != null) {
+      ZegoUIKitPrebuiltCallInvitationService().init(
+        appID: 4363952,
+        appSign:
+            "f1e6f0abefbcf0be0a9fa51f909e28c07515c25109378107e9ac46ecba959aaa",
+        userID: auth.currentUser!.uid,
+        userName: auth.currentUser!.displayName!,
+        plugins: [ZegoUIKitSignalingPlugin()],
+      );
+    }
+    if (context.mounted && auth.currentUser != null) {
       BlocProvider.of<UserCubit>(context).updateUserModel(
-        email: FirebaseAuth.instance.currentUser!.email.toString(),
-        uid: FirebaseAuth.instance.currentUser!.uid.toString(),
-        displayName: FirebaseAuth.instance.currentUser!.displayName.toString(),
-        photoUrl: FirebaseAuth.instance.currentUser!.photoURL.toString(),
+        email: auth.currentUser!.email.toString(),
+        uid: auth.currentUser!.uid.toString(),
+        displayName: auth.currentUser!.displayName.toString(),
+        photoUrl: auth.currentUser!.photoURL.toString(),
       );
     }
     log("${auth.currentUser?.uid}", name: "user id");
@@ -142,5 +154,19 @@ class CommonServices {
         );
       }
     }
+  }
+
+  TimeOfDay convertTimeStringToTimeOfDay(String timeString) {
+    List<String> parts = timeString.split(' ');
+
+    List<String> timeParts = parts[0].split(':');
+    int hour = int.parse(timeParts[0]);
+    int minute = int.parse(timeParts[1]);
+
+    if (parts[1].toLowerCase() == 'pm' && hour < 12) {
+      hour += 12;
+    }
+
+    return TimeOfDay(hour: hour, minute: minute);
   }
 }

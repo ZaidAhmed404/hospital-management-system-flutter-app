@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../Route/CustomPageRoute.dart';
 import '../../Widgets/ButtonWidget.dart';
+import '../../main.dart';
 import '../SignInScreen/SignInScreen.dart';
 
 class ProfileNotApprovedScreen extends StatelessWidget {
@@ -38,14 +39,8 @@ class ProfileNotApprovedScreen extends StatelessWidget {
               buttonColor: Colors.blueAccent,
               borderColor: Colors.blueAccent,
               textColor: Colors.white,
-              onPressedFunction: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  CustomPageRoute(child: SignInScreen()),
-                  (route) => false,
-                );
-              }),
+              onPressedFunction: () =>
+                  appConstants.firebaseAuthServices.logout(context: context)),
         ),
       ],
     ));

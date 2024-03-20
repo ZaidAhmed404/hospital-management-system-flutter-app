@@ -299,15 +299,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       color: Colors.black.withOpacity(0.1),
                                     ),
                                     IconTextTileWidget(
-                                      onPressedFunction: () {
-                                        FirebaseAuth.instance.signOut();
-                                        Navigator.pushAndRemoveUntil(
-                                          context,
-                                          CustomPageRoute(
-                                              child: SignInScreen()),
-                                          (route) => false,
-                                        );
-                                      },
+                                      onPressedFunction: () => appConstants
+                                          .firebaseAuthServices
+                                          .logout(context: context),
                                       text: "Logout",
                                       haveSecondIcon: false,
                                       firstIcon: Icons.logout,

@@ -1,11 +1,13 @@
 import 'package:doctor_patient_management_system/cubit/DoctorCubit/doctor_cubit.dart';
 import 'package:doctor_patient_management_system/cubit/UserCubit/user_cubit.dart';
 import 'package:doctor_patient_management_system/cubit/patient/patient_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../AppointmentScreen/AppointmentScreen.dart';
+import '../CallHistoryScreen/CallHistoryScreen.dart';
 import '../ProfileScreen/ProfileScreen.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -29,13 +31,15 @@ class _LandingScreenState extends State<LandingScreen> {
                     backgroundColor: Colors.white,
                     body: _currentIndex == 0
                         ? const AppointmentScreen()
-                        : _currentIndex == 3
-                            ? ProfileScreen(
-                                patientModel: patientState.patientModel,
-                                userModel: userState.userModel,
-                                doctorModel: doctorState.doctorModel,
-                              )
-                            : const Center(child: Text("Other")),
+                        : _currentIndex == 2
+                            ? CallHistoryScreen()
+                            : _currentIndex == 3
+                                ? ProfileScreen(
+                                    patientModel: patientState.patientModel,
+                                    userModel: userState.userModel,
+                                    doctorModel: doctorState.doctorModel,
+                                  )
+                                : const Center(child: Text("Other")),
                     bottomNavigationBar: SalomonBottomBar(
                       currentIndex: _currentIndex,
                       onTap: (i) => setState(() => _currentIndex = i),

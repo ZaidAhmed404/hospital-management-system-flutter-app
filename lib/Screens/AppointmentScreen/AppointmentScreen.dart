@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_patient_management_system/Screens/AppointmentScreen/Widgets/AppointmentDetailsDialogWidget.dart';
 import 'package:doctor_patient_management_system/main.dart';
 import 'package:flutter/material.dart';
 
 import '../../Models/AppointmentModel.dart';
+import '../../Widgets/CallButtonWidget.dart';
+import '../../Widgets/MessageWidget.dart';
 import '../BookAppointmentScreen/BookAppointmentScreen.dart';
 import '../SearchDoctorScreen/SearchDoctorScreen.dart';
 
@@ -133,6 +138,15 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                     itemBuilder: (context, index) {
                                       AppointmentModel appointment =
                                           appointments[index];
+
+                                      TimeOfDay appointedStartTime =
+                                          appConstants.commonServices
+                                              .convertTimeStringToTimeOfDay(
+                                                  appointment.startTime);
+                                      TimeOfDay appointedEndTime = appConstants
+                                          .commonServices
+                                          .convertTimeStringToTimeOfDay(
+                                              appointment.endTime);
                                       return Container(
                                         margin: const EdgeInsets.only(
                                             top: 5, bottom: 5),
@@ -154,110 +168,178 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Row(
-                                              children: [
-                                                ClipOval(
-                                                  child: SizedBox.fromSize(
-                                                    size: const Size.fromRadius(
-                                                        30),
-                                                    child: Image.network(
-                                                      appointment
-                                                          .patientPhotoUrl,
-                                                      frameBuilder: (context,
-                                                          child, frame, was) {
-                                                        return child;
-                                                      },
-                                                      loadingBuilder: (context,
-                                                          child,
-                                                          loadingProgress) {
-                                                        if (loadingProgress ==
-                                                            null) {
+                                            InkWell(
+                                              onTap: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        Dialog(
+                                                            insetPadding:
+                                                                const EdgeInsets
+                                                                    .all(20),
+                                                            child:
+                                                                AppointmentDetailsDialogWidget(
+                                                              appointmentModel:
+                                                                  appointment,
+                                                            )));
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  ClipOval(
+                                                    child: SizedBox.fromSize(
+                                                      size:
+                                                          const Size.fromRadius(
+                                                              25),
+                                                      child: Image.network(
+                                                        appointment
+                                                            .patientPhotoUrl,
+                                                        frameBuilder: (context,
+                                                            child, frame, was) {
                                                           return child;
-                                                        }
-                                                        return Center(
-                                                            child: SizedBox(
-                                                                width: 70,
-                                                                height: 70,
-                                                                child:
-                                                                    Container(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(
-                                                                          20),
-                                                                  decoration: BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10)),
+                                                        },
+                                                        loadingBuilder: (context,
+                                                            child,
+                                                            loadingProgress) {
+                                                          if (loadingProgress ==
+                                                              null) {
+                                                            return child;
+                                                          }
+                                                          return Center(
+                                                              child: SizedBox(
+                                                                  width: 70,
+                                                                  height: 70,
                                                                   child:
-                                                                      const CircularProgressIndicator(
-                                                                    color: Color(
-                                                                        0xff3FA8F9),
-                                                                  ),
-                                                                )));
-                                                      },
-                                                      fit: BoxFit.fill,
-                                                      width: width * 0.75,
+                                                                      Container(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(
+                                                                            20),
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10)),
+                                                                    child:
+                                                                        const CircularProgressIndicator(
+                                                                      color: Color(
+                                                                          0xff3FA8F9),
+                                                                    ),
+                                                                  )));
+                                                        },
+                                                        fit: BoxFit.fill,
+                                                        width: width * 0.75,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      appointment.patientName,
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    Text(
-                                                      appointment.timeSlot,
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    Text(
-                                                      "${appointment.startTime} - ${appointment.endTime}",
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    Text(
-                                                      appointment
-                                                          .appointmentDate,
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        appointment.patientName,
+                                                        maxLines: 1,
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      Text(
+                                                        appointment.timeSlot,
+                                                        maxLines: 1,
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      ),
+                                                      Text(
+                                                        "${appointment.startTime} - ${appointment.endTime}",
+                                                        maxLines: 1,
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      ),
+                                                      Text(
+                                                        appointment
+                                                            .appointmentDate,
+                                                        maxLines: 1,
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            Container(
-                                              padding: const EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
+                                            if (appointment.appointmentType ==
+                                                    "Message" &&
+                                                (appointedStartTime.hour >=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedStartTime.minute >=
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (appointedEndTime.hour <=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedEndTime.minute <=
+                                                        TimeOfDay.now().minute))
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                decoration: const BoxDecoration(
+                                                    shape: BoxShape.circle,
                                                     color: Colors.green),
+                                                child: const Icon(
+                                                  Icons.message,
+                                                  color: Colors.white,
+                                                ),
                                               ),
-                                              child: const Icon(
-                                                Icons.call,
-                                                color: Colors.green,
+                                            if (appointment.appointmentType ==
+                                                    "Audio Call" &&
+                                                (appointedStartTime.hour >=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedStartTime.minute >=
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (appointedEndTime.hour <=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedEndTime.minute <=
+                                                        TimeOfDay.now().minute))
+                                              CallButtonWidget(
+                                                isVideoCall: false,
+                                                targetUserId:
+                                                    appointment.patientId,
+                                                targetUserName:
+                                                    appointment.patientName,
                                               ),
-                                            )
+                                            if (appointment.appointmentType ==
+                                                    "Video Call" &&
+                                                (appointedStartTime.hour >=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedStartTime.minute >=
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (appointedEndTime.hour <=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedEndTime.minute <=
+                                                        TimeOfDay.now().minute))
+                                              CallButtonWidget(
+                                                isVideoCall: true,
+                                                targetUserId:
+                                                    appointment.patientId,
+                                                targetUserName:
+                                                    appointment.patientName,
+                                              )
                                           ],
                                         ),
                                       );
@@ -304,6 +386,14 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                     itemBuilder: (context, index) {
                                       AppointmentModel appointment =
                                           appointments[index];
+                                      TimeOfDay appointedStartTime =
+                                          appConstants.commonServices
+                                              .convertTimeStringToTimeOfDay(
+                                                  appointment.startTime);
+                                      TimeOfDay appointedEndTime = appConstants
+                                          .commonServices
+                                          .convertTimeStringToTimeOfDay(
+                                              appointment.endTime);
                                       return Container(
                                         margin: const EdgeInsets.only(
                                             top: 5, bottom: 5),
@@ -325,110 +415,178 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Row(
-                                              children: [
-                                                ClipOval(
-                                                  child: SizedBox.fromSize(
-                                                    size: const Size.fromRadius(
-                                                        30),
-                                                    child: Image.network(
-                                                      appointment
-                                                          .doctorPhotoUrl,
-                                                      frameBuilder: (context,
-                                                          child, frame, was) {
-                                                        return child;
-                                                      },
-                                                      loadingBuilder: (context,
-                                                          child,
-                                                          loadingProgress) {
-                                                        if (loadingProgress ==
-                                                            null) {
+                                            InkWell(
+                                              onTap: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        Dialog(
+                                                            insetPadding:
+                                                                const EdgeInsets
+                                                                    .all(20),
+                                                            child:
+                                                                AppointmentDetailsDialogWidget(
+                                                              appointmentModel:
+                                                                  appointment,
+                                                            )));
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  ClipOval(
+                                                    child: SizedBox.fromSize(
+                                                      size:
+                                                          const Size.fromRadius(
+                                                              25),
+                                                      child: Image.network(
+                                                        appointment
+                                                            .doctorPhotoUrl,
+                                                        frameBuilder: (context,
+                                                            child, frame, was) {
                                                           return child;
-                                                        }
-                                                        return Center(
-                                                            child: SizedBox(
-                                                                width: 70,
-                                                                height: 70,
-                                                                child:
-                                                                    Container(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(
-                                                                          20),
-                                                                  decoration: BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10)),
+                                                        },
+                                                        loadingBuilder: (context,
+                                                            child,
+                                                            loadingProgress) {
+                                                          if (loadingProgress ==
+                                                              null) {
+                                                            return child;
+                                                          }
+                                                          return Center(
+                                                              child: SizedBox(
+                                                                  width: 70,
+                                                                  height: 70,
                                                                   child:
-                                                                      const CircularProgressIndicator(
-                                                                    color: Color(
-                                                                        0xff3FA8F9),
-                                                                  ),
-                                                                )));
-                                                      },
-                                                      fit: BoxFit.fill,
-                                                      width: width * 0.75,
+                                                                      Container(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(
+                                                                            20),
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10)),
+                                                                    child:
+                                                                        const CircularProgressIndicator(
+                                                                      color: Color(
+                                                                          0xff3FA8F9),
+                                                                    ),
+                                                                  )));
+                                                        },
+                                                        fit: BoxFit.fill,
+                                                        width: width * 0.75,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      appointment.doctorName,
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    Text(
-                                                      appointment.timeSlot,
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    Text(
-                                                      "${appointment.startTime} - ${appointment.endTime}",
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    Text(
-                                                      appointment
-                                                          .appointmentDate,
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        appointment.doctorName,
+                                                        maxLines: 1,
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      Text(
+                                                        appointment.timeSlot,
+                                                        maxLines: 1,
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      ),
+                                                      Text(
+                                                        "${appointment.startTime} - ${appointment.endTime}",
+                                                        maxLines: 1,
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      ),
+                                                      Text(
+                                                        appointment
+                                                            .appointmentDate,
+                                                        maxLines: 1,
+                                                        style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            Container(
-                                              padding: const EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
+                                            if (appointment.appointmentType ==
+                                                    "Message" &&
+                                                (appointedStartTime.hour >=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedStartTime.minute >=
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (appointedEndTime.hour <=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedEndTime.minute <=
+                                                        TimeOfDay.now().minute))
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                decoration: const BoxDecoration(
+                                                    shape: BoxShape.circle,
                                                     color: Colors.green),
+                                                child: const Icon(
+                                                  Icons.message,
+                                                  color: Colors.white,
+                                                ),
                                               ),
-                                              child: const Icon(
-                                                Icons.call,
-                                                color: Colors.green,
+                                            if (appointment.appointmentType ==
+                                                    "Audio Call" &&
+                                                (appointedStartTime.hour >=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedStartTime.minute >=
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (appointedEndTime.hour <=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedEndTime.minute <=
+                                                        TimeOfDay.now().minute))
+                                              CallButtonWidget(
+                                                isVideoCall: false,
+                                                targetUserId:
+                                                    appointment.patientId,
+                                                targetUserName:
+                                                    appointment.patientName,
                                               ),
-                                            )
+                                            if (appointment.appointmentType ==
+                                                    "Video Call" &&
+                                                (appointedStartTime.hour >=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedStartTime.minute >=
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (appointedEndTime.hour <=
+                                                        TimeOfDay.now().hour &&
+                                                    appointedEndTime.minute <=
+                                                        TimeOfDay.now().minute))
+                                              CallButtonWidget(
+                                                isVideoCall: true,
+                                                targetUserId:
+                                                    appointment.patientId,
+                                                targetUserName:
+                                                    appointment.patientName,
+                                              )
                                           ],
                                         ),
                                       );

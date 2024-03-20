@@ -11,57 +11,81 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'Models/DoctorModel.dart';
-import 'Models/PatientModel.dart';
-import 'Screens/BoardingScreen/BoardingScreen.dart';
-import 'Screens/LandingScreen/LandingScreen.dart';
-import 'Screens/RegisterUserRoleScreen/RegisterUserRolesScreen.dart';
 import 'cubit/LoadingCubit/loading_cubit.dart';
 import 'firebase_options.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 AppConstants appConstants = AppConstants();
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
   Stripe.publishableKey = appConstants.stripePublishableKey;
 
   await Stripe.instance.applySettings();
 
-  runApp(const MyApp());
+  /// call the useSystemCallingUI
+  await ZegoUIKit().initLog().then((value) {
+    ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
+      [ZegoUIKitSignalingPlugin()],
+    );
+
+    runApp(MyApp(navigatorKey: navigatorKey));
+  });
+  // runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.navigatorKey});
+
+  final GlobalKey<NavigatorState> navigatorKey;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => LoadingCubit(),
-        ),
-        BlocProvider(
-          create: (context) => UserCubit(),
-        ),
-        BlocProvider(
-          create: (context) => DoctorCubit(),
-        ),
-        BlocProvider(
-          create: (context) => PatientCubit(),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
-          useMaterial3: true,
-        ),
-        home: const MyHomePage(),
-      ),
-    );
+        providers: [
+          BlocProvider(
+            create: (context) => LoadingCubit(),
+          ),
+          BlocProvider(
+            create: (context) => UserCubit(),
+          ),
+          BlocProvider(
+            create: (context) => DoctorCubit(),
+          ),
+          BlocProvider(
+            create: (context) => PatientCubit(),
+          ),
+        ],
+        child: MaterialApp(
+          title: 'Hospital Management System',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+            useMaterial3: true,
+          ),
+          home: const MyHomePage(),
+          navigatorKey: navigatorKey,
+          builder: (BuildContext context, Widget? child) {
+            return Stack(
+              children: [
+                child!,
+
+                /// support minimizing
+                ZegoUIKitPrebuiltCallMiniOverlayPage(
+                  contextQuery: () {
+                    return navigatorKey.currentState!.context;
+                  },
+                ),
+              ],
+            );
+          },
+        ));
   }
 }
 

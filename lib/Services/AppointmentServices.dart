@@ -29,6 +29,7 @@ class AppointmentServices {
       required String doctorId,
       required String doctorName,
       required String doctorPhotoUrl,
+      required String appointmentType,
       required BuildContext context}) async {
     BlocProvider.of<LoadingCubit>(context).setLoading(true);
     FocusScope.of(context).unfocus();
@@ -44,6 +45,7 @@ class AppointmentServices {
             "patientName": "${FirebaseAuth.instance.currentUser?.displayName}",
             "patientPhotoUrl": "${FirebaseAuth.instance.currentUser?.photoURL}",
             "doctorId": doctorId,
+            "appointmentType": appointmentType,
             "doctorName": doctorName,
             "doctorPhotoUrl": doctorPhotoUrl,
             "startTime":

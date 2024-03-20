@@ -26,7 +26,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -54,15 +57,7 @@ class DefaultFirebaseOptions {
     appId: '1:3090369065:android:70334613a4bac8f728ea38',
     messagingSenderId: '3090369065',
     projectId: 'patient-doctor-app-ae024',
+    databaseURL: 'https://patient-doctor-app-ae024-default-rtdb.firebaseio.com',
     storageBucket: 'patient-doctor-app-ae024.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBCh8gJRguYAMnWdoknkHAFsypQuNLVgR0',
-    appId: '1:3090369065:ios:6892b92a2029306228ea38',
-    messagingSenderId: '3090369065',
-    projectId: 'patient-doctor-app-ae024',
-    storageBucket: 'patient-doctor-app-ae024.appspot.com',
-    iosBundleId: 'com.example.doctorPatientManagementSystem',
   );
 }
