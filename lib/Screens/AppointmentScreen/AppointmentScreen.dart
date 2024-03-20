@@ -321,6 +321,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                     appointment.patientId,
                                                 targetUserName:
                                                     appointment.patientName,
+                                                targetUserPhotoUrl:
+                                                    appointment.patientPhotoUrl,
                                               ),
                                             if (appointment.appointmentType ==
                                                     "Video Call" &&
@@ -339,6 +341,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                     appointment.patientId,
                                                 targetUserName:
                                                     appointment.patientName,
+                                                targetUserPhotoUrl:
+                                                    appointment.patientPhotoUrl,
                                               )
                                           ],
                                         ),
@@ -565,9 +569,11 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                               CallButtonWidget(
                                                 isVideoCall: false,
                                                 targetUserId:
-                                                    appointment.patientId,
+                                                    appointment.doctorId,
                                                 targetUserName:
-                                                    appointment.patientName,
+                                                    appointment.doctorName,
+                                                targetUserPhotoUrl:
+                                                    appointment.doctorName,
                                               ),
                                             if (appointment.appointmentType ==
                                                     "Video Call" &&
@@ -583,9 +589,11 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                               CallButtonWidget(
                                                 isVideoCall: true,
                                                 targetUserId:
-                                                    appointment.patientId,
+                                                    appointment.doctorId,
                                                 targetUserName:
-                                                    appointment.patientName,
+                                                    appointment.doctorName,
+                                                targetUserPhotoUrl:
+                                                    appointment.doctorPhotoUrl,
                                               )
                                           ],
                                         ),

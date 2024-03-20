@@ -1,31 +1,47 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../Widgets/MessageWidget.dart';
+
 class CallServices {
-  Future<List<dynamic>> getCallHistoryFromZegoCloud(
-      {required String userId}) async {
-    const String endpoint = 'https://example.zegocloud.com/api/call_history';
+  CollectionReference callLog =
+      FirebaseFirestore.instance.collection('callLogs');
 
+  Future<bool> addCallRecord({
+    required String callerId,
+    required String callerName,
+    required String callerPhotoUrl,
+    required String targetUserId,
+    required String targetUserName,
+    required String targetUserPhotoUrl,
+    required String callType,
+  }) async {
     try {
-      final response = await http.get(
-        Uri.parse('$endpoint?user_id=$userId'),
-        headers: {
-          'Authorization': 'Bearer 4363952',
-          // Include your API key for authentication
-        },
-      );
-      log("${response.body}", name: "call history");
-      if (response.statusCode == 200) {
-        List<dynamic> callHistory = json.decode(response.body);
-
-        return callHistory;
-      } else {
-        throw Exception('Failed to fetch call history from ZegoCloud');
-      }
-    } catch (e) {
-      throw Exception('Error: $e');
+      final now = DateTime.now();
+      await callLog
+          .add({
+            "callerId": callerId,
+            "callerName": callerName,
+            "callerPhotoUrl": callerPhotoUrl,
+            "targetUserId": targetUserId,
+            "targetUserName": targetUserName,
+            "targetUserPhotoUrl": targetUserPhotoUrl,
+            "callType": callType,
+            "time":
+                "${TimeOfDay.now().hour % 12 == 0 ? 12 : TimeOfDay.now().hour % 12}:${TimeOfDay.now().minute}:${TimeOfDay.now().period.name}",
+            "date": "${now.day}-${now.month}-${now.year}"
+          })
+          .then((value) => log("Call Log data Added", name: "success"))
+          .catchError((error) =>
+              log("Failed to add Call Log data: $error", name: "error"));
+    } catch (error) {
+      return false;
     }
+
+    return true;
   }
 }

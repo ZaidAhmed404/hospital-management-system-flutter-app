@@ -18,6 +18,7 @@ class AppConstants {
   AppointmentServices appointmentServices = AppointmentServices();
   PaymentServices paymentServices = PaymentServices();
   CallServices callServices = CallServices();
+
   String role = "";
   String shareMessage =
       "Hope you're doing well! I recently discovered this amazing doctor and patient app that's a game-changer. It's super convenient for managing health, scheduling appointments, and getting quick consultations. I thought you might find it useful too. How about we check it out together? It could be a fun way to prioritize our health. ";
