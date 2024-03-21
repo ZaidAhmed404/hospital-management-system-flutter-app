@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_patient_management_system/Screens/AppointmentScreen/Widgets/AppointmentDetailsDialogWidget.dart';
 import 'package:doctor_patient_management_system/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../Models/AppointmentModel.dart';
@@ -124,12 +125,16 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                 if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 }
-                                List<AppointmentModel> appointments =
-                                    snapshot.data!.docs.map((doc) {
-                                  Map<String, dynamic> data =
-                                      doc.data() as Map<String, dynamic>;
-                                  return AppointmentModel.fromJson(data);
-                                }).toList();
+                                List<AppointmentModel> appointments = snapshot
+                                    .data!.docs
+                                    .map((doc) {
+                                      Map<String, dynamic> data =
+                                          doc.data() as Map<String, dynamic>;
+                                      return AppointmentModel.fromJson(data);
+                                    })
+                                    .where((appoint) => (appoint.doctorId ==
+                                        FirebaseAuth.instance.currentUser!.uid))
+                                    .toList();
 
                                 // final documents = snapshot.data!.docs;
                                 return SizedBox(
@@ -147,6 +152,12 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                           .commonServices
                                           .convertTimeStringToTimeOfDay(
                                               appointment.endTime);
+                                      DateTime appointmentDate = appConstants
+                                          .commonServices
+                                          .stringToDateTime(
+                                              dateString:
+                                                  appointment.appointmentDate);
+
                                       return Container(
                                         margin: const EdgeInsets.only(
                                             top: 5, bottom: 5),
@@ -285,14 +296,21 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                             if (appointment.appointmentType ==
                                                     "Message" &&
                                                 (appointedStartTime.hour >=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedStartTime.minute >=
                                                         TimeOfDay.now()
                                                             .minute) &&
                                                 (appointedEndTime.hour <=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedEndTime.minute <=
-                                                        TimeOfDay.now().minute))
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (DateTime.now().day ==
+                                                        appointmentDate.day &&
+                                                    DateTime.now().month ==
+                                                        appointmentDate.month &&
+                                                    DateTime.now().year ==
+                                                        appointmentDate.year))
                                               Container(
                                                 padding:
                                                     const EdgeInsets.all(10),
@@ -307,14 +325,21 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                             if (appointment.appointmentType ==
                                                     "Audio Call" &&
                                                 (appointedStartTime.hour >=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedStartTime.minute >=
                                                         TimeOfDay.now()
                                                             .minute) &&
                                                 (appointedEndTime.hour <=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedEndTime.minute <=
-                                                        TimeOfDay.now().minute))
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (DateTime.now().day ==
+                                                        appointmentDate.day &&
+                                                    DateTime.now().month ==
+                                                        appointmentDate.month &&
+                                                    DateTime.now().year ==
+                                                        appointmentDate.year))
                                               CallButtonWidget(
                                                 isVideoCall: false,
                                                 targetUserId:
@@ -327,14 +352,21 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                             if (appointment.appointmentType ==
                                                     "Video Call" &&
                                                 (appointedStartTime.hour >=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedStartTime.minute >=
                                                         TimeOfDay.now()
                                                             .minute) &&
                                                 (appointedEndTime.hour <=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedEndTime.minute <=
-                                                        TimeOfDay.now().minute))
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (DateTime.now().day ==
+                                                        appointmentDate.day &&
+                                                    DateTime.now().month ==
+                                                        appointmentDate.month &&
+                                                    DateTime.now().year ==
+                                                        appointmentDate.year))
                                               CallButtonWidget(
                                                 isVideoCall: true,
                                                 targetUserId:
@@ -376,12 +408,16 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                 if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 }
-                                List<AppointmentModel> appointments =
-                                    snapshot.data!.docs.map((doc) {
-                                  Map<String, dynamic> data =
-                                      doc.data() as Map<String, dynamic>;
-                                  return AppointmentModel.fromJson(data);
-                                }).toList();
+                                List<AppointmentModel> appointments = snapshot
+                                    .data!.docs
+                                    .map((doc) {
+                                      Map<String, dynamic> data =
+                                          doc.data() as Map<String, dynamic>;
+                                      return AppointmentModel.fromJson(data);
+                                    })
+                                    .where((appoint) => (appoint.patientId ==
+                                        FirebaseAuth.instance.currentUser!.uid))
+                                    .toList();
 
                                 // final documents = snapshot.data!.docs;
                                 return SizedBox(
@@ -398,6 +434,19 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                           .commonServices
                                           .convertTimeStringToTimeOfDay(
                                               appointment.endTime);
+                                      DateTime appointmentDate = appConstants
+                                          .commonServices
+                                          .stringToDateTime(
+                                              dateString:
+                                                  appointment.appointmentDate);
+                                      log("$appointedStartTime",
+                                          name: "starting date");
+                                      log("$appointedEndTime",
+                                          name: "ending date");
+                                      log("${appointment.appointmentType}",
+                                          name: "appointment type");
+                                      log("${TimeOfDay.now()}", name: "now");
+
                                       return Container(
                                         margin: const EdgeInsets.only(
                                             top: 5, bottom: 5),
@@ -536,14 +585,21 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                             if (appointment.appointmentType ==
                                                     "Message" &&
                                                 (appointedStartTime.hour >=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedStartTime.minute >=
                                                         TimeOfDay.now()
                                                             .minute) &&
                                                 (appointedEndTime.hour <=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedEndTime.minute <=
-                                                        TimeOfDay.now().minute))
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (DateTime.now().day ==
+                                                        appointmentDate.day &&
+                                                    DateTime.now().month ==
+                                                        appointmentDate.month &&
+                                                    DateTime.now().year ==
+                                                        appointmentDate.year))
                                               Container(
                                                 padding:
                                                     const EdgeInsets.all(10),
@@ -558,14 +614,21 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                             if (appointment.appointmentType ==
                                                     "Audio Call" &&
                                                 (appointedStartTime.hour >=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedStartTime.minute >=
                                                         TimeOfDay.now()
                                                             .minute) &&
                                                 (appointedEndTime.hour <=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedEndTime.minute <=
-                                                        TimeOfDay.now().minute))
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (DateTime.now().day ==
+                                                        appointmentDate.day &&
+                                                    DateTime.now().month ==
+                                                        appointmentDate.month &&
+                                                    DateTime.now().year ==
+                                                        appointmentDate.year))
                                               CallButtonWidget(
                                                 isVideoCall: false,
                                                 targetUserId:
@@ -578,14 +641,21 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                             if (appointment.appointmentType ==
                                                     "Video Call" &&
                                                 (appointedStartTime.hour >=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedStartTime.minute >=
                                                         TimeOfDay.now()
                                                             .minute) &&
                                                 (appointedEndTime.hour <=
-                                                        TimeOfDay.now().hour &&
+                                                        TimeOfDay.now().hour ||
                                                     appointedEndTime.minute <=
-                                                        TimeOfDay.now().minute))
+                                                        TimeOfDay.now()
+                                                            .minute) &&
+                                                (DateTime.now().day ==
+                                                        appointmentDate.day &&
+                                                    DateTime.now().month ==
+                                                        appointmentDate.month &&
+                                                    DateTime.now().year ==
+                                                        appointmentDate.year))
                                               CallButtonWidget(
                                                 isVideoCall: true,
                                                 targetUserId:

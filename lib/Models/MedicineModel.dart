@@ -10,9 +10,9 @@ class MedicineModel {
   });
 
   MedicineModel.fromMap(Map<String, dynamic> map)
-      : name = map['name'],
-        quantity = map['quantity'],
-        date = map['date'];
+      : name = map['name'] ?? "",
+        quantity = map['quantity'] ?? "",
+        date = map['date'] ?? "";
 
   Map<String, dynamic> toMap() {
     return {

@@ -1,3 +1,9 @@
+import 'dart:core';
+import 'dart:core';
+import 'dart:core';
+import 'dart:core';
+import 'dart:core';
+import 'dart:core';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,6 +11,7 @@ import 'package:doctor_patient_management_system/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
@@ -168,5 +175,12 @@ class CommonServices {
     }
 
     return TimeOfDay(hour: hour, minute: minute);
+  }
+
+  DateTime stringToDateTime({required String dateString}) {
+    List<String> dateParts = dateString.split('-');
+    DateFormat format = DateFormat("dd-MM-yyyy");
+    DateTime dateTime = format.parse(dateString);
+    return dateTime;
   }
 }

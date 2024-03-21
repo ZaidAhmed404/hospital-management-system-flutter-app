@@ -46,11 +46,17 @@ class CallHistoryScreen extends StatelessWidget {
                 if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 }
-                List<CallLogModel> callLogs = snapshot.data!.docs.map((doc) {
-                  Map<String, dynamic> data =
-                      doc.data() as Map<String, dynamic>;
-                  return CallLogModel.fromJson(data);
-                }).toList();
+                List<CallLogModel> callLogs = snapshot.data!.docs
+                    .map((doc) {
+                      Map<String, dynamic> data =
+                          doc.data() as Map<String, dynamic>;
+                      return CallLogModel.fromJson(data);
+                    })
+                    .where((appoint) => (appoint.callerId ==
+                            FirebaseAuth.instance.currentUser!.uid ||
+                        appoint.targetUserId ==
+                            FirebaseAuth.instance.currentUser!.uid))
+                    .toList();
                 return SizedBox(
                   child: ListView.builder(
                     itemCount: callLogs.length,

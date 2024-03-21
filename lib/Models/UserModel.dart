@@ -12,10 +12,10 @@ class UserModel {
   });
 
   UserModel.fromMap(Map<String, dynamic> map)
-      : uid = map['uid'],
-        displayName = map['displayName'],
-        email = map['email'],
-        photoUrl = map['photoUrl'];
+      : uid = map['uid'] ?? "",
+        displayName = map['displayName'] ?? "",
+        email = map['email'] ?? "",
+        photoUrl = map['photoUrl'] ?? "";
 
   Map<String, dynamic> toMap() {
     return {

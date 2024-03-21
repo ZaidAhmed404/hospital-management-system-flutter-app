@@ -22,15 +22,15 @@ class CallLogModel {
 
   factory CallLogModel.fromJson(Map<String, dynamic> json) {
     return CallLogModel(
-        callerId: json['callerId'],
-        callerName: json['callerName'],
-        callerPhotoUrl: json['callerPhotoUrl'],
-        targetUserId: json['targetUserId'],
-        targetUserName: json['targetUserName'],
-        targetUserPhotoUrl: json['targetUserPhotoUrl'],
-        callType: json['callType'],
-        date: json['date'],
-        time: json['time']);
+        callerId: json['callerId'] ?? "",
+        callerName: json['callerName'] ?? "",
+        callerPhotoUrl: json['callerPhotoUrl'] ?? "",
+        targetUserId: json['targetUserId'] ?? "",
+        targetUserName: json['targetUserName'] ?? "",
+        targetUserPhotoUrl: json['targetUserPhotoUrl'] ?? "",
+        callType: json['callType'] ?? "",
+        date: json['date'] ?? "",
+        time: json['time'] ?? "");
   }
 
   Map<String, dynamic> toJson() {

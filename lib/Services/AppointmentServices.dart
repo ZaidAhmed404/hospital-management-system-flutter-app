@@ -19,6 +19,8 @@ class AppointmentServices {
 
   CollectionReference appointment =
       FirebaseFirestore.instance.collection('appointments');
+  CollectionReference chatLog =
+      FirebaseFirestore.instance.collection('chatLogs');
 
   Future<bool> addAppointment(
       {required String name,
@@ -33,9 +35,40 @@ class AppointmentServices {
       required BuildContext context}) async {
     BlocProvider.of<LoadingCubit>(context).setLoading(true);
     FocusScope.of(context).unfocus();
+    final now = DateTime.now();
+    if (appointmentType == "Message") {
+      try {
+        await chatLog
+            .add({
+              "patientId": "${FirebaseAuth.instance.currentUser?.uid}",
+              "patientName":
+                  "${FirebaseAuth.instance.currentUser?.displayName}",
+              "patientPhotoUrl":
+                  "${FirebaseAuth.instance.currentUser?.photoURL}",
+              "doctorId": doctorId,
+              "doctorName": doctorName,
+              "doctorPhotoUrl": doctorPhotoUrl,
+              "startTime":
+                  "${time.hour % 12 == 0 ? 12 : time.hour % 12}:${time.minute} ${time.period.name}",
+              "endTime": slot == "30 Minutes"
+                  ? "${time.hour % 12 == 0 ? 12 : addMinutesToTime(time, 30).hour % 12}:${addMinutesToTime(time, 30).minute} ${time.period.name}"
+                  : "${time.hour % 12 == 0 ? 12 : addMinutesToTime(time, 60).hour % 12}:${addMinutesToTime(time, 60).minute} ${time.period.name}",
+              "appointmentDate": "${date.day}-${date.month}-${date.year}",
+              "date": "${now.day}-${now.month}-${now.year}"
+            })
+            .then((value) => log("Chat History Added", name: "success"))
+            .catchError((error) =>
+                log("Failed to add Chat History: $error", name: "error"));
+      } catch (error) {
+        if (context.mounted) {
+          messageWidget(
+              context: context, isError: true, message: error.toString());
+        }
+        return false;
+      }
+    }
 
     try {
-      final now = DateTime.now();
       await appointment
           .add({
             "name": name,

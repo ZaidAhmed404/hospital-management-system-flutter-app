@@ -32,20 +32,20 @@ class AppointmentModel {
 
   factory AppointmentModel.fromJson(Map<String, dynamic> json) {
     return AppointmentModel(
-        appointmentDate: json['appointmentDate'],
-        date: json['date'],
-        description: json['description'],
-        doctorId: json['doctorId'],
-        doctorName: json['doctorName'],
-        doctorPhotoUrl: json['doctorPhotoUrl'],
-        endTime: json['endTime'],
-        name: json['name'],
-        patientId: json['patientId'],
-        patientName: json['patientName'],
-        patientPhotoUrl: json['patientPhotoUrl'],
-        startTime: json['startTime'],
-        timeSlot: json['timeSlot'],
-        appointmentType: json['appointmentType']);
+        appointmentDate: json['appointmentDate'] ?? "",
+        date: json['date'] ?? "",
+        description: json['description'] ?? "",
+        doctorId: json['doctorId'] ?? "",
+        doctorName: json['doctorName'] ?? "",
+        doctorPhotoUrl: json['doctorPhotoUrl'] ?? "",
+        endTime: json['endTime'] ?? "",
+        name: json['name'] ?? "",
+        patientId: json['patientId'] ?? "",
+        patientName: json['patientName'] ?? "",
+        patientPhotoUrl: json['patientPhotoUrl'] ?? "",
+        startTime: json['startTime'] ?? "",
+        timeSlot: json['timeSlot'] ?? "",
+        appointmentType: json['appointmentType'] ?? "");
   }
 
   Map<String, dynamic> toJson() {
