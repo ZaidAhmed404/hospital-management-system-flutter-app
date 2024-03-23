@@ -99,7 +99,9 @@ class CommonServices {
         appSign:
             "f1e6f0abefbcf0be0a9fa51f909e28c07515c25109378107e9ac46ecba959aaa",
         userID: auth.currentUser!.uid,
-        userName: auth.currentUser!.displayName!,
+        userName: auth.currentUser!.uid == "SoLtSmVuldhx055d8g0XHqB3Ez23"
+            ? "Admin"
+            : auth.currentUser!.displayName!,
         plugins: [ZegoUIKitSignalingPlugin()],
       );
     }

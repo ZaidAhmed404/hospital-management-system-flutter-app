@@ -3,6 +3,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../AdminDoctorScreen/AdminDoctorScreen.dart';
 import '../AdminMedicineScreen/AdminMedicineScreen.dart';
+import '../AdminPharmacyScreen/AdminPharmacyScreen.dart';
 import '../AdminProfileScreen/AdminProfileScreen.dart';
 
 class AdminLandingScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: _currentIndex == 0
-            ? const AdminMedicineScreen()
+            ? const AdminPharmacyScreen()
             : _currentIndex == 1
                 ? const AdminDoctorScreen()
                 : _currentIndex == 2
@@ -45,7 +46,7 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
                 ),
               ),
               title: const Text(
-                "Medicines",
+                "Pharmacy",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w800,

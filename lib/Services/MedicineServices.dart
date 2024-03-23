@@ -6,13 +6,13 @@ import 'package:flutter/cupertino.dart';
 import '../Widgets/MessageWidget.dart';
 
 class MedicineServices {
-  CollectionReference medicine =
-      FirebaseFirestore.instance.collection('medicine');
-
   Future add(
       {required String name,
+      required String pharmacyId,
       required String quantity,
       required BuildContext context}) async {
+    CollectionReference medicine =
+        FirebaseFirestore.instance.collection('$pharmacyId.medicine');
     try {
       final now = DateTime.now();
       await medicine
@@ -45,7 +45,11 @@ class MedicineServices {
       {required String docId,
       required String name,
       required String quantity,
+      required String pharmacyId,
       required BuildContext context}) async {
+    CollectionReference medicine =
+        FirebaseFirestore.instance.collection('$pharmacyId.medicine');
+
     try {
       final now = DateTime.now();
       await medicine
@@ -75,7 +79,13 @@ class MedicineServices {
     }
   }
 
-  Future delete({required String docId, required BuildContext context}) async {
+  Future delete(
+      {required String docId,
+      required BuildContext context,
+      required String pharmacyId}) async {
+    CollectionReference medicine =
+        FirebaseFirestore.instance.collection('$pharmacyId.medicine');
+
     try {
       await medicine
           .doc(docId)

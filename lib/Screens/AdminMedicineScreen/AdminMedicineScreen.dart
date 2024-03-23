@@ -8,7 +8,11 @@ import '../../main.dart';
 import 'Widgets/AddMedicineDialogWidget.dart';
 
 class AdminMedicineScreen extends StatelessWidget {
-  const AdminMedicineScreen({super.key});
+  AdminMedicineScreen(
+      {super.key, required this.onBackPressed, required this.pharmacyId});
+
+  String pharmacyId;
+  Function() onBackPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,19 @@ class AdminMedicineScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                InkWell(
+                  onTap: () => onBackPressed(),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
                 const Text(
                   "Medicines",
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
@@ -34,7 +51,9 @@ class AdminMedicineScreen extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) => Dialog(
                             insetPadding: const EdgeInsets.all(20),
-                            child: AddMedicineDialogWidget()));
+                            child: AddMedicineDialogWidget(
+                              pharmacyId: pharmacyId,
+                            )));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),
@@ -86,7 +105,7 @@ class AdminMedicineScreen extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.7,
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
-                    .collection('medicine')
+                    .collection('$pharmacyId.medicine')
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -156,6 +175,7 @@ class AdminMedicineScreen extends StatelessWidget {
                                                           EditMedicineDialogWidget(
                                                         docId:
                                                             documents[index].id,
+                                                        pharmacyId: pharmacyId,
                                                         name: medicine.name,
                                                         quantity:
                                                             medicine.quantity,
@@ -203,7 +223,9 @@ class AdminMedicineScreen extends StatelessWidget {
                                                                           index]
                                                                       .id,
                                                                   context:
-                                                                      context);
+                                                                      context,
+                                                                  pharmacyId:
+                                                                      pharmacyId);
                                                           Navigator.pop(
                                                               context);
                                                         },

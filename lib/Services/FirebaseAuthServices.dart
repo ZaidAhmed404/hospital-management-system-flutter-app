@@ -110,11 +110,13 @@ class FirebaseAuthServices {
         log('Wrong password provided for that user.');
       }
       if (context.mounted) {
+        log(e.message.toString(), name: "singing in error in firebase");
+
         messageWidget(
             context: context, isError: true, message: e.message.toString());
       }
     } catch (e) {
-      log(e.toString());
+      log(e.toString(), name: "singing in error");
       if (context.mounted) {
         messageWidget(context: context, isError: true, message: e.toString());
       }

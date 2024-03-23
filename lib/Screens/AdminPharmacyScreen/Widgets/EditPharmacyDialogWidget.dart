@@ -4,23 +4,38 @@ import 'package:flutter/material.dart';
 import '../../../Widgets/ButtonWidget.dart';
 import '../../../Widgets/TextFieldWidget.dart';
 
-class AddMedicineDialogWidget extends StatefulWidget {
-  AddMedicineDialogWidget({super.key, required this.pharmacyId});
+class EditPharmacyDialogWidget extends StatefulWidget {
+  EditPharmacyDialogWidget({
+    super.key,
+    required this.docId,
+    required this.name,
+    required this.address,
+  });
 
-  String pharmacyId;
+  String docId;
+  String name;
+  String address;
 
   @override
-  State<AddMedicineDialogWidget> createState() =>
-      _AddMedicineDialogWidgetState();
+  State<EditPharmacyDialogWidget> createState() =>
+      _EditPharmacyDialogWidgetState();
 }
 
-class _AddMedicineDialogWidgetState extends State<AddMedicineDialogWidget> {
+class _EditPharmacyDialogWidgetState extends State<EditPharmacyDialogWidget> {
   final TextEditingController nameController = TextEditingController();
 
-  final TextEditingController quantityController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    nameController.text = widget.name;
+    addressController.text = widget.address;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +49,23 @@ class _AddMedicineDialogWidgetState extends State<AddMedicineDialogWidget> {
           child: Column(
             children: [
               const Text(
-                "Add Medicines",
+                "Edit Pharmacy Details",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFieldWidget(
-                hintText: "Enter Medicine Name",
-                text: "Medicine",
+                hintText: "Enter Pharmacy Name",
+                text: "Name",
                 controller: nameController,
                 isPassword: false,
                 isEnabled: true,
                 validationFunction: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Medicine Name is required';
+                    return 'Pharmacy Name is required';
                   } else if (value.length < 5) {
-                    return 'Medicine name must have 5 characters';
+                    return 'Pharmacy name must have 5 characters';
                   }
                   return null;
                 },
@@ -65,18 +80,18 @@ class _AddMedicineDialogWidgetState extends State<AddMedicineDialogWidget> {
                 height: 20,
               ),
               TextFieldWidget(
-                hintText: "Enter Medicine Quantity",
-                text: "Quantity",
-                controller: quantityController,
+                hintText: "Enter Pharmacy Address",
+                text: "Address",
+                controller: addressController,
                 isPassword: false,
                 isEnabled: true,
                 validationFunction: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Medicine Quantity is required';
+                    return 'Pharmacy Address is required';
                   }
                   return null;
                 },
-                textInputType: TextInputType.number,
+                textInputType: TextInputType.text,
                 textFieldWidth: MediaQuery.of(context).size.width,
                 haveText: true,
                 onValueChange: (value) {},
@@ -103,21 +118,20 @@ class _AddMedicineDialogWidgetState extends State<AddMedicineDialogWidget> {
                           setState(() {
                             isLoading = true;
                           });
-                          await appConstants.medicineServices.add(
+                          await appConstants.pharmacyServices.update(
+                              docId: widget.docId,
                               name: nameController.text.trim(),
-                              quantity: quantityController.text.trim(),
-                              pharmacyId: widget.pharmacyId,
+                              address: addressController.text.trim(),
                               context: context);
+
+                          // await appConstants.medicineServices.update(
+                          //     docId: widget.docId,
+                          //     name: nameController.text.trim(),
+                          //     quantity: quantityController.text.trim(),
+                          //     context: context);
                           setState(() {
                             isLoading = false;
                           });
-                          // await appConstants.firebaseAuthServices
-                          //     .userLogin(
-                          //     context: context,
-                          //     emailAddress:
-                          //     emailController.text.trim(),
-                          //     password:
-                          //     passwordController.text.trim());
                         }
                       }),
               const SizedBox(

@@ -5,16 +5,17 @@ import '../../../Widgets/ButtonWidget.dart';
 import '../../../Widgets/TextFieldWidget.dart';
 
 class EditMedicineDialogWidget extends StatefulWidget {
-  EditMedicineDialogWidget({
-    super.key,
-    required this.docId,
-    required this.quantity,
-    required this.name,
-  });
+  EditMedicineDialogWidget(
+      {super.key,
+      required this.docId,
+      required this.quantity,
+      required this.name,
+      required this.pharmacyId});
 
   String docId;
   String name;
   String quantity;
+  String pharmacyId;
 
   @override
   State<EditMedicineDialogWidget> createState() =>
@@ -49,7 +50,7 @@ class _EditMedicineDialogWidgetState extends State<EditMedicineDialogWidget> {
           child: Column(
             children: [
               const Text(
-                "Add Medicines",
+                "Edit Medicine Details",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
               const SizedBox(
@@ -120,6 +121,7 @@ class _EditMedicineDialogWidgetState extends State<EditMedicineDialogWidget> {
                           });
                           await appConstants.medicineServices.update(
                               docId: widget.docId,
+                              pharmacyId: widget.pharmacyId,
                               name: nameController.text.trim(),
                               quantity: quantityController.text.trim(),
                               context: context);
