@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 
 import '../../Models/DoctorModel.dart';
 import '../../Widgets/ButtonWidget.dart';
+import '../../Widgets/DoctorDetailDialogWidget.dart';
 import '../../Widgets/DropdownWidget.dart';
 import '../../Widgets/TextFieldWidget.dart';
+import '../../main.dart';
 
 class SearchDoctorScreen extends StatefulWidget {
   SearchDoctorScreen(
@@ -57,9 +59,11 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                       )),
                 ),
                 const Spacer(),
-                const Text(
+                Text(
                   "Search Doctors",
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: height * appConstants.fontSize20),
                 ),
                 const Spacer(),
               ],
@@ -163,11 +167,12 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                                   width: 200,
                                   height: 200,
                                 ),
-                                const Text(
+                                Text(
                                   "No Doctors Found",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 18),
+                                      fontSize:
+                                          height * appConstants.fontSize18),
                                 ),
                               ],
                             )
@@ -195,7 +200,19 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  Dialog(
+                                                      insetPadding:
+                                                          const EdgeInsets.all(
+                                                              20),
+                                                      child:
+                                                          DoctorDetailDialogWidget(
+                                                        doctorModel: doctor,
+                                                      )));
+                                        },
                                         child: Row(
                                           children: [
                                             ClipOval(
@@ -250,16 +267,20 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                                                 Text(
                                                   doctor.name,
                                                   maxLines: 1,
-                                                  style: const TextStyle(
-                                                      fontSize: 14,
+                                                  style: TextStyle(
+                                                      fontSize: height *
+                                                          appConstants
+                                                              .fontSize14,
                                                       fontWeight:
                                                           FontWeight.w600),
                                                 ),
                                                 Text(
                                                   doctor.specialization,
                                                   maxLines: 1,
-                                                  style: const TextStyle(
-                                                      fontSize: 14,
+                                                  style: TextStyle(
+                                                      fontSize: height *
+                                                          appConstants
+                                                              .fontSize14,
                                                       fontWeight:
                                                           FontWeight.w400),
                                                 ),
@@ -281,12 +302,13 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                                               doctor.userId,
                                               doctor.name,
                                               doctor.photoUrl),
-                                          child: const Text(
+                                          child: Text(
                                             "Book",
                                             style: TextStyle(
                                                 color: Colors.green,
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 14),
+                                                fontSize: height *
+                                                    appConstants.fontSize14),
                                           ))
                                     ],
                                   ),

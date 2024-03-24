@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../main.dart';
+
 class SelectTimeSlotWidget extends StatefulWidget {
   SelectTimeSlotWidget(
       {super.key,
@@ -17,24 +19,25 @@ class _SelectTimeSlotWidgetState extends State<SelectTimeSlotWidget> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Column(
       children: [
-        const Row(
+        Row(
           children: [
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Text(
               "Time Slot",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 13,
+                  fontSize: height * appConstants.fontSize14,
                   color: Colors.black54),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
-            Text(
+            const Text(
               "*",
               style: TextStyle(color: Colors.red),
             ),
@@ -62,7 +65,7 @@ class _SelectTimeSlotWidgetState extends State<SelectTimeSlotWidget> {
                   "30 Minutes",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      fontSize: height * appConstants.fontSize14,
                       color: (widget.selectedSlot == "30 Minutes")
                           ? Colors.white
                           : Colors.blue),
@@ -85,7 +88,7 @@ class _SelectTimeSlotWidgetState extends State<SelectTimeSlotWidget> {
                   "1 Hour",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      fontSize: height * appConstants.fontSize14,
                       color: (widget.selectedSlot == "1 Hour")
                           ? Colors.white
                           : Colors.blue),

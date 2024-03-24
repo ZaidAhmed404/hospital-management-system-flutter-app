@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
+import '../../main.dart';
 import '../AdminDoctorScreen/AdminDoctorScreen.dart';
 import '../AdminMedicineScreen/AdminMedicineScreen.dart';
 import '../AdminPharmacyScreen/AdminPharmacyScreen.dart';
@@ -18,6 +19,7 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -45,10 +47,10 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
                   color: Colors.blue,
                 ),
               ),
-              title: const Text(
+              title: Text(
                 "Pharmacy",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: height * appConstants.fontSize16,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -66,10 +68,10 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
                     Icons.person,
                     color: Colors.blue,
                   )),
-              title: const Text(
+              title: Text(
                 "Doctors",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: height * appConstants.fontSize16,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -88,10 +90,10 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
                   color: Colors.blue,
                 ),
               ),
-              title: const Text(
+              title: Text(
                 "Profile",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: height * appConstants.fontSize16,
                   fontWeight: FontWeight.w800,
                 ),
               ),

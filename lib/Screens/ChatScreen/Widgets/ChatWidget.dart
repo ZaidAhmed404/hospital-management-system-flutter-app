@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../main.dart';
+
 class ChatWidget extends StatelessWidget {
   final String message;
   final String time;
@@ -16,6 +18,7 @@ class ChatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Container(
       margin: const EdgeInsets.only(top: 5),
       child: Row(
@@ -49,8 +52,8 @@ class ChatWidget extends StatelessWidget {
                 children: [
                   Text(
                     message,
-                    style: const TextStyle(
-                        fontSize: 14.0,
+                    style: TextStyle(
+                        fontSize: height * appConstants.fontSize14,
                         color: Colors.white,
                         fontWeight: FontWeight.w600),
                   ),
@@ -60,8 +63,9 @@ class ChatWidget extends StatelessWidget {
                     children: [
                       Text(
                         time,
-                        style: const TextStyle(
-                            fontSize: 12.0, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: height * appConstants.fontSize12,
+                            color: Colors.white),
                       ),
                     ],
                   ),

@@ -107,10 +107,11 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                               )),
                         ),
                         const Spacer(),
-                        const Text(
+                        Text(
                           "Book Appointment",
                           style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 20),
+                              fontWeight: FontWeight.w600,
+                              fontSize: height * appConstants.fontSize20),
                         ),
                         const Spacer(),
                       ],
@@ -234,22 +235,24 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                                   message: "Time is required");
                             }
                           } else if (_formKey.currentState!.validate()) {
-                            bool state = await appConstants.appointmentServices
-                                .addAppointment(
-                                    name: nameController.text.trim(),
-                                    date: _pickedDate!,
-                                    slot: selectedSlot,
-                                    appointmentType: selectedType,
-                                    time: _pickedTime!,
-                                    description:
-                                        descriptionController.text.trim(),
-                                    doctorId: widget.doctorId,
-                                    doctorName: widget.doctorName,
-                                    doctorPhotoUrl: widget.doctorPhotoUrl,
-                                    context: context);
-                            if (state == true && context.mounted) {
-                              appConstants.paymentServices
+                            if (context.mounted) {
+                              bool state = await appConstants.paymentServices
                                   .makePayment(context: context);
+                              if (context.mounted && state == true) {
+                                await appConstants.appointmentServices
+                                    .addAppointment(
+                                        name: nameController.text.trim(),
+                                        date: _pickedDate!,
+                                        slot: selectedSlot,
+                                        appointmentType: selectedType,
+                                        time: _pickedTime!,
+                                        description:
+                                            descriptionController.text.trim(),
+                                        doctorId: widget.doctorId,
+                                        doctorName: widget.doctorName,
+                                        doctorPhotoUrl: widget.doctorPhotoUrl,
+                                        context: context);
+                              }
                             }
                           }
                         }),

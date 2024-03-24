@@ -2,6 +2,7 @@ import 'package:doctor_patient_management_system/Models/AppointmentModel.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Models/DoctorModel.dart';
+import '../../../main.dart';
 
 class AppointmentDetailsDialogWidget extends StatelessWidget {
   AppointmentDetailsDialogWidget({super.key, required this.appointmentModel});
@@ -10,6 +11,7 @@ class AppointmentDetailsDialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -18,109 +20,127 @@ class AppointmentDetailsDialogWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Appointment Details",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize20,
+                  fontWeight: FontWeight.w600),
             ),
             const SizedBox(
               height: 20,
             ),
-            const Text(
+            Text(
               "Problem Name",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
             ),
             Text(
               appointmentModel.name,
-              style: const TextStyle(
-                fontSize: 14,
+              style: TextStyle(
+                fontSize: height * appConstants.fontSize14,
               ),
             ),
             const Divider(),
-            const Text(
+            Text(
               "Problem Description",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
             ),
             Text(
               appointmentModel.description,
-              style: const TextStyle(
-                fontSize: 14,
+              style: TextStyle(
+                fontSize: height * appConstants.fontSize14,
               ),
             ),
             const Divider(),
-            const Text(
+            Text(
               "Doctor Name",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
             ),
             Text(
               appointmentModel.doctorName,
-              style: const TextStyle(
-                fontSize: 14,
+              style: TextStyle(
+                fontSize: height * appConstants.fontSize14,
               ),
             ),
             const Divider(),
-            const Text(
+            Text(
               "Patient Name",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
             ),
             Text(
               appointmentModel.patientName,
-              style: const TextStyle(
-                fontSize: 14,
-              ),
+              style: TextStyle(fontSize: height * appConstants.fontSize14),
             ),
             const Divider(),
-            const Text(
+            Text(
               "Appointment Date",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
             ),
             Text(
               appointmentModel.appointmentDate,
-              style: const TextStyle(
-                fontSize: 14,
+              style: TextStyle(
+                fontSize: height * appConstants.fontSize14,
               ),
             ),
             const Divider(),
-            const Text(
+            Text(
               "Starting Time",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
             ),
             Text(
               appointmentModel.startTime,
-              style: const TextStyle(
-                fontSize: 14,
+              style: TextStyle(
+                fontSize: height * appConstants.fontSize14,
               ),
             ),
             const Divider(),
-            const Text(
+            Text(
               "Ending Time",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
             ),
             Text(
               appointmentModel.endTime,
-              style: const TextStyle(
-                fontSize: 14,
+              style: TextStyle(
+                fontSize: height * appConstants.fontSize14,
               ),
             ),
             const Divider(),
-            const Text(
+            Text(
               "Time Slot",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
             ),
             Text(
               appointmentModel.timeSlot,
-              style: const TextStyle(
-                fontSize: 14,
+              style: TextStyle(
+                fontSize: height * appConstants.fontSize14,
               ),
             ),
             const Divider(),
-            const Text(
+            Text(
               "Appointment Type",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
             ),
             Text(
               appointmentModel.appointmentType,
-              style: const TextStyle(
-                fontSize: 14,
+              style: TextStyle(
+                fontSize: height * appConstants.fontSize14,
               ),
             ),
           ],

@@ -22,9 +22,11 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
   String targetName = "";
   String targetPhotoUrl = "";
   bool chatActive = false;
+  String appointmentId = "";
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return pageIndex == 1
         ? ChatScreen(
             onBackPressed: () {
@@ -35,24 +37,27 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                 targetName = "";
                 targetPhotoUrl = "";
                 chatActive = false;
+                appointmentId = "";
               });
             },
             targetId: targetId,
             targetName: targetName,
             targetPhotoUrl: targetPhotoUrl,
             chatActive: chatActive,
+            appointmentId: appointmentId,
           )
         : Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "Chats History",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: height * appConstants.fontSize20),
                     ),
                   ],
                 ),
@@ -92,6 +97,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                               appoint.doctorId ==
                                   FirebaseAuth.instance.currentUser!.uid))
                           .toList();
+                      final documents = snapshot.data!.docs;
                       return SizedBox(
                         child: ListView.builder(
                           itemCount: chatHistoryLogs.length,
@@ -127,6 +133,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                                         chatHistoryLogs[index].patientName;
                                     targetPhotoUrl =
                                         chatHistoryLogs[index].patientPhotoUrl;
+                                    appointmentId = documents[index].id;
                                   });
                                 } else {
                                   setState(() {
@@ -135,6 +142,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                                         chatHistoryLogs[index].doctorName;
                                     targetPhotoUrl =
                                         chatHistoryLogs[index].doctorPhotoUrl;
+                                    appointmentId = documents[index].id;
                                   });
                                 }
                                 setState(() {
@@ -209,15 +217,17 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                                                     .patientName
                                                 : chatHistoryLogs[index]
                                                     .doctorName,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 15),
+                                                fontSize: height *
+                                                    appConstants.fontSize15),
                                           ),
                                           Text(
                                             chatHistoryLogs[index].date,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.w400,
-                                                fontSize: 15),
+                                                fontSize: height *
+                                                    appConstants.fontSize15),
                                           ),
                                         ],
                                       ),

@@ -11,6 +11,7 @@ class ProfileNotApprovedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -23,10 +24,12 @@ class ProfileNotApprovedScreen extends StatelessWidget {
             height: 200,
           ),
         ),
-        const Center(
+        Center(
           child: Text(
             "Profile not Approved Yet",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: height * appConstants.fontSize18),
           ),
         ),
         const SizedBox(

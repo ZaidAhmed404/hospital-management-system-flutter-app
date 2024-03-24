@@ -13,9 +13,10 @@ class ChatServices {
       required String doctorPhotoUrl,
       required String doctorId,
       required String message,
+      required String appointmentId,
       required BuildContext context}) async {
-    CollectionReference chat =
-        FirebaseFirestore.instance.collection('chat.$patientId.$doctorId');
+    CollectionReference chat = FirebaseFirestore.instance
+        .collection('chat.$patientId.$doctorId.$appointmentId');
     final now = DateTime.now();
     try {
       await chat

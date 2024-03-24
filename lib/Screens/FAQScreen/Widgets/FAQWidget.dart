@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../main.dart';
+
 class FAQWidget extends StatefulWidget {
   FAQWidget({super.key, required this.answer, required this.question});
 
@@ -15,6 +17,7 @@ class _FAQWidgetState extends State<FAQWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return InkWell(
       onTap: () {
         if (isShow == true) {
@@ -40,8 +43,9 @@ class _FAQWidgetState extends State<FAQWidget> {
                   child: Text(
                     maxLines: 10,
                     widget.question,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w800, fontSize: 18),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: height * appConstants.fontSize18),
                   ),
                 ),
                 Icon(isShow ? Icons.arrow_drop_up : Icons.arrow_drop_down)

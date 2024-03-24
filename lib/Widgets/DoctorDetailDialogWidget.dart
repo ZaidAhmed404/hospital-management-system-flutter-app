@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../Models/DoctorModel.dart';
+import '../Models/DoctorModel.dart';
+import '../main.dart';
 
 class DoctorDetailDialogWidget extends StatelessWidget {
   DoctorDetailDialogWidget({super.key, required this.doctorModel});
@@ -9,6 +10,8 @@ class DoctorDetailDialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+
     return Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -17,9 +20,11 @@ class DoctorDetailDialogWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Doctor Details",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize20,
+                  fontWeight: FontWeight.w600),
             ),
             const SizedBox(
               height: 20,
@@ -27,14 +32,16 @@ class DoctorDetailDialogWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Name",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: height * appConstants.fontSize14,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                   doctorModel.name,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: height * appConstants.fontSize14,
                   ),
                 ),
               ],
@@ -43,14 +50,16 @@ class DoctorDetailDialogWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Address",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: height * appConstants.fontSize14,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                   doctorModel.address,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: height * appConstants.fontSize14,
                   ),
                 ),
               ],
@@ -59,14 +68,16 @@ class DoctorDetailDialogWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "CNIC",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: height * appConstants.fontSize14,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                   doctorModel.cnic,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: height * appConstants.fontSize14,
                   ),
                 ),
               ],
@@ -75,14 +86,16 @@ class DoctorDetailDialogWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Gender",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: height * appConstants.fontSize14,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                   doctorModel.gender,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: height * appConstants.fontSize14,
                   ),
                 ),
               ],
@@ -91,14 +104,16 @@ class DoctorDetailDialogWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Phone Number",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: height * appConstants.fontSize14,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                   doctorModel.phoneNumber,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: height * appConstants.fontSize14,
                   ),
                 ),
               ],
@@ -107,14 +122,16 @@ class DoctorDetailDialogWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "License Number",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: height * appConstants.fontSize14,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                   doctorModel.licenseNumber,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: height * appConstants.fontSize14,
                   ),
                 ),
               ],
@@ -123,14 +140,16 @@ class DoctorDetailDialogWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Specialization",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: height * appConstants.fontSize14,
+                      fontWeight: FontWeight.w600),
                 ),
                 Text(
                   doctorModel.specialization,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: height * appConstants.fontSize14,
                   ),
                 ),
               ],

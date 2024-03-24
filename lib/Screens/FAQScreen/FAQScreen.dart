@@ -1,6 +1,8 @@
 import 'package:doctor_patient_management_system/Screens/FAQScreen/Widgets/FAQWidget.dart';
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
+
 class FAQScreen extends StatelessWidget {
   FAQScreen({super.key, required this.backPressedFunction});
 
@@ -36,9 +38,11 @@ class FAQScreen extends StatelessWidget {
                       )),
                 ),
                 const Spacer(),
-                const Text(
+                Text(
                   "FAQs",
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: height * appConstants.fontSize20),
                 ),
                 const Spacer(),
               ],

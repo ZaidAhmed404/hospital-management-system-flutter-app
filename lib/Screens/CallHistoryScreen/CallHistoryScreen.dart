@@ -10,16 +10,19 @@ class CallHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Call History",
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: height * appConstants.fontSize20),
               ),
             ],
           ),
@@ -118,21 +121,24 @@ class CallHistoryScreen extends StatelessWidget {
                                                 .instance.currentUser!.uid
                                         ? callLogs[index].targetUserName
                                         : callLogs[index].callerName,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 15),
+                                        fontSize:
+                                            height * appConstants.fontSize15),
                                   ),
                                   Text(
                                     callLogs[index].time,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontWeight: FontWeight.w400,
-                                        fontSize: 15),
+                                        fontSize:
+                                            height * appConstants.fontSize15),
                                   ),
                                   Text(
                                     callLogs[index].date,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontWeight: FontWeight.w400,
-                                        fontSize: 15),
+                                        fontSize:
+                                            height * appConstants.fontSize15),
                                   ),
                                 ],
                               ),

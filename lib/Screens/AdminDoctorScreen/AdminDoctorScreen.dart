@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import 'Widgets/DoctorDetailDialogWidget.dart';
+import '../../Widgets/DoctorDetailDialogWidget.dart';
 
 class AdminDoctorScreen extends StatelessWidget {
   const AdminDoctorScreen({super.key});
@@ -34,9 +34,11 @@ class AdminDoctorScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "Doctors",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: height * appConstants.fontSize20),
                   ),
                   const SizedBox(
                     height: 20,
@@ -161,20 +163,43 @@ class AdminDoctorScreen extends StatelessWidget {
                                           Text(
                                             doctor.name,
                                             maxLines: 1,
-                                            style: const TextStyle(
-                                                fontSize: 14,
+                                            style: TextStyle(
+                                                fontSize: height *
+                                                    appConstants.fontSize14,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                         ],
                                       ),
                                     ),
+                                    const Spacer(),
                                     ElevatedButton(
-                                      child: const Text(
+                                      child: Text(
+                                        "Reject",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: height *
+                                                appConstants.fontSize14),
+                                      ),
+                                      onPressed: () async {
+                                        appConstants.doctorServices
+                                            .updateProfileStatus(
+                                                docId: documents[index].id,
+                                                context: context,
+                                                status: "rejected");
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    ElevatedButton(
+                                      child: Text(
                                         "Approve",
                                         style: TextStyle(
                                             color: Colors.green,
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 14),
+                                            fontSize: height *
+                                                appConstants.fontSize14),
                                       ),
                                       onPressed: () async {
                                         appConstants.doctorServices

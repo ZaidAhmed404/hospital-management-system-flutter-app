@@ -32,6 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: BlocBuilder<LoadingCubit, LoadingState>(
@@ -62,10 +63,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             "assets/images/logo.png",
                           ),
                         ),
-                        const Text(
+                        Text(
                           'Sign up for free',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w800),
+                              fontSize: height * appConstants.fontSize14,
+                              fontWeight: FontWeight.w800),
                         ),
                         const SizedBox(
                           height: 20,
@@ -134,11 +136,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 });
                               },
                             ),
-                            const Text(
+                            Text(
                               "Remember Me",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 13,
+                                  fontSize: height * appConstants.fontSize14,
                                   color: Colors.black87),
                             )
                           ],
@@ -164,11 +166,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text(
+                        Text(
                           "Or Continue With",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: 13,
+                              fontSize: height * appConstants.fontSize14,
                               color: Colors.black87),
                         ),
                         const SizedBox(
@@ -215,11 +217,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "Already have an account?",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 13,
+                                  fontSize: height * appConstants.fontSize14,
                                   color: Colors.black38),
                             ),
                             TextButton(
@@ -227,11 +229,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   Navigator.of(context).push(
                                       CustomPageRoute(child: SignInScreen()));
                                 },
-                                child: const Text(
+                                child: Text(
                                   "Sign In",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 13,
+                                      fontSize:
+                                          height * appConstants.fontSize14,
                                       color: Colors.blue),
                                 ))
                           ],

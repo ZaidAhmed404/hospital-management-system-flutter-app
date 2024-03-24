@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
 
+import '../../../main.dart';
+
 class SelectAppointmentTypeWidget extends StatefulWidget {
   SelectAppointmentTypeWidget(
       {super.key,
@@ -21,24 +23,25 @@ class _SelectAppointmentTypeWidgetState
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Column(
       children: [
-        const Row(
+        Row(
           children: [
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Text(
               "Appointment Type",
               style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 13,
+                  fontSize: height * appConstants.fontSize13,
                   color: Colors.black54),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
-            Text(
+            const Text(
               "*",
               style: TextStyle(color: Colors.red),
             ),
@@ -66,7 +69,7 @@ class _SelectAppointmentTypeWidgetState
                   "Message",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      fontSize: height * appConstants.fontSize14,
                       color: (widget.selectedType == "Message")
                           ? Colors.white
                           : Colors.blue),
@@ -89,7 +92,7 @@ class _SelectAppointmentTypeWidgetState
                   "Audio Call",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      fontSize: height * appConstants.fontSize14,
                       color: (widget.selectedType == "Audio Call")
                           ? Colors.white
                           : Colors.blue),
@@ -112,7 +115,7 @@ class _SelectAppointmentTypeWidgetState
                   "Video Call",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      fontSize: height * appConstants.fontSize14,
                       color: (widget.selectedType == "Video Call")
                           ? Colors.white
                           : Colors.blue),

@@ -41,9 +41,11 @@ class AdminMedicineScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Text(
+                Text(
                   "Medicines",
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: height * appConstants.fontSize20),
                 ),
                 InkWell(
                   onTap: () {
@@ -76,23 +78,29 @@ class AdminMedicineScreen extends StatelessWidget {
               children: [
                 SizedBox(
                   width: width * 0.3,
-                  child: const Text(
+                  child: Text(
                     "Name",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                        fontSize: height * appConstants.fontSize14,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 SizedBox(
                   width: width * 0.2,
-                  child: const Text(
+                  child: Text(
                     "Quantity",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                        fontSize: height * appConstants.fontSize14,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 SizedBox(
                   width: width * 0.3,
-                  child: const Text(
+                  child: Text(
                     "Action",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                        fontSize: height * appConstants.fontSize14,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ],
@@ -143,8 +151,9 @@ class AdminMedicineScreen extends StatelessWidget {
                                 child: Text(
                                   medicine.name,
                                   maxLines: 1,
-                                  style: const TextStyle(
-                                      fontSize: 14,
+                                  style: TextStyle(
+                                      fontSize:
+                                          height * appConstants.fontSize14,
                                       fontWeight: FontWeight.w600),
                                 ),
                               ),
@@ -153,8 +162,9 @@ class AdminMedicineScreen extends StatelessWidget {
                                 child: Text(
                                   medicine.quantity,
                                   maxLines: 1,
-                                  style: const TextStyle(
-                                      fontSize: 14,
+                                  style: TextStyle(
+                                      fontSize:
+                                          height * appConstants.fontSize14,
                                       fontWeight: FontWeight.w400),
                                 ),
                               ),

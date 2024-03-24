@@ -74,10 +74,11 @@ class _SignInScreenState extends State<SignInScreen> {
                             "assets/images/logo.png",
                           ),
                         ),
-                        const Text(
+                        Text(
                           'Sign in your account',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w800),
+                              fontSize: height * appConstants.fontSize16,
+                              fontWeight: FontWeight.w800),
                         ),
                         const SizedBox(
                           height: 20,
@@ -146,11 +147,11 @@ class _SignInScreenState extends State<SignInScreen> {
                                 });
                               },
                             ),
-                            const Text(
+                            Text(
                               "Remember Me",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 13,
+                                  fontSize: height * appConstants.fontSize14,
                                   color: Colors.black87),
                             )
                           ],
@@ -179,11 +180,11 @@ class _SignInScreenState extends State<SignInScreen> {
                           height: 20,
                         ),
                         TextButton(
-                          child: const Text(
+                          child: Text(
                             "Forgot the password?",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: 13,
+                                fontSize: height * appConstants.fontSize14,
                                 color: Colors.blue),
                           ),
                           onPressed: () {
@@ -194,11 +195,11 @@ class _SignInScreenState extends State<SignInScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text(
+                        Text(
                           "Or Continue With",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: 13,
+                              fontSize: height * appConstants.fontSize14,
                               color: Colors.black87),
                         ),
                         const SizedBox(
@@ -245,11 +246,11 @@ class _SignInScreenState extends State<SignInScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "Don't have an account?",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 13,
+                                  fontSize: height * appConstants.fontSize14,
                                   color: Colors.black38),
                             ),
                             TextButton(
@@ -257,11 +258,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                   Navigator.of(context).push(
                                       CustomPageRoute(child: SignUpScreen()));
                                 },
-                                child: const Text(
+                                child: Text(
                                   "Sign Up",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 13,
+                                      fontSize:
+                                          height * appConstants.fontSize14,
                                       color: Colors.blue),
                                 ))
                           ],

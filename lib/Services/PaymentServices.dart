@@ -12,35 +12,39 @@ import '../cubit/LoadingCubit/loading_cubit.dart';
 class PaymentServices {
   Map<String, dynamic>? paymentIntent;
 
-  makePayment({required BuildContext context}) async {
+  Future<bool> makePayment({required BuildContext context}) async {
     try {
-      bool status = await displayPaymentSheet(context: context);
-      if (status == true) {
-        paymentIntent = await createPaymentMethod(context: context);
-        var gPay = const PaymentSheetGooglePay(
-            merchantCountryCode: "US", testEnv: true, currencyCode: "US");
-        await Stripe.instance.initPaymentSheet(
-            paymentSheetParameters: SetupPaymentSheetParameters(
-                paymentIntentClientSecret: paymentIntent!["client_secret"],
-                style: ThemeMode.dark,
-                merchantDisplayName: "Sabir",
-                googlePay: gPay));
-      }
+      log("payment");
+      paymentIntent = await createPaymentMethod(context: context);
+      var gPay = const PaymentSheetGooglePay(
+          merchantCountryCode: "US", testEnv: true, currencyCode: "US");
+      await Stripe.instance.initPaymentSheet(
+          paymentSheetParameters: SetupPaymentSheetParameters(
+              paymentIntentClientSecret: paymentIntent!["client_secret"],
+              style: ThemeMode.dark,
+              merchantDisplayName: "Sabir",
+              googlePay: gPay));
+      await displayPaymentSheet(context: context);
     } catch (error) {
+      log("$error", name: "error in getting stripe data");
       if (context.mounted) {
         messageWidget(
             context: context, isError: true, message: error.toString());
       }
+      return false;
     }
+    return true;
   }
 
   Future<bool> displayPaymentSheet({required BuildContext context}) async {
     try {
       await Stripe.instance.presentPaymentSheet();
-      return true;
     } catch (error) {
+      log("$error", name: "error");
       return false;
     }
+    log("payment sheet");
+    return true;
   }
 
   createPaymentMethod({required BuildContext context}) async {

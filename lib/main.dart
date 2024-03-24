@@ -24,10 +24,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
-  Stripe.publishableKey = appConstants.stripePublishableKey;
-
+  Stripe.publishableKey =
+      "pk_test_51OutwwP5SW1IvPMLZRGaeqVwBJ5LB9UeDUtTdPvZq86MU3tiRAg4KixmuMCMd62fSIMAVKuOzTwmDBM1SFHK3OAe00JLCyHAT7";
+  Stripe.merchantIdentifier =
+      'pk_test_51OutwwP5SW1IvPMLZRGaeqVwBJ5LB9UeDUtTdPvZq86MU3tiRAg4KixmuMCMd62fSIMAVKuOzTwmDBM1SFHK3OAe00JLCyHAT7';
   await Stripe.instance.applySettings();
+
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
 
   /// call the useSystemCallingUI
   await ZegoUIKit().initLog().then((value) {

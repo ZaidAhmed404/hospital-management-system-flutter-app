@@ -16,6 +16,7 @@ class ChatScreen extends StatelessWidget {
   String targetName;
   String targetPhotoUrl;
   bool chatActive;
+  String appointmentId;
 
   ChatScreen(
       {super.key,
@@ -23,7 +24,8 @@ class ChatScreen extends StatelessWidget {
       required this.targetId,
       required this.targetPhotoUrl,
       required this.targetName,
-      required this.chatActive});
+      required this.chatActive,
+      required this.appointmentId});
 
   final TextEditingController messageController = TextEditingController();
 
@@ -54,9 +56,11 @@ class ChatScreen extends StatelessWidget {
                     )),
               ),
               const Spacer(),
-              const Text(
+              Text(
                 "Chat",
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: height * appConstants.fontSize20),
               ),
               const Spacer(),
             ],
@@ -69,11 +73,11 @@ class ChatScreen extends StatelessWidget {
               stream: appConstants.role == "patient"
                   ? FirebaseFirestore.instance
                       .collection(
-                          'chat.$targetId.${FirebaseAuth.instance.currentUser!.uid}')
+                          'chat.$targetId.${FirebaseAuth.instance.currentUser!.uid}.$appointmentId')
                       .snapshots()
                   : FirebaseFirestore.instance
                       .collection(
-                          'chat.${FirebaseAuth.instance.currentUser!.uid}.$targetId')
+                          'chat.${FirebaseAuth.instance.currentUser!.uid}.$targetId.$appointmentId')
                       .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -122,12 +126,12 @@ class ChatScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(20)),
-                  child: const Text(
+                  child: Text(
                     "Chat Closed",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
-                        fontSize: 14),
+                        fontSize: height * appConstants.fontSize14),
                   )),
             ),
           if (chatActive)
@@ -172,6 +176,7 @@ class ChatScreen extends StatelessWidget {
                             ? FirebaseAuth.instance.currentUser!.uid
                             : targetId,
                         message: messageController.text,
+                        appointmentId: appointmentId,
                         context: context);
                     messageController.text = "";
                   },
@@ -179,10 +184,10 @@ class ChatScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     decoration: const BoxDecoration(
                         color: Colors.blue, shape: BoxShape.circle),
-                    child: const Icon(
+                    child: Icon(
                       Icons.send,
                       color: Colors.white,
-                      size: 15,
+                      size: height * appConstants.fontSize15,
                     ),
                   ),
                 )

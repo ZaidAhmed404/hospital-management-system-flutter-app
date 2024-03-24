@@ -74,10 +74,11 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             "Appointments",
                             style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 20),
+                                fontWeight: FontWeight.w600,
+                                fontSize: height * appConstants.fontSize20),
                           ),
                           if (appConstants.role == "patient")
                             InkWell(
@@ -104,7 +105,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       if (appConstants.role == "doctor")
                         SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.5,
+                            height: MediaQuery.of(context).size.height * 0.8,
                             child: StreamBuilder(
                               stream: FirebaseFirestore.instance
                                   .collection('appointments')
@@ -387,7 +388,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       if (appConstants.role == "patient")
                         SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.5,
+                            height: MediaQuery.of(context).size.height * 0.8,
                             child: StreamBuilder(
                               stream: FirebaseFirestore.instance
                                   .collection('appointments')
