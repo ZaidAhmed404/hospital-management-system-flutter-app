@@ -18,6 +18,7 @@ class _AddMedicineDialogWidgetState extends State<AddMedicineDialogWidget> {
   final TextEditingController nameController = TextEditingController();
 
   final TextEditingController quantityController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;

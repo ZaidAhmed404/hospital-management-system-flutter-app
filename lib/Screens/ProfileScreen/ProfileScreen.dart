@@ -88,7 +88,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10)),
-                                child: const CircularProgressIndicator()),
+                                child: const CircularProgressIndicator(
+                                  color: Colors.blue,
+                                )),
                             child: Container(
                               width: width,
                               height: height,

@@ -81,11 +81,13 @@ class ChatScreen extends StatelessWidget {
                       .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
+                  return const Center(
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: CircularProgressIndicator(
+                        color: Colors.blue,
+                      ),
                     ),
                   );
                 }

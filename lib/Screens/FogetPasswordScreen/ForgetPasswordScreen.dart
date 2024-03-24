@@ -30,7 +30,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
-                  child: const CircularProgressIndicator()),
+                  child: const CircularProgressIndicator(
+                    color: Colors.blue,
+                  )),
               child: Container(
                   padding: const EdgeInsets.all(20),
                   height: MediaQuery.of(context).size.height,

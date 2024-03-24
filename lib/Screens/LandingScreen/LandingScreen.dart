@@ -44,7 +44,9 @@ class _LandingScreenState extends State<LandingScreen> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
-                      child: const CircularProgressIndicator()),
+                      child: const CircularProgressIndicator(
+                        color: Colors.blue,
+                      )),
                   child: SafeArea(
                     child: Scaffold(
                       backgroundColor: Colors.white,

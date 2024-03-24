@@ -25,7 +25,9 @@ class AdminDoctorScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: const CircularProgressIndicator()),
+              child: const CircularProgressIndicator(
+                color: Colors.blue,
+              )),
           child: Container(
             width: width,
             height: height,
@@ -54,11 +56,11 @@ class AdminDoctorScreen extends StatelessWidget {
                           (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(
-                            child: Container(
+                          return const Center(
+                            child: SizedBox(
                               width: 50,
                               height: 50,
-                              child: const CircularProgressIndicator(
+                              child: CircularProgressIndicator(
                                 color: Colors.blue,
                               ),
                             ),

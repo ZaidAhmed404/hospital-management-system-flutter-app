@@ -114,11 +114,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                   AsyncSnapshot<QuerySnapshot> snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Container(
-                                    width: 50,
-                                    height: 50,
-                                    child: const CircularProgressIndicator(
-                                      color: Colors.blue,
+                                  return const Center(
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.blue,
+                                      ),
                                     ),
                                   );
                                 }
@@ -397,11 +399,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                   AsyncSnapshot<QuerySnapshot> snapshot) {
                                 if (snapshot.connectionState ==
                                     ConnectionState.waiting) {
-                                  return Container(
-                                    width: 50,
-                                    height: 50,
-                                    child: const CircularProgressIndicator(
-                                      color: Colors.blue,
+                                  return const Center(
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.blue,
+                                      ),
                                     ),
                                   );
                                 }
