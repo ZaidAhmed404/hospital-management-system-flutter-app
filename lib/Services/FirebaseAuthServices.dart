@@ -24,7 +24,7 @@ import '../main.dart';
 class FirebaseAuthServices {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  void signUp(
+  Future<bool> signUp(
       {required BuildContext context,
       required String email,
       required String password}) async {
@@ -54,15 +54,18 @@ class FirebaseAuthServices {
         messageWidget(
             context: context, isError: true, message: e.message.toString());
       }
+      return false;
     } catch (e) {
       log(e.toString());
       if (context.mounted) {
         messageWidget(context: context, isError: true, message: e.toString());
       }
+      return false;
     }
     if (context.mounted) {
       BlocProvider.of<LoadingCubit>(context).setLoading(false);
     }
+    return true;
   }
 
   Future<UserCredential> signInWithGoogle() async {

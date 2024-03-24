@@ -61,29 +61,27 @@ class FAQScreen extends StatelessWidget {
                     "How do I book a consultation with a doctor through Sehat Sakoon?"),
             FAQWidget(
                 answer:
-                    "What types of doctors are available for consultation on Sehat Sakoon?",
+                    "Sehat Sakoon offers consultations with a wide range of healthcare professionals, including general physicians, specialists in various fields such as cardiology, dermatology, pediatrics, and more. You can choose the type of doctor based on your specific medical needs.",
                 question:
                     "What types of doctors are available for consultation on Sehat Sakoon?"),
             FAQWidget(
                 answer:
-                    "What types of doctors are available for consultation on Sehat Sakoon?",
-                question:
-                    "What types of doctors are available for consultation on Sehat Sakoon?"),
+                    "Payment for consultations can be made securely within the Sehat Sakoon app using various payment methods such as credit/debit cards, mobile wallets, or other convenient payment options available in your region.",
+                question: "How do I pay for my consultation?"),
             FAQWidget(
                 answer:
-                    "What types of doctors are available for consultation on Sehat Sakoon?",
+                    "Yes, you can schedule appointments for your family members using your Sehat Sakoon account. Simply add their details to your profile and book appointments on their behalf.",
                 question:
-                    "What types of doctors are available for consultation on Sehat Sakoon?"),
+                    "Can I schedule appointments for my family members through the Sehat Sakoon app?"),
             FAQWidget(
                 answer:
-                    "What types of doctors are available for consultation on Sehat Sakoon?",
+                    "If you need to cancel or reschedule your appointment, you can easily do so through the Sehat Sakoon app. Just navigate to your appointments section, select the appointment you wish to change, and follow the prompts to make the necessary adjustments.",
                 question:
-                    "What types of doctors are available for consultation on Sehat Sakoon?"),
+                    "What if I need to cancel or reschedule my appointment?"),
             FAQWidget(
                 answer:
-                    "What types of doctors are available for consultation on Sehat Sakoon?",
-                question:
-                    "What types of doctors are available for consultation on Sehat Sakoon?"),
+                    "Sehat Sakoon offers flexible appointment scheduling, but availability may vary depending on the doctors' schedules. However, we strive to provide access to healthcare professionals at convenient times for our users, including evenings and weekends.",
+                question: "Is Sehat Sakoon available 24/7?"),
           ],
         ),
       ),

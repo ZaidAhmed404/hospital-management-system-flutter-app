@@ -154,12 +154,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           buttonColor: Colors.blueAccent,
                           borderColor: Colors.blueAccent,
                           textColor: Colors.white,
-                          onPressedFunction: () {
+                          onPressedFunction: () async {
                             if (_formKey.currentState!.validate()) {
-                              appConstants.firebaseAuthServices.signUp(
-                                  context: context,
-                                  email: emailController.text.trim(),
-                                  password: passwordController.text.trim());
+                              bool status = await appConstants
+                                  .firebaseAuthServices
+                                  .signUp(
+                                      context: context,
+                                      email: emailController.text.trim(),
+                                      password: passwordController.text.trim());
+                              if (status == true && context.mounted) {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  CustomPageRoute(child: SignInScreen()),
+                                  (route) => false, // Close all existing routes
+                                );
+                              }
                             }
                           },
                         ),

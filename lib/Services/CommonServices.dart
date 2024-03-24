@@ -99,8 +99,8 @@ class CommonServices {
         appSign:
             "f1e6f0abefbcf0be0a9fa51f909e28c07515c25109378107e9ac46ecba959aaa",
         userID: auth.currentUser!.uid,
-        userName: auth.currentUser!.uid == "SoLtSmVuldhx055d8g0XHqB3Ez23"
-            ? "Admin"
+        userName: auth.currentUser!.displayName == null
+            ? "User"
             : auth.currentUser!.displayName!,
         plugins: [ZegoUIKitSignalingPlugin()],
       );
@@ -115,53 +115,47 @@ class CommonServices {
     }
     log("${auth.currentUser?.uid}", name: "user id");
     log("${auth.currentUser?.displayName}", name: "user name");
-    if (auth.currentUser?.uid == "SoLtSmVuldhx055d8g0XHqB3Ez23") {
-      if (context.mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          CustomPageRoute(child: const AdminLandingScreen()),
-          (route) => false, // Close all existing routes
-        );
-      }
+    if (auth.currentUser?.uid == "SoLtSmVuldhx055d8g0XHqB3Ez23" &&
+        context.mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        CustomPageRoute(child: const AdminLandingScreen()),
+        (route) => false, // Close all existing routes
+      );
     } else if (auth.currentUser?.uid != null &&
         gotCollectionData &&
         appConstants.role == "doctor" &&
-        doctorProfileStatus != "approved") {
-      if (context.mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          CustomPageRoute(child: const ProfileNotApprovedScreen()),
-          (route) => false, // Close all existing routes
-        );
-      }
+        doctorProfileStatus != "approved" &&
+        context.mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        CustomPageRoute(child: const ProfileNotApprovedScreen()),
+        (route) => false, // Close all existing routes
+      );
     } else if (auth.currentUser?.uid != null &&
         gotCollectionData &&
-        (appConstants.role == "doctor" || appConstants.role == "patient")) {
-      if (context.mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          CustomPageRoute(child: LandingScreen()),
-          (route) => false, // Close all existing routes
-        );
-      }
+        (appConstants.role == "doctor" ||
+            appConstants.role == "patient" && context.mounted)) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        CustomPageRoute(child: LandingScreen()),
+        (route) => false, // Close all existing routes
+      );
     } else if (auth.currentUser?.uid != null &&
         appConstants.role == "" &&
-        gotCollectionData == false) {
-      if (context.mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          CustomPageRoute(child: RegisterUserRoleScreen()),
-          (route) => false, // Close all existing routes
-        );
-      }
-    } else {
-      if (context.mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          CustomPageRoute(child: const BoardingScreen()),
-          (route) => false, // Close all existing routes
-        );
-      }
+        gotCollectionData == false &&
+        context.mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        CustomPageRoute(child: RegisterUserRoleScreen()),
+        (route) => false, // Close all existing routes
+      );
+    } else if (context.mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        CustomPageRoute(child: const BoardingScreen()),
+        (route) => false, // Close all existing routes
+      );
     }
   }
 
