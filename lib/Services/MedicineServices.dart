@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../Widgets/MessageWidget.dart';
@@ -102,6 +103,47 @@ class MedicineServices {
             context: context,
             isError: false,
             message: "Medicine Deleted Successfully");
+      }
+    } catch (error) {
+      if (context.mounted) {
+        messageWidget(
+            context: context, isError: true, message: error.toString());
+      }
+    }
+  }
+
+  Future orderMedicine({
+    required String name,
+    required List<Map> medicines,
+    required String address,
+    required String ownerId,
+    required String total,
+    required BuildContext context,
+  }) async {
+    CollectionReference medicine =
+        FirebaseFirestore.instance.collection('orderMedicines');
+
+    try {
+      final now = DateTime.now();
+      await medicine
+          .add({
+            "name": name,
+            "userId": FirebaseAuth.instance.currentUser!.uid,
+            "medicines": medicines,
+            "address": address,
+            "ownerId": ownerId,
+            "total": total,
+            "status": "pending",
+            "date": "${now.day}-${now.month}-${now.year}"
+          })
+          .then((value) => log("Order Added", name: "success"))
+          .catchError((error) =>
+              log("Failed to add Order data: $error", name: "error"));
+      if (context.mounted) {
+        messageWidget(
+            context: context,
+            isError: false,
+            message: "Order Placed Successfully");
       }
     } catch (error) {
       if (context.mounted) {

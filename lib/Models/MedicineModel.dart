@@ -1,16 +1,18 @@
 class MedicineModel {
+  String docId;
   String name;
   String quantity;
   String date;
   String price;
 
   MedicineModel(
-      {required this.name,
+      {required this.docId,
+      required this.name,
       required this.quantity,
       required this.date,
       required this.price});
 
-  MedicineModel.fromMap(Map<String, dynamic> map)
+  MedicineModel.fromMap(this.docId, Map<String, dynamic> map)
       : name = map['name'] ?? "",
         quantity = map['quantity'] ?? "",
         date = map['date'] ?? "",

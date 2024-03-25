@@ -135,7 +135,7 @@ class AdminMedicineScreen extends StatelessWidget {
                       snapshot.data!.docs.map((doc) {
                     Map<String, dynamic> data =
                         doc.data() as Map<String, dynamic>;
-                    return MedicineModel.fromMap(data);
+                    return MedicineModel.fromMap(doc.id, data);
                   }).toList();
                   final documents = snapshot.data!.docs;
                   return SizedBox(

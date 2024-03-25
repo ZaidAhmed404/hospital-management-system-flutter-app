@@ -535,6 +535,12 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                           log("${TimeOfDay.now()}",
                                               name: "now");
 
+                                          log("${(appointment.appointmentType == "Message" && (appointedStartTime.hour >= TimeOfDay.now().hour || appointedStartTime.minute >= TimeOfDay.now().minute) && (appointedEndTime.hour <= TimeOfDay.now().hour || appointedEndTime.minute <= TimeOfDay.now().minute) && (DateTime.now().day == appointmentDate.day && DateTime.now().month == appointmentDate.month && DateTime.now().year == appointmentDate.year))}",
+                                              name: "condition");
+
+                                          log("${(appointment.appointmentType == "Message" && (appointedStartTime.hour >= TimeOfDay.now().hour || appointedStartTime.minute >= TimeOfDay.now().minute) && (appointedEndTime.hour <= TimeOfDay.now().hour || appointedEndTime.minute <= TimeOfDay.now().minute) && (DateTime.now().day == appointmentDate.day && DateTime.now().month == appointmentDate.month && DateTime.now().year == appointmentDate.year))}",
+                                              name: "condition 1");
+
                                           return Container(
                                             margin: const EdgeInsets.only(
                                                 top: 5, bottom: 5),

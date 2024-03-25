@@ -136,63 +136,66 @@ class ChatScreen extends StatelessWidget {
                   )),
             ),
           if (chatActive)
-            Row(
-              children: [
-                TextFieldWidget(
-                  hintText: "Enter message",
-                  text: "",
-                  controller: messageController,
-                  isPassword: false,
-                  isEnabled: true,
-                  validationFunction: (value) {
-                    return null;
-                  },
-                  textInputType: TextInputType.text,
-                  textFieldWidth: width * 0.8,
-                  haveText: false,
-                  onValueChange: (value) {},
-                  maxLines: 1,
-                  borderCircular: 50,
-                ),
-                const Spacer(),
-                InkWell(
-                  onTap: () {
-                    appConstants.chatServices.sendMessage(
-                        patientId: appConstants.role == "doctor"
-                            ? FirebaseAuth.instance.currentUser!.uid
-                            : targetId,
-                        patientName: appConstants.role == "doctor"
-                            ? FirebaseAuth.instance.currentUser!.displayName!
-                            : targetName,
-                        patientPhotoUrl: appConstants.role == "doctor"
-                            ? FirebaseAuth.instance.currentUser!.photoURL!
-                            : targetPhotoUrl,
-                        doctorName: appConstants.role == "patient"
-                            ? FirebaseAuth.instance.currentUser!.displayName!
-                            : targetName,
-                        doctorPhotoUrl: appConstants.role == "patient"
-                            ? FirebaseAuth.instance.currentUser!.photoURL!
-                            : targetPhotoUrl,
-                        doctorId: appConstants.role == "patient"
-                            ? FirebaseAuth.instance.currentUser!.uid
-                            : targetId,
-                        message: messageController.text,
-                        appointmentId: appointmentId,
-                        context: context);
-                    messageController.text = "";
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    child: Icon(
-                      Icons.send,
-                      color: Colors.white,
-                      size: height * appConstants.fontSize15,
+            Container(
+              margin: const EdgeInsets.only(bottom: 60),
+              child: Row(
+                children: [
+                  TextFieldWidget(
+                    hintText: "Enter message",
+                    text: "",
+                    controller: messageController,
+                    isPassword: false,
+                    isEnabled: true,
+                    validationFunction: (value) {
+                      return null;
+                    },
+                    textInputType: TextInputType.text,
+                    textFieldWidth: width * 0.8,
+                    haveText: false,
+                    onValueChange: (value) {},
+                    maxLines: 1,
+                    borderCircular: 50,
+                  ),
+                  const Spacer(),
+                  InkWell(
+                    onTap: () {
+                      appConstants.chatServices.sendMessage(
+                          patientId: appConstants.role == "doctor"
+                              ? FirebaseAuth.instance.currentUser!.uid
+                              : targetId,
+                          patientName: appConstants.role == "doctor"
+                              ? FirebaseAuth.instance.currentUser!.displayName!
+                              : targetName,
+                          patientPhotoUrl: appConstants.role == "doctor"
+                              ? FirebaseAuth.instance.currentUser!.photoURL!
+                              : targetPhotoUrl,
+                          doctorName: appConstants.role == "patient"
+                              ? FirebaseAuth.instance.currentUser!.displayName!
+                              : targetName,
+                          doctorPhotoUrl: appConstants.role == "patient"
+                              ? FirebaseAuth.instance.currentUser!.photoURL!
+                              : targetPhotoUrl,
+                          doctorId: appConstants.role == "patient"
+                              ? FirebaseAuth.instance.currentUser!.uid
+                              : targetId,
+                          message: messageController.text,
+                          appointmentId: appointmentId,
+                          context: context);
+                      messageController.text = "";
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                          color: Colors.blue, shape: BoxShape.circle),
+                      child: Icon(
+                        Icons.send,
+                        color: Colors.white,
+                        size: height * appConstants.fontSize15,
+                      ),
                     ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
         ],
       ),
