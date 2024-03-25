@@ -54,7 +54,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Chats History",
+                      "Chats",
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: height * appConstants.fontSize20),

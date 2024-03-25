@@ -51,7 +51,13 @@ class _LandingScreenState extends State<LandingScreen> {
                     child: Scaffold(
                       backgroundColor: Colors.white,
                       body: _currentIndex == 0
-                          ? const AppointmentScreen()
+                          ? AppointmentScreen(
+                              onPressedFunction: () {
+                                setState(() {
+                                  _currentIndex = 1;
+                                });
+                              },
+                            )
                           : _currentIndex == 1
                               ? const ChatHistoryScreen()
                               : _currentIndex == 2

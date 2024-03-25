@@ -14,7 +14,9 @@ import '../PatientMedicinesScreen/PatientMedicines.dart';
 import '../SearchDoctorScreen/SearchDoctorScreen.dart';
 
 class AppointmentScreen extends StatefulWidget {
-  const AppointmentScreen({super.key});
+  AppointmentScreen({super.key, required this.onPressedFunction});
+
+  Function() onPressedFunction;
 
   @override
   State<AppointmentScreen> createState() => _AppointmentScreenState();
@@ -365,19 +367,23 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                         DateTime.now().year ==
                                                             appointmentDate
                                                                 .year))
-                                                  Container(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color:
-                                                                Colors.green),
-                                                    child: const Icon(
-                                                      Icons.message,
-                                                      color: Colors.white,
+                                                  InkWell(
+                                                    onTap: () => widget
+                                                        .onPressedFunction(),
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color:
+                                                                  Colors.green),
+                                                      child: const Icon(
+                                                        Icons.message,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
                                                   ),
                                                 if (appointment.appointmentType ==
@@ -694,19 +700,23 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                         DateTime.now().year ==
                                                             appointmentDate
                                                                 .year))
-                                                  Container(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color:
-                                                                Colors.green),
-                                                    child: const Icon(
-                                                      Icons.message,
-                                                      color: Colors.white,
+                                                  InkWell(
+                                                    onTap: () => widget
+                                                        .onPressedFunction(),
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color:
+                                                                  Colors.green),
+                                                      child: const Icon(
+                                                        Icons.message,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
                                                   ),
                                                 if (appointment.appointmentType ==
