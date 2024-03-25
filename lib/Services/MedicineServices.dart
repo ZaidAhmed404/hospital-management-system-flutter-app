@@ -10,6 +10,7 @@ class MedicineServices {
       {required String name,
       required String pharmacyId,
       required String quantity,
+      required String price,
       required BuildContext context}) async {
     CollectionReference medicine =
         FirebaseFirestore.instance.collection('$pharmacyId.medicine');
@@ -19,6 +20,7 @@ class MedicineServices {
           .add({
             "name": name,
             "quantity": quantity,
+            "price": price,
             "date": "${now.day}-${now.month}-${now.year}"
           })
           .then((value) => log("Medicine data Added", name: "success"))
@@ -46,6 +48,7 @@ class MedicineServices {
       required String name,
       required String quantity,
       required String pharmacyId,
+      required String price,
       required BuildContext context}) async {
     CollectionReference medicine =
         FirebaseFirestore.instance.collection('$pharmacyId.medicine');
@@ -57,6 +60,7 @@ class MedicineServices {
           .update({
             "name": name,
             "quantity": quantity,
+            "price": price,
             "date": "${now.day}-${now.month}-${now.year}"
           })
           .then((value) => log("Medicine data Updated", name: "success"))

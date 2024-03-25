@@ -13,6 +13,7 @@ class PaymentServices {
   Map<String, dynamic>? paymentIntent;
 
   Future<bool> makePayment({required BuildContext context}) async {
+    FocusScope.of(context).unfocus();
     try {
       log("payment");
       paymentIntent = await createPaymentMethod(context: context);
@@ -24,7 +25,8 @@ class PaymentServices {
               style: ThemeMode.dark,
               merchantDisplayName: "Sabir",
               googlePay: gPay));
-      await displayPaymentSheet(context: context);
+      bool status = await displayPaymentSheet(context: context);
+      return status;
     } catch (error) {
       log("$error", name: "error in getting stripe data");
       if (context.mounted) {
@@ -59,15 +61,18 @@ class PaymentServices {
                 "Bearer sk_test_51OutwwP5SW1IvPMLphP61B8qn6Ms2sYT590Jtz8HjtVqqdSiOjCSEl4GNmKvH02Xx8ZZHn7FZdZfBmnCiJ2t2K8T00bgkoIWkV",
             "Content-Type": "application/x-www-form-urlencoded"
           });
-      if (response.statusCode == 200) {
-        if (context.mounted) {
-          BlocProvider.of<LoadingCubit>(context).setLoading(false);
-          messageWidget(
-              context: context,
-              isError: false,
-              message: "Payment Paid Successfully");
-        }
+      if (context.mounted) {
+        BlocProvider.of<LoadingCubit>(context).setLoading(false);
       }
+      // if (response.statusCode == 200) {
+      //   if (context.mounted) {
+      //     BlocProvider.of<LoadingCubit>(context).setLoading(false);
+      //     messageWidget(
+      //         context: context,
+      //         isError: false,
+      //         message: "Payment Paid Successfully");
+      //   }
+      // }
       return json.decode(response.body);
     } catch (error) {
       if (context.mounted) {
@@ -75,6 +80,10 @@ class PaymentServices {
         messageWidget(
             context: context, isError: true, message: error.toString());
       }
+    }
+
+    if (context.mounted) {
+      BlocProvider.of<LoadingCubit>(context).setLoading(false);
     }
   }
 }

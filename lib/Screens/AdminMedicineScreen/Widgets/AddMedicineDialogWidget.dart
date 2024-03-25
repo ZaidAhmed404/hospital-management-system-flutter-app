@@ -87,6 +87,28 @@ class _AddMedicineDialogWidgetState extends State<AddMedicineDialogWidget> {
               const SizedBox(
                 height: 20,
               ),
+              TextFieldWidget(
+                hintText: "Enter Medicine Price Per Unit",
+                text: "Price",
+                controller: priceController,
+                isPassword: false,
+                isEnabled: true,
+                validationFunction: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Price Per Unit is required';
+                  }
+                  return null;
+                },
+                textInputType: TextInputType.number,
+                textFieldWidth: MediaQuery.of(context).size.width,
+                haveText: true,
+                onValueChange: (value) {},
+                maxLines: 1,
+                borderCircular: 50,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               isLoading
                   ? const Center(
                       child: CircularProgressIndicator(
@@ -108,6 +130,7 @@ class _AddMedicineDialogWidgetState extends State<AddMedicineDialogWidget> {
                               name: nameController.text.trim(),
                               quantity: quantityController.text.trim(),
                               pharmacyId: widget.pharmacyId,
+                              price: priceController.text.trim(),
                               context: context);
                           setState(() {
                             isLoading = false;

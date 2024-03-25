@@ -157,17 +157,18 @@ class _LandingScreenState extends State<LandingScreen> {
                         ],
                       ),
                       floatingActionButton: FloatingActionButton(
-                        onPressed: () {
+                        onPressed: () async {
                           setState(() {
                             isLoading = true;
                           });
 
                           try {
                             dynamic conversationObject = {
-                              // "appId": appConstants.KommunicateAppId
-                              "appId": "sehat-sakoon-hsv7d"
+                              "appId": "17ff5ef8b9001de0a5e1938354e018c81",
+                              "botIds": ["sehat-sakoon-hsv7d"],
+                              "conversationAssignee": "sehat-sakoon-hsv7d"
                             };
-                            KommunicateFlutterPlugin.buildConversation(
+                            await KommunicateFlutterPlugin.buildConversation(
                                     conversationObject)
                                 .then((clientConversationId) {
                               print("Conversation builder success : " +

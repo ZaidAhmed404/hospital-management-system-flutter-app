@@ -191,6 +191,7 @@ class AdminMedicineScreen extends StatelessWidget {
                                                         name: medicine.name,
                                                         quantity:
                                                             medicine.quantity,
+                                                        price: medicine.price,
                                                       )));
                                         },
                                         child: Container(

@@ -10,12 +10,14 @@ class EditMedicineDialogWidget extends StatefulWidget {
       required this.docId,
       required this.quantity,
       required this.name,
+      required this.price,
       required this.pharmacyId});
 
   String docId;
   String name;
   String quantity;
   String pharmacyId;
+  String price;
 
   @override
   State<EditMedicineDialogWidget> createState() =>
@@ -27,6 +29,7 @@ class _EditMedicineDialogWidgetState extends State<EditMedicineDialogWidget> {
 
   final TextEditingController quantityController = TextEditingController();
 
+  final TextEditingController priceController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
@@ -36,6 +39,7 @@ class _EditMedicineDialogWidgetState extends State<EditMedicineDialogWidget> {
     super.initState();
     nameController.text = widget.name;
     quantityController.text = widget.quantity;
+    priceController.text = widget.price;
   }
 
   @override
@@ -102,6 +106,28 @@ class _EditMedicineDialogWidgetState extends State<EditMedicineDialogWidget> {
               const SizedBox(
                 height: 20,
               ),
+              TextFieldWidget(
+                hintText: "Enter Medicine Price Per Unit",
+                text: "Price",
+                controller: priceController,
+                isPassword: false,
+                isEnabled: true,
+                validationFunction: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Price Per Unit is required';
+                  }
+                  return null;
+                },
+                textInputType: TextInputType.number,
+                textFieldWidth: MediaQuery.of(context).size.width,
+                haveText: true,
+                onValueChange: (value) {},
+                maxLines: 1,
+                borderCircular: 50,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               isLoading
                   ? const Center(
                       child: CircularProgressIndicator(
@@ -123,6 +149,7 @@ class _EditMedicineDialogWidgetState extends State<EditMedicineDialogWidget> {
                               docId: widget.docId,
                               pharmacyId: widget.pharmacyId,
                               name: nameController.text.trim(),
+                              price: priceController.text.trim(),
                               quantity: quantityController.text.trim(),
                               context: context);
                           setState(() {
