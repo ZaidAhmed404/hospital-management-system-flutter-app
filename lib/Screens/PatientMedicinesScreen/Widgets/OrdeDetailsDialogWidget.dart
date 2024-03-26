@@ -140,19 +140,18 @@ class OrderDetailsDialogWidget extends StatelessWidget {
                   fontWeight: FontWeight.w600),
             ),
             InkWell(
-              onTap: () {
-                appConstants.commonServices.launchInBrowser(
-                    context: context,
-                    urlPath: "https://uae.tcsexpress.com/tracking");
-              },
-              child: Text(
-                "Click Here",
-                style: TextStyle(
-                  fontSize: height * appConstants.fontSize14,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
+                onTap: () {
+                  appConstants.commonServices.launchInBrowser(
+                      context: context,
+                      urlPath: "https://uae.tcsexpress.com/tracking");
+                },
+                child: Text(
+                  "Click Here",
+                  style: TextStyle(
+                    fontSize: height * appConstants.fontSize14,
+                    color: Colors.blue,
+                  ),
+                )),
           ],
         ),
       ),
