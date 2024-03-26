@@ -145,13 +145,11 @@ class OrderDetailsDialogWidget extends StatelessWidget {
                     context: context,
                     urlPath: "https://uae.tcsexpress.com/tracking");
               },
-              child: Text(
-                "Click Here",
-                style: TextStyle(
-                  fontSize: height * appConstants.fontSize14,
-                  color: Colors.blue,
-                ),
-              ),
+              child: Text("Click Here",
+                  style: TextStyle(
+                    fontSize: height * appConstants.fontSize14,
+                    color: Colors.blue,
+                  )),
             ),
           ],
         ),
