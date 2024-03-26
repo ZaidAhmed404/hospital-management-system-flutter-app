@@ -1,16 +1,3 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import '../../Models/DoctorModel.dart';
-import '../../Models/PatientModel.dart';
-import '../../cubit/DoctorCubit/doctor_cubit.dart';
-import '../../cubit/UserCubit/user_cubit.dart';
-import '../../cubit/patient/patient_cubit.dart';
-import '../BoardingScreen/BoardingScreen.dart';
-import '../LandingScreen/LandingScreen.dart';
-import '../RegisterUserRoleScreen/RegisterUserRolesScreen.dart';
 import '../SignUpScreen/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

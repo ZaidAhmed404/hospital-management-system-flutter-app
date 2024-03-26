@@ -57,6 +57,7 @@ dependencies:
   zego_uikit_signaling_plugin: ^2.7.6
   zego_express_engine: ^3.12.5
   kommunicate_flutter: ^1.9.0
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   flutter_test:

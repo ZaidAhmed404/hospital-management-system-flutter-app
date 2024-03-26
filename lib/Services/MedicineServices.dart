@@ -7,6 +7,9 @@ import 'package:flutter/cupertino.dart';
 import '../Widgets/MessageWidget.dart';
 
 class MedicineServices {
+  CollectionReference orderMedicines =
+      FirebaseFirestore.instance.collection('orderMedicines');
+
   Future add(
       {required String name,
       required String pharmacyId,
@@ -120,12 +123,9 @@ class MedicineServices {
     required String total,
     required BuildContext context,
   }) async {
-    CollectionReference medicine =
-        FirebaseFirestore.instance.collection('orderMedicines');
-
     try {
       final now = DateTime.now();
-      await medicine
+      await orderMedicines
           .add({
             "name": name,
             "userId": FirebaseAuth.instance.currentUser!.uid,
@@ -145,6 +145,23 @@ class MedicineServices {
             isError: false,
             message: "Order Placed Successfully");
       }
+    } catch (error) {
+      if (context.mounted) {
+        messageWidget(
+            context: context, isError: true, message: error.toString());
+      }
+    }
+  }
+
+  Future changeStatus(
+      {required String status,
+      required String docId,
+      required String ticketNumber,
+      required BuildContext context}) async {
+    try {
+      await orderMedicines
+          .doc(docId)
+          .update({"status": status, "ticketNumber": ticketNumber});
     } catch (error) {
       if (context.mounted) {
         messageWidget(

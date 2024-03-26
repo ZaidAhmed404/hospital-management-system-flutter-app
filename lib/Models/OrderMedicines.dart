@@ -6,6 +6,7 @@ class OrderMedicineModel {
   final String ownerId;
   final String total;
   final String status;
+  final String ticketNumber;
   final String date;
 
   OrderMedicineModel({
@@ -16,19 +17,21 @@ class OrderMedicineModel {
     required this.ownerId,
     required this.total,
     required this.status,
+    required this.ticketNumber,
     required this.date,
   });
 
   factory OrderMedicineModel.fromMap(Map<String, dynamic> map) {
     return OrderMedicineModel(
-      name: map['name'],
+      name: map['name'] ?? "",
       userId: map['userId'],
       medicines: List<Map<String, dynamic>>.from(map['medicines']),
-      address: map['address'],
-      ownerId: map['ownerId'],
-      total: map['total'],
-      status: map['status'],
-      date: map['date'],
+      address: map['address'] ?? "",
+      ownerId: map['ownerId'] ?? "",
+      total: map['total'] ?? "",
+      status: map['status'] ?? "",
+      ticketNumber: map['ticketNumber'] ?? "",
+      date: map['date'] ?? "",
     );
   }
 
@@ -41,6 +44,7 @@ class OrderMedicineModel {
       'ownerId': ownerId,
       'total': total,
       'status': status,
+      'ticketNumber': ticketNumber,
       'date': date,
     };
   }

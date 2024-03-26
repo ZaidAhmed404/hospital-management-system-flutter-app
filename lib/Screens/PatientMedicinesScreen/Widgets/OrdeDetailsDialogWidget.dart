@@ -121,6 +121,38 @@ class OrderDetailsDialogWidget extends StatelessWidget {
               orderMedicineModel.total,
               style: TextStyle(fontSize: height * appConstants.fontSize14),
             ),
+            const Divider(),
+            Text(
+              "TCS CN number",
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
+            ),
+            Text(
+              orderMedicineModel.ticketNumber,
+              style: TextStyle(fontSize: height * appConstants.fontSize14),
+            ),
+            const Divider(),
+            Text(
+              "Tracking Url",
+              style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  fontWeight: FontWeight.w600),
+            ),
+            InkWell(
+              onTap: () {
+                appConstants.commonServices.launchInBrowser(
+                    context: context,
+                    urlPath: "https://uae.tcsexpress.com/tracking");
+              },
+              child: Text(
+                "Click Here",
+                style: TextStyle(
+                  fontSize: height * appConstants.fontSize14,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
           ],
         ),
       ),

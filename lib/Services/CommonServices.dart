@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
@@ -21,6 +22,7 @@ import '../Route/CustomPageRoute.dart';
 import '../Screens/AdminLandingScreen/AdminLandingScreen.dart';
 import '../Screens/BoardingScreen/BoardingScreen.dart';
 import '../Screens/LandingScreen/LandingScreen.dart';
+import '../Screens/PharmacyOwnerLandingScreen/PharmacyOwnerLandingScreen.dart';
 import '../Screens/ProfileNotApprovedScreen/ProfileNotApprovedScreen.dart';
 import '../Screens/RegisterUserRoleScreen/RegisterUserRolesScreen.dart';
 import '../Widgets/MessageWidget.dart';
@@ -36,6 +38,24 @@ class CommonServices {
     bool gotCollectionData = false;
 
     String doctorProfileStatus = "";
+    if (auth.currentUser != null) {
+      try {
+        final QuerySnapshot snapshot =
+            await FirebaseFirestore.instance.collection('pharmacyOwners').get();
+
+        snapshot.docs.map((DocumentSnapshot doc) {
+          Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+          if (auth.currentUser!.uid == data['ownerId']) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              CustomPageRoute(child: PharmacyOwnerLandingScreen()),
+              (route) => false,
+            );
+            return;
+          }
+        }).toList();
+      } catch (_) {}
+    }
 
     try {
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
@@ -122,6 +142,7 @@ class CommonServices {
         CustomPageRoute(child: const AdminLandingScreen()),
         (route) => false, // Close all existing routes
       );
+      return;
     } else if (auth.currentUser?.uid != null &&
         gotCollectionData &&
         appConstants.role == "doctor" &&
@@ -132,15 +153,18 @@ class CommonServices {
         CustomPageRoute(child: const ProfileNotApprovedScreen()),
         (route) => false, // Close all existing routes
       );
+      return;
     } else if (auth.currentUser?.uid != null &&
         gotCollectionData &&
-        (appConstants.role == "doctor" ||
-            appConstants.role == "patient" && context.mounted)) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        CustomPageRoute(child: LandingScreen()),
-        (route) => false, // Close all existing routes
-      );
+        (appConstants.role == "doctor" || appConstants.role == "patient")) {
+      if (context.mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          CustomPageRoute(child: LandingScreen()),
+          (route) => false,
+        );
+      }
+      return;
     } else if (auth.currentUser?.uid != null &&
         appConstants.role == "" &&
         gotCollectionData == false &&
@@ -150,12 +174,14 @@ class CommonServices {
         CustomPageRoute(child: RegisterUserRoleScreen()),
         (route) => false, // Close all existing routes
       );
+      return;
     } else if (context.mounted) {
       Navigator.pushAndRemoveUntil(
         context,
         CustomPageRoute(child: const BoardingScreen()),
         (route) => false, // Close all existing routes
       );
+      return;
     }
   }
 
@@ -178,5 +204,24 @@ class CommonServices {
     DateFormat format = DateFormat("dd-MM-yyyy");
     DateTime dateTime = format.parse(dateString);
     return dateTime;
+  }
+
+  Future<void> launchInBrowser(
+      {required BuildContext context, required String urlPath}) async {
+    try {
+      var url = Uri.parse(urlPath);
+      if (!await launchUrl(
+        url,
+        mode: LaunchMode.inAppBrowserView,
+      )) {
+        throw Exception('Could not launch $url');
+      }
+    } catch (error) {
+      log(error.toString(), name: "error");
+      if (context.mounted) {
+        messageWidget(
+            context: context, isError: true, message: error.toString());
+      }
+    }
   }
 }

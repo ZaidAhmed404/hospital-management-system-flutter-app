@@ -56,7 +56,7 @@ class PatientMedicinesScreen extends StatelessWidget {
                         ),
                         const Spacer(),
                         Text(
-                          "Medicines",
+                          "Order Medicines",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: height * appConstants.fontSize20),
@@ -117,7 +117,7 @@ class PatientMedicinesScreen extends StatelessWidget {
                                     doc.data() as Map<String, dynamic>;
                                 return OrderMedicineModel.fromMap(data);
                               })
-                              .where((appoint) => (appoint.userId ==
+                              .where((order) => (order.userId ==
                                   FirebaseAuth.instance.currentUser!.uid))
                               .toList();
                           final documents = snapshot.data!.docs;
