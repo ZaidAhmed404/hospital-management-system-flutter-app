@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          title: 'Hospital Management System',
+          title: 'Sehat Sakoon',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),

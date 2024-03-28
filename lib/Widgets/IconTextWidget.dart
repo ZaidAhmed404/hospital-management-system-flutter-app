@@ -24,6 +24,7 @@ class IconTextWidget extends StatelessWidget {
             border: Border.all(color: Colors.black12),
             borderRadius: BorderRadius.circular(10)),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8),

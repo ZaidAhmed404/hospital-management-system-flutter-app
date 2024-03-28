@@ -187,40 +187,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            IconTextWidget(
-                              iconUrl: "assets/icons/facebook.svg",
-                              text: "Facebook",
-                              onPressedFunction: () {
-                                try {
-                                  appConstants.firebaseAuthServices
-                                      .signInWithFacebook();
-                                } catch (error) {
-                                  messageWidget(
-                                      context: context,
-                                      isError: true,
-                                      message: "$error");
-                                }
-                              },
-                            ),
-                            IconTextWidget(
-                              iconUrl: "assets/icons/google.svg",
-                              text: "Google",
-                              onPressedFunction: () {
-                                try {
-                                  appConstants.firebaseAuthServices
-                                      .signInWithGoogle();
-                                } catch (error) {
-                                  messageWidget(
-                                      context: context,
-                                      isError: true,
-                                      message: "$error");
-                                }
-                              },
-                            ),
-                          ],
+                        IconTextWidget(
+                          iconUrl: "assets/icons/google.svg",
+                          text: "Google",
+                          onPressedFunction: () {
+                            try {
+                              appConstants.firebaseAuthServices
+                                  .signInWithGoogle();
+                            } catch (error) {
+                              messageWidget(
+                                  context: context,
+                                  isError: true,
+                                  message: "$error");
+                            }
+                          },
                         ),
                         const SizedBox(
                           height: 20,

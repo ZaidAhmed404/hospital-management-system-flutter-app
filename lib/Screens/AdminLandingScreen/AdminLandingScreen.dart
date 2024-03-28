@@ -4,6 +4,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../main.dart';
 import '../AdminDoctorScreen/AdminDoctorScreen.dart';
 import '../AdminMedicineScreen/AdminMedicineScreen.dart';
+import '../AdminMessagesScreen/AdminMessagesScreen.dart';
 import '../AdminPharmacyScreen/AdminPharmacyScreen.dart';
 import '../AdminProfileScreen/AdminProfileScreen.dart';
 
@@ -28,8 +29,10 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
             : _currentIndex == 1
                 ? const AdminDoctorScreen()
                 : _currentIndex == 2
-                    ? const AdminProfileScreen()
-                    : const Center(child: Text("Admin login")),
+                    ? const AdminMessagesScreen()
+                    : _currentIndex == 3
+                        ? const AdminProfileScreen()
+                        : const Center(child: Text("Admin login")),
         bottomNavigationBar: SalomonBottomBar(
           currentIndex: _currentIndex,
           onTap: (i) => setState(() => _currentIndex = i),
@@ -70,6 +73,27 @@ class _AdminLandingScreenState extends State<AdminLandingScreen> {
                   )),
               title: Text(
                 "Doctors",
+                style: TextStyle(
+                  fontSize: height * appConstants.fontSize16,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              selectedColor: Colors.blue,
+            ),
+            SalomonBottomBarItem(
+              icon: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: _currentIndex == 2
+                          ? null
+                          : Colors.blue.withOpacity(0.2)),
+                  child: const Icon(
+                    Icons.message,
+                    color: Colors.blue,
+                  )),
+              title: Text(
+                "Messages",
                 style: TextStyle(
                   fontSize: height * appConstants.fontSize16,
                   fontWeight: FontWeight.w800,

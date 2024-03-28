@@ -53,7 +53,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="doctor_patient_management_system"
+        android:label="Sehat Sakoon"
         tools:replace="android:label">
         <activity
             android:name=".MainActivity"

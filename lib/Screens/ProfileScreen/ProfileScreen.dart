@@ -19,7 +19,9 @@ import '../../../Models/UserModel.dart';
 import '../../../Widgets/IconTextTileWidget.dart';
 import '../../Models/DoctorModel.dart';
 import '../EditProfileScreen/EditProfileScreen.dart';
+import '../SendUsMessageScreen/SendUsMessageScreen.dart';
 import '../SignInScreen/SignInScreen.dart';
+import '../VisitOurOfficeScreen/VisitOurOfficeScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   PatientModel? patientModel;
@@ -77,247 +79,324 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           index = ind;
                         });
                       })
-                    : BlocBuilder<LoadingCubit, LoadingState>(
-                        builder: (context, state) {
-                          return LoadingOverlay(
-                            isLoading: state.loading,
-                            color: Colors.black,
-                            opacity: 0.5,
-                            progressIndicator: Container(
-                                padding: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: const CircularProgressIndicator(
-                                  color: Colors.blue,
-                                )),
-                            child: Container(
-                              width: width,
-                              height: height,
-                              padding: const EdgeInsets.all(20),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(5),
-                                          decoration: BoxDecoration(
-                                              color: Colors.blue,
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          child: const Icon(
-                                            Icons.person,
+                    : index == 5
+                        ? VisitOurOfficeScreen(backPressedFunction: (int ind) {
+                            setState(() {
+                              index = ind;
+                            });
+                          })
+                        : index == 6
+                            ? SendUsMessageScreen(
+                                backPressedFunction: (int ind) {
+                                setState(() {
+                                  index = ind;
+                                });
+                              })
+                            : BlocBuilder<LoadingCubit, LoadingState>(
+                                builder: (context, state) {
+                                  return LoadingOverlay(
+                                    isLoading: state.loading,
+                                    color: Colors.black,
+                                    opacity: 0.5,
+                                    progressIndicator: Container(
+                                        padding: const EdgeInsets.all(20),
+                                        decoration: BoxDecoration(
                                             color: Colors.white,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        const Text(
-                                          "Profile",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 20),
-                                        ),
-                                        const Spacer(),
-                                        Container(
-                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: const CircularProgressIndicator(
+                                          color: Colors.blue,
+                                        )),
+                                    child: Container(
+                                      width: width,
+                                      height: height,
+                                      padding: const EdgeInsets.all(20),
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.blue,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8)),
+                                                  child: const Icon(
+                                                    Icons.person,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                const Text(
+                                                  "Profile",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 20),
+                                                ),
+                                                const Spacer(),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.blue
+                                                          .withOpacity(0.2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8)),
+                                                  child: IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          index = 1;
+                                                        });
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.edit,
+                                                        color: Colors.blue,
+                                                      )),
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: ClipOval(
+                                                    child: SizedBox.fromSize(
+                                                      size:
+                                                          const Size.fromRadius(
+                                                              48),
+                                                      child: Image.network(
+                                                        widget
+                                                            .userModel.photoUrl,
+                                                        frameBuilder: (context,
+                                                            child, frame, was) {
+                                                          return child;
+                                                        },
+                                                        loadingBuilder: (context,
+                                                            child,
+                                                            loadingProgress) {
+                                                          if (loadingProgress ==
+                                                              null) {
+                                                            return child;
+                                                          }
+                                                          return Center(
+                                                              child: SizedBox(
+                                                                  width: 70,
+                                                                  height: 70,
+                                                                  child:
+                                                                      Container(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(
+                                                                            20),
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10)),
+                                                                    child:
+                                                                        const CircularProgressIndicator(
+                                                                      color: Color(
+                                                                          0xff3FA8F9),
+                                                                    ),
+                                                                  )));
+                                                        },
+                                                        fit: BoxFit.fill,
+                                                        width: width * 0.75,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "${FirebaseAuth.instance.currentUser?.displayName}",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18),
+                                                    ),
+                                                    Text(
+                                                      "${FirebaseAuth.instance.currentUser?.email}",
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.grey,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Divider(
                                               color:
-                                                  Colors.blue.withOpacity(0.2),
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          child: IconButton(
-                                              onPressed: () {
+                                                  Colors.black.withOpacity(0.1),
+                                            ),
+                                            IconTextTileWidget(
+                                              onPressedFunction: () {
                                                 setState(() {
-                                                  index = 1;
+                                                  index = 2;
                                                 });
                                               },
-                                              icon: const Icon(
-                                                Icons.edit,
-                                                color: Colors.blue,
-                                              )),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: ClipOval(
-                                            child: SizedBox.fromSize(
-                                              size: const Size.fromRadius(48),
-                                              child: Image.network(
-                                                widget.userModel.photoUrl,
-                                                frameBuilder: (context, child,
-                                                    frame, was) {
-                                                  return child;
-                                                },
-                                                loadingBuilder: (context, child,
-                                                    loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                      child: SizedBox(
-                                                          width: 70,
-                                                          height: 70,
-                                                          child: Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(20),
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10)),
-                                                            child:
-                                                                const CircularProgressIndicator(
-                                                              color: Color(
-                                                                  0xff3FA8F9),
-                                                            ),
-                                                          )));
-                                                },
-                                                fit: BoxFit.fill,
-                                                width: width * 0.75,
-                                              ),
+                                              text: "Terms and Conditions",
+                                              firstIcon: Icons.question_answer,
+                                              secondIcon:
+                                                  Icons.arrow_forward_ios_sharp,
+                                              iconBackgroundColor:
+                                                  Colors.blue.withOpacity(0.2),
+                                              iconColor: Colors.blue,
+                                              haveSecondIcon: true,
                                             ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "${FirebaseAuth.instance.currentUser?.displayName}",
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 18),
+                                            Divider(
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
                                             ),
-                                            Text(
-                                              "${FirebaseAuth.instance.currentUser?.email}",
-                                              style: const TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.grey,
-                                                  fontWeight: FontWeight.w600),
+                                            IconTextTileWidget(
+                                              onPressedFunction: () {
+                                                setState(() {
+                                                  index = 5;
+                                                });
+                                              },
+                                              text: "Visit Our Office",
+                                              firstIcon: Icons.question_answer,
+                                              secondIcon:
+                                                  Icons.arrow_forward_ios_sharp,
+                                              iconBackgroundColor:
+                                                  Colors.blue.withOpacity(0.2),
+                                              iconColor: Colors.blue,
+                                              haveSecondIcon: true,
+                                            ),
+                                            Divider(
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
+                                            ),
+                                            IconTextTileWidget(
+                                              onPressedFunction: () {
+                                                setState(() {
+                                                  index = 6;
+                                                });
+                                              },
+                                              text: "Send Us Message",
+                                              firstIcon: Icons.question_answer,
+                                              secondIcon:
+                                                  Icons.arrow_forward_ios_sharp,
+                                              iconBackgroundColor:
+                                                  Colors.blue.withOpacity(0.2),
+                                              iconColor: Colors.blue,
+                                              haveSecondIcon: true,
+                                            ),
+                                            Divider(
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
+                                            ),
+                                            IconTextTileWidget(
+                                              onPressedFunction: () {
+                                                setState(() {
+                                                  index = 3;
+                                                });
+                                              },
+                                              text: "Privacy Policy",
+                                              firstIcon: Icons.question_answer,
+                                              secondIcon:
+                                                  Icons.arrow_forward_ios_sharp,
+                                              iconBackgroundColor:
+                                                  Colors.blue.withOpacity(0.2),
+                                              iconColor: Colors.blue,
+                                              haveSecondIcon: true,
+                                            ),
+                                            Divider(
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
+                                            ),
+                                            IconTextTileWidget(
+                                              onPressedFunction: () {
+                                                setState(() {
+                                                  index = 4;
+                                                });
+                                              },
+                                              text: "FAQ",
+                                              firstIcon: Icons.question_answer,
+                                              secondIcon:
+                                                  Icons.arrow_forward_ios_sharp,
+                                              iconBackgroundColor:
+                                                  Colors.blue.withOpacity(0.2),
+                                              iconColor: Colors.blue,
+                                              haveSecondIcon: true,
+                                            ),
+                                            Divider(
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
+                                            ),
+                                            // IconTextTileWidget(
+                                            //   onPressedFunction: () {},
+                                            //   text: "Help",
+                                            //   firstIcon: Icons.help,
+                                            //   secondIcon: Icons.arrow_forward_ios_sharp,
+                                            //   iconBackgroundColor: Colors.blue.withOpacity(0.2),
+                                            //   iconColor: Colors.blue,
+                                            //   haveSecondIcon: true,
+                                            // ),
+                                            // Divider(
+                                            //   color: Colors.black.withOpacity(0.1),
+                                            // ),
+                                            IconTextTileWidget(
+                                              onPressedFunction: () {
+                                                Share.share(
+                                                    appConstants.shareMessage);
+                                              },
+                                              text: "Invite Friends",
+                                              firstIcon:
+                                                  Icons.person_add_alt_rounded,
+                                              secondIcon:
+                                                  Icons.arrow_forward_ios_sharp,
+                                              iconBackgroundColor:
+                                                  Colors.blue.withOpacity(0.2),
+                                              iconColor: Colors.blue,
+                                              haveSecondIcon: true,
+                                            ),
+                                            Divider(
+                                              color:
+                                                  Colors.black.withOpacity(0.1),
+                                            ),
+                                            IconTextTileWidget(
+                                              onPressedFunction: () =>
+                                                  appConstants
+                                                      .firebaseAuthServices
+                                                      .logout(context: context),
+                                              text: "Logout",
+                                              haveSecondIcon: false,
+                                              firstIcon: Icons.logout,
+                                              secondIcon:
+                                                  Icons.arrow_forward_ios_sharp,
+                                              iconBackgroundColor:
+                                                  Colors.red.withOpacity(0.2),
+                                              iconColor: Colors.red,
                                             ),
                                           ],
-                                        )
-                                      ],
+                                        ),
+                                      ),
                                     ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Divider(
-                                      color: Colors.black.withOpacity(0.1),
-                                    ),
-                                    IconTextTileWidget(
-                                      onPressedFunction: () {
-                                        setState(() {
-                                          index = 2;
-                                        });
-                                      },
-                                      text: "Terms and Conditions",
-                                      firstIcon: Icons.question_answer,
-                                      secondIcon: Icons.arrow_forward_ios_sharp,
-                                      iconBackgroundColor:
-                                          Colors.blue.withOpacity(0.2),
-                                      iconColor: Colors.blue,
-                                      haveSecondIcon: true,
-                                    ),
-                                    Divider(
-                                      color: Colors.black.withOpacity(0.1),
-                                    ),
-                                    IconTextTileWidget(
-                                      onPressedFunction: () {
-                                        setState(() {
-                                          index = 3;
-                                        });
-                                      },
-                                      text: "Privacy Policy",
-                                      firstIcon: Icons.question_answer,
-                                      secondIcon: Icons.arrow_forward_ios_sharp,
-                                      iconBackgroundColor:
-                                          Colors.blue.withOpacity(0.2),
-                                      iconColor: Colors.blue,
-                                      haveSecondIcon: true,
-                                    ),
-                                    Divider(
-                                      color: Colors.black.withOpacity(0.1),
-                                    ),
-                                    IconTextTileWidget(
-                                      onPressedFunction: () {
-                                        setState(() {
-                                          index = 4;
-                                        });
-                                      },
-                                      text: "FAQ",
-                                      firstIcon: Icons.question_answer,
-                                      secondIcon: Icons.arrow_forward_ios_sharp,
-                                      iconBackgroundColor:
-                                          Colors.blue.withOpacity(0.2),
-                                      iconColor: Colors.blue,
-                                      haveSecondIcon: true,
-                                    ),
-                                    Divider(
-                                      color: Colors.black.withOpacity(0.1),
-                                    ),
-                                    // IconTextTileWidget(
-                                    //   onPressedFunction: () {},
-                                    //   text: "Help",
-                                    //   firstIcon: Icons.help,
-                                    //   secondIcon: Icons.arrow_forward_ios_sharp,
-                                    //   iconBackgroundColor: Colors.blue.withOpacity(0.2),
-                                    //   iconColor: Colors.blue,
-                                    //   haveSecondIcon: true,
-                                    // ),
-                                    // Divider(
-                                    //   color: Colors.black.withOpacity(0.1),
-                                    // ),
-                                    IconTextTileWidget(
-                                      onPressedFunction: () {
-                                        Share.share(appConstants.shareMessage);
-                                      },
-                                      text: "Invite Friends",
-                                      firstIcon: Icons.person_add_alt_rounded,
-                                      secondIcon: Icons.arrow_forward_ios_sharp,
-                                      iconBackgroundColor:
-                                          Colors.blue.withOpacity(0.2),
-                                      iconColor: Colors.blue,
-                                      haveSecondIcon: true,
-                                    ),
-                                    Divider(
-                                      color: Colors.black.withOpacity(0.1),
-                                    ),
-                                    IconTextTileWidget(
-                                      onPressedFunction: () => appConstants
-                                          .firebaseAuthServices
-                                          .logout(context: context),
-                                      text: "Logout",
-                                      haveSecondIcon: false,
-                                      firstIcon: Icons.logout,
-                                      secondIcon: Icons.arrow_forward_ios_sharp,
-                                      iconBackgroundColor:
-                                          Colors.red.withOpacity(0.2),
-                                      iconColor: Colors.red,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
+                                  );
+                                },
+                              );
   }
 }

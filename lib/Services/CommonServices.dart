@@ -27,10 +27,14 @@ import '../Screens/ProfileNotApprovedScreen/ProfileNotApprovedScreen.dart';
 import '../Screens/RegisterUserRoleScreen/RegisterUserRolesScreen.dart';
 import '../Widgets/MessageWidget.dart';
 import '../cubit/DoctorCubit/doctor_cubit.dart';
+import '../cubit/LoadingCubit/loading_cubit.dart';
 import '../cubit/UserCubit/user_cubit.dart';
 import '../cubit/patient/patient_cubit.dart';
 
 class CommonServices {
+  CollectionReference sendUsMessage =
+      FirebaseFirestore.instance.collection('sendUsMessage');
+
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future initializeSetting({required BuildContext context}) async {
@@ -222,6 +226,43 @@ class CommonServices {
         messageWidget(
             context: context, isError: true, message: error.toString());
       }
+    }
+  }
+
+  addSendUsMessage(
+      {required BuildContext context,
+      required String name,
+      required String email,
+      required String subject,
+      required String message}) async {
+    FocusScope.of(context).unfocus();
+
+    BlocProvider.of<LoadingCubit>(context).setLoading(true);
+    try {
+      await sendUsMessage
+          .add({
+            "name": name,
+            "role": appConstants.role,
+            "email": email,
+            "subject": subject,
+            "message": message
+          })
+          .then((value) => log("message added"))
+          .catchError((error) => log("Failed to send us message: $error"));
+      if (context.mounted) {
+        messageWidget(
+            context: context,
+            isError: false,
+            message: "Message Send Successfully");
+      }
+    } catch (error) {
+      if (context.mounted) {
+        messageWidget(
+            context: context, isError: true, message: error.toString());
+      }
+    }
+    if (context.mounted) {
+      BlocProvider.of<LoadingCubit>(context).setLoading(false);
     }
   }
 }

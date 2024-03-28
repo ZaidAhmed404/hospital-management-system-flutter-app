@@ -84,7 +84,17 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                     padding: const EdgeInsets.all(20),
                     child: SingleChildScrollView(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text(
+                            "${FirebaseAuth.instance.currentUser!.displayName}! Welcome to Sehat Sakoon",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: height * appConstants.fontSize20),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

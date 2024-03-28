@@ -30,11 +30,13 @@ class PharmacyServices {
       );
       log(userCredential.user!.uid, name: "user Id");
       await owner.doc(userCredential.user!.uid).set({
+        "ownerName": ownerName,
         "ownerId": userCredential.user!.uid,
       });
       await pharmacy
           .doc(userCredential.user!.uid)
           .set({
+            "ownerName": ownerName,
             "ownerId": userCredential.user!.uid,
             "name": pharmacyName,
             "address": pharmacyAddress,

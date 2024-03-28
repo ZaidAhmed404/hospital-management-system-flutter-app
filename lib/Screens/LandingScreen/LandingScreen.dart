@@ -88,7 +88,7 @@ class _LandingScreenState extends State<LandingScreen> {
                               ),
                             ),
                             title: Text(
-                              "Appointments",
+                              "Home",
                               style: TextStyle(
                                 fontSize: height * appConstants.fontSize14,
                                 fontWeight: FontWeight.w800,
