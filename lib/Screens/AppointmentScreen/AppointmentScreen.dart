@@ -86,12 +86,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "${FirebaseAuth.instance.currentUser!.displayName}! Welcome to Sehat Sakoon",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: height * appConstants.fontSize20),
-                          ),
+                          if (appConstants.role != "patient")
+                            Text(
+                              "${FirebaseAuth.instance.currentUser!.displayName}! Welcome to Sehat Sakoon",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: height * appConstants.fontSize20),
+                            ),
                           const SizedBox(
                             height: 20,
                           ),
@@ -125,24 +126,24 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                             color: Colors.blue),
                                       )),
                                 ),
-                              if (appConstants.role == "patient")
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      index = 1;
-                                    });
-                                  },
-                                  child: Container(
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Colors.blue.withOpacity(0.2)),
-                                      child: const Icon(
-                                        Icons.add,
-                                        color: Colors.blue,
-                                      )),
-                                ),
+                              // if (appConstants.role == "patient")
+                              //   InkWell(
+                              //     onTap: () {
+                              //       setState(() {
+                              //         index = 1;
+                              //       });
+                              //     },
+                              //     child: Container(
+                              //         padding: const EdgeInsets.all(10),
+                              //         decoration: BoxDecoration(
+                              //             borderRadius:
+                              //                 BorderRadius.circular(8),
+                              //             color: Colors.blue.withOpacity(0.2)),
+                              //         child: const Icon(
+                              //           Icons.add,
+                              //           color: Colors.blue,
+                              //         )),
+                              //   ),
                             ],
                           ),
                           const SizedBox(

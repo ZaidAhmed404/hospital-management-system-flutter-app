@@ -14,8 +14,10 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../AppointmentScreen/AppointmentScreen.dart';
+import '../BookAppointmentScreen/BookAppointmentScreen.dart';
 import '../CallHistoryScreen/CallHistoryScreen.dart';
 import '../ProfileScreen/ProfileScreen.dart';
+import '../SearchDoctorScreen/SearchDoctorScreen.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -25,6 +27,10 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   var _currentIndex = 0;
   bool isLoading = false;
+
+  String doctorId = "";
+  String doctorName = "";
+  String doctorPhotoUrl = "";
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +57,33 @@ class _LandingScreenState extends State<LandingScreen> {
                     child: Scaffold(
                       backgroundColor: Colors.white,
                       body: _currentIndex == 0
-                          ? AppointmentScreen(
-                              onPressedFunction: () {
-                                setState(() {
-                                  _currentIndex = 1;
-                                });
-                              },
-                            )
+                          ? appConstants.role == "patient"
+                              ? SearchDoctorScreen(
+                                  onBackPressed: (ind) {
+                                    setState(() {
+                                      doctorId = "";
+
+                                      doctorName = "";
+                                      doctorPhotoUrl = "";
+                                    });
+                                  },
+                                  onBookPressed: (ind, id, name, photoUrl) {
+                                    setState(() {
+                                      _currentIndex = 4;
+                                      doctorId = id;
+
+                                      doctorName = name;
+                                      doctorPhotoUrl = photoUrl;
+                                    });
+                                  },
+                                )
+                              : AppointmentScreen(
+                                  onPressedFunction: () {
+                                    setState(() {
+                                      _currentIndex = 1;
+                                    });
+                                  },
+                                )
                           : _currentIndex == 1
                               ? const ChatHistoryScreen()
                               : _currentIndex == 2
@@ -69,7 +95,21 @@ class _LandingScreenState extends State<LandingScreen> {
                                           userModel: userState.userModel,
                                           doctorModel: doctorState.doctorModel,
                                         )
-                                      : const Center(child: Text("Other")),
+                                      : _currentIndex == 4
+                                          ? BookAppointmentScreen(
+                                              onBackPressed: (ind) {
+                                                setState(() {
+                                                  _currentIndex = 0;
+                                                  doctorId = "";
+                                                  doctorName = "";
+                                                  doctorPhotoUrl = "";
+                                                });
+                                              },
+                                              doctorId: doctorId,
+                                              doctorName: doctorName,
+                                              doctorPhotoUrl: doctorPhotoUrl,
+                                            )
+                                          : const Center(child: Text("Other")),
                       bottomNavigationBar: SalomonBottomBar(
                         currentIndex: _currentIndex,
                         onTap: (i) => setState(() => _currentIndex = i),
