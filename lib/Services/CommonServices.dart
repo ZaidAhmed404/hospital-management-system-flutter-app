@@ -35,6 +35,9 @@ class CommonServices {
   CollectionReference sendUsMessage =
       FirebaseFirestore.instance.collection('sendUsMessage');
 
+  CollectionReference rateDoctors =
+      FirebaseFirestore.instance.collection('rateDoctors');
+
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future initializeSetting({required BuildContext context}) async {
@@ -263,6 +266,38 @@ class CommonServices {
     }
     if (context.mounted) {
       BlocProvider.of<LoadingCubit>(context).setLoading(false);
+    }
+  }
+
+  rateDoctor({
+    required BuildContext context,
+    required String doctorId,
+    required String rate,
+    required String description,
+  }) async {
+    FocusScope.of(context).unfocus();
+
+    try {
+      await rateDoctors
+          .add({
+            "senderName": FirebaseAuth.instance.currentUser?.displayName ?? "",
+            "doctorId": doctorId,
+            "rate": rate,
+            "description": description,
+          })
+          .then((value) => log("rate added"))
+          .catchError((error) => log("Failed to Rate Doctor: $error"));
+      if (context.mounted) {
+        messageWidget(
+            context: context,
+            isError: false,
+            message: "Doctor Rated Successfully");
+      }
+    } catch (error) {
+      if (context.mounted) {
+        messageWidget(
+            context: context, isError: true, message: error.toString());
+      }
     }
   }
 }
