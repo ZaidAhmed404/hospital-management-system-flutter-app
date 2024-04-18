@@ -142,7 +142,7 @@ class CommonServices {
     }
     log("${auth.currentUser?.uid}", name: "user id");
     log("${auth.currentUser?.displayName}", name: "user name");
-    if (auth.currentUser?.uid == "SoLtSmVuldhx055d8g0XHqB3Ez23" &&
+    if (auth.currentUser?.uid == "bE3XfjT224Qlklrnj8o9vXlfIJ63" &&
         context.mounted) {
       Navigator.pushAndRemoveUntil(
         context,

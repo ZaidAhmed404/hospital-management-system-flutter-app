@@ -35,21 +35,38 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
     setState(() {
       isLoading = true;
     });
-    await FirebaseFirestore.instance.collection("doctors").count().get().then(
-          (res) => doctorsCount = res.count != null ? res.count! : 0,
-        );
-    log("$doctorsCount");
-    await FirebaseFirestore.instance.collection("patients").count().get().then(
-          (res) => patientCount = res.count != null ? res.count! : 0,
-        );
-    log("$patientCount");
-    await FirebaseFirestore.instance
-        .collection("pharmacies")
-        .count()
-        .get()
-        .then(
-          (res) => pharmacyCount = res.count != null ? res.count! : 0,
-        );
+    try {
+      await FirebaseFirestore.instance.collection("doctors").count().get().then(
+            (res) => doctorsCount = res.count != null ? res.count! : 0,
+          );
+      log("$doctorsCount");
+    } catch (error) {
+      doctorsCount = 0;
+    }
+    try {
+      await FirebaseFirestore.instance
+          .collection("patients")
+          .count()
+          .get()
+          .then(
+            (res) => patientCount = res.count != null ? res.count! : 0,
+          );
+      log("$patientCount");
+    } catch (error) {
+      patientCount = 0;
+    }
+    try {
+      await FirebaseFirestore.instance
+          .collection("pharmacies")
+          .count()
+          .get()
+          .then(
+            (res) => pharmacyCount = res.count != null ? res.count! : 0,
+          );
+    } catch (error) {
+      pharmacyCount = 0;
+    }
+
     setState(() {
       isLoading = false;
     });

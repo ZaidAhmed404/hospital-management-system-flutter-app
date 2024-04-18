@@ -1,52 +1,26 @@
 {
   "project_info": {
-    "project_number": "3090369065",
-    "firebase_url": "https://patient-doctor-app-ae024-default-rtdb.firebaseio.com",
-    "project_id": "patient-doctor-app-ae024",
-    "storage_bucket": "patient-doctor-app-ae024.appspot.com"
+    "project_number": "663329105349",
+    "project_id": "sehatsakoon-49ade",
+    "storage_bucket": "sehatsakoon-49ade.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:3090369065:android:70334613a4bac8f728ea38",
+        "mobilesdk_app_id": "1:663329105349:android:35291e7d2e1bececb517ac",
         "android_client_info": {
           "package_name": "com.example.doctor_patient_management_system"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "3090369065-o443fcj9lr8ckqf68jd52879n4cofgb3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.doctor_patient_management_system",
-            "certificate_hash": "69b1c624f407112127644f8ec464fa3166294438"
-          }
-        },
-        {
-          "client_id": "3090369065-oj970ufsiqed1j1fncj1e55r1ijpm893.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBcsUNObIOhdLcraTmAm0nMeB0InMc8GLM"
+          "current_key": "AIzaSyAeauVye1fYoyDcMMAEZv3chINLLwbrWEE"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "3090369065-oj970ufsiqed1j1fncj1e55r1ijpm893.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "3090369065-cs372j178tstnn8e3lnslmq12rqjco3n.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.doctorPatientManagementSystem"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
