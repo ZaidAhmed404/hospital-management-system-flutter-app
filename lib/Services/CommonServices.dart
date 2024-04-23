@@ -122,9 +122,9 @@ class CommonServices {
     }
     if (auth.currentUser != null) {
       ZegoUIKitPrebuiltCallInvitationService().init(
-        appID: 4363952,
+        appID: 401570290,
         appSign:
-            "f1e6f0abefbcf0be0a9fa51f909e28c07515c25109378107e9ac46ecba959aaa",
+            "c04a6ed33e11f68336347f1715e16a03578b07ee82bf86eafb1a83540d8f53db",
         userID: auth.currentUser!.uid,
         userName: auth.currentUser!.displayName == null
             ? "User"

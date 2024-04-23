@@ -27,7 +27,7 @@ class AppConstants {
   String KommunicateAppId = "17ff5ef8b9001de0a5e1938354e018c81";
   String KommunicateApiKey = "Ju2ppmUOyYTxJ01TnUq6hhft4UNLWHer";
   final stripePublishableKey =
-      "pk_test_51OutwwP5SW1IvPMLZRGaeqVwBJ5LB9UeDUtTdPvZq86MU3tiRAg4KixmuMCMd62fSIMAVKuOzTwmDBM1SFHK3OAe00JLCyHAT7";
+      "pk_test_51P7AaADutM4FFoVzXOF0zknGBTiYhc7oowj9H6njatwXXHWpFu75ywccXYNwJ4LRsZqXRmRaqX9EVgIxuUzWcCGn00V38MGXTT";
 
   double fontSize2 = (2 / 896); //2px
   double fontSize06 = (6 / 896); //6px
