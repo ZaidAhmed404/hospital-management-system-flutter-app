@@ -65,8 +65,14 @@ class PharmacyOwnerProfileScreen extends StatelessWidget {
               buttonColor: Colors.blueAccent,
               borderColor: Colors.blueAccent,
               textColor: Colors.white,
-              onPressedFunction: () =>
-                  appConstants.firebaseAuthServices.logout(context: context)),
+              onPressedFunction: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  CustomPageRoute(child: SignInScreen()),
+                  (route) => false,
+                );
+              }),
         ],
       ),
     );

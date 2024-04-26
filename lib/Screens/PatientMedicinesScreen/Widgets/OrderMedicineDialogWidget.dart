@@ -126,7 +126,7 @@ class _OrderMedicineDialogWidgetState extends State<OrderMedicineDialogWidget> {
                   }
                   return null;
                 },
-                textInputType: TextInputType.number,
+                textInputType: TextInputType.text,
                 textFieldWidth: MediaQuery.of(context).size.width,
                 haveText: true,
                 onValueChange: (value) {
@@ -150,7 +150,7 @@ class _OrderMedicineDialogWidgetState extends State<OrderMedicineDialogWidget> {
                   }
                   return null;
                 },
-                textInputType: TextInputType.number,
+                textInputType: TextInputType.text,
                 textFieldWidth: MediaQuery.of(context).size.width,
                 haveText: true,
                 onValueChange: (value) {

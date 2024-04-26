@@ -724,16 +724,20 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                           }).where((appoint) {
                                             List dates = appoint.appointmentDate
                                                 .split("-");
-                                            log("${dates[0]}");
+                                            log("${(DateTime.now().day.toInt() > int.parse(dates[0]) || DateTime.now().month.toInt() > int.parse(dates[1]) || DateTime.now().year.toInt() > int.parse(dates[2]))}");
                                             return appoint.patientId ==
                                                     FirebaseAuth.instance
                                                         .currentUser!.uid &&
-                                                DateTime.now().day.toInt() >=
-                                                    int.parse(dates[0]) &&
-                                                DateTime.now().month.toInt() >=
-                                                    int.parse(dates[1]) &&
-                                                DateTime.now().year.toInt() >=
-                                                    int.parse(dates[2]);
+                                                (DateTime.now().day.toInt() >
+                                                        int.parse(dates[0]) ||
+                                                    DateTime.now()
+                                                            .month
+                                                            .toInt() >
+                                                        int.parse(dates[1]) ||
+                                                    DateTime.now()
+                                                            .year
+                                                            .toInt() >
+                                                        int.parse(dates[2]));
                                           }).toList();
                                         }
 

@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '663329105349',
     projectId: 'sehatsakoon-49ade',
     storageBucket: 'sehatsakoon-49ade.appspot.com',
+    iosClientId: '663329105349-hv3q5gqq05d00lknjpduo5jeq0m1552e.apps.googleusercontent.com',
     iosBundleId: 'com.example.doctorPatientManagementSystem',
   );
 

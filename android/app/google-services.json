@@ -12,7 +12,12 @@
           "package_name": "com.example.doctor_patient_management_system"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "663329105349-3pkeff5snk46mtp1u5aqnopoqh0erd8p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAeauVye1fYoyDcMMAEZv3chINLLwbrWEE"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663329105349-3pkeff5snk46mtp1u5aqnopoqh0erd8p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "663329105349-hv3q5gqq05d00lknjpduo5jeq0m1552e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.doctorPatientManagementSystem"
+              }
+            }
+          ]
         }
       }
     }

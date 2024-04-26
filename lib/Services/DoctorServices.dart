@@ -117,10 +117,17 @@ class DoctorServices {
     try {
       doctor.doc(docId).update({"profileState": status});
       if (context.mounted) {
-        messageWidget(
-            context: context,
-            isError: false,
-            message: "Profile Approved Successfully");
+        if (status == "rejected") {
+          messageWidget(
+              context: context,
+              isError: false,
+              message: "Profile Rejected Successfully");
+        } else {
+          messageWidget(
+              context: context,
+              isError: false,
+              message: "Profile Approved Successfully");
+        }
       }
     } catch (error) {
       if (context.mounted) {
