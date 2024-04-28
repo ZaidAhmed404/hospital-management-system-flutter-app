@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Models/DoctorModel.dart';
 import '../../Widgets/ButtonWidget.dart';
+import '../../Widgets/CategoryWidget.dart';
 import '../../Widgets/DoctorDetailDialogWidget.dart';
 import '../../Widgets/DropdownWidget.dart';
 import '../../Widgets/TextFieldWidget.dart';
@@ -59,6 +60,12 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                     children: [
                       Row(
                         children: [
+                          Text(
+                            "${FirebaseAuth.instance.currentUser!.displayName}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: height * appConstants.fontSize20),
+                          ),
                           const Spacer(),
                           InkWell(
                             onTap: () async {
@@ -106,7 +113,7 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                         ],
                       ),
                       Text(
-                        "${FirebaseAuth.instance.currentUser!.displayName}! Welcome to Sehat Sakoon",
+                        "Welcome to Sehat Sakoon",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: height * appConstants.fontSize20),
@@ -151,7 +158,49 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                         height: 10,
                       ),
                       Text(
-                        "All Categories",
+                        "Categories",
+                        style: TextStyle(
+                            fontSize: height * appConstants.fontSize18,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CategoryWidget(
+                            width: width,
+                            field: "Neurologist",
+                            imageLocation: "assets/images/1.jpeg",
+                          ),
+                          CategoryWidget(
+                            width: width,
+                            field: "Gynaecologist",
+                            imageLocation: "assets/images/2.jpeg",
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CategoryWidget(
+                            width: width,
+                            field: "Cardiologist",
+                            imageLocation: "assets/images/3.jpeg",
+                          ),
+                          CategoryWidget(
+                            width: width,
+                            field: "Orthopedic",
+                            imageLocation: "assets/images/4.jpeg",
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Doctors",
                         style: TextStyle(
                             fontSize: height * appConstants.fontSize18,
                             fontWeight: FontWeight.w600),
@@ -245,9 +294,8 @@ class _SearchDoctorScreenState extends State<SearchDoctorScreen> {
                                           DoctorModel doctor =
                                               doctorData[index];
                                           return Container(
-                                            margin: const EdgeInsets.only(
-                                                top: 5, bottom: 5),
-                                            padding: const EdgeInsets.all(20),
+                                            padding: const EdgeInsets.all(10),
+                                            margin: const EdgeInsets.all(10),
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),

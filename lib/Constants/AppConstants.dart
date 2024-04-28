@@ -29,6 +29,13 @@ class AppConstants {
   final stripePublishableKey =
       "pk_test_51P7AaADutM4FFoVzXOF0zknGBTiYhc7oowj9H6njatwXXHWpFu75ywccXYNwJ4LRsZqXRmRaqX9EVgIxuUzWcCGn00V38MGXTT";
 
+  Map categories = {
+    "Orthopedic": "assets/images/4.jpeg",
+    "Cardiologist": "assets/images/3.jpeg",
+    "Gynaecologist": "assets/images/2.jpeg",
+    "Neurologist": "assets/images/1.jpeg",
+  };
+
   double fontSize2 = (2 / 896); //2px
   double fontSize06 = (6 / 896); //6px
   double fontSize07 = (7 / 896); //7px
