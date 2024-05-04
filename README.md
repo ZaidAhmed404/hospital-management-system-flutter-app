@@ -1,6 +1,6 @@
-# Hospital Management System
+# Sehat Sakoon
 
-A Hospital Management System (HMS) is a Flutter application designed to streamline and automate various processes within a hospital or healthcare facility. The system typically includes modules for managing patients, doctors, appointments, medical records, and other related aspects.
+Sehat Sakoon is a Flutter application designed to streamline and automate various processes within a hospital or healthcare facility. The system typically includes modules for managing patients, doctors, appointments, medical records, and other related aspects.
 
 ### Patient Management
 
