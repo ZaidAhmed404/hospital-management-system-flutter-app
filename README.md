@@ -2,24 +2,24 @@
 
 A Hospital Management System (HMS) is a Flutter application designed to streamline and automate various processes within a hospital or healthcare facility. The system typically includes modules for managing patients, doctors, appointments, medical records, and other related aspects.
 
-## Patient Management
+### Patient Management
 
 1 - Add, update, and delete patient records.
 2 - Capture patient demographics, contact information, and medical history.
 3 - Assign unique patient IDs.
 
-## Doctor Management
+### Doctor Management
 1 - Manage doctor profiles, including personal information, specialization, and contact details.
 2 - Assign unique doctor IDs.
 3 - Track doctors' availability and schedules.
 
-## Medical Records
+### Medical Records
 
 1 - Maintain electronic health records (EHR) for each patient.
 2 - Capture details of diagnoses, treatments, and prescribed medications.
 3 - Enable doctors to update medical records after each visit.
 
-## Pharmacy Management:
+### Pharmacy Management:
 
 1 - Manage pharmacy inventory and stock levels.
 2 - Track medication dispensing and prescriptions.
@@ -31,7 +31,7 @@ A Hospital Management System (HMS) is a Flutter application designed to streamli
 2 - Monitor user activity and system logs.
 3 - Perform backups and ensure data integrity.
 
-## Features
+### Features
 
 1 - Sign Up(Email and Google).
 2 - Sign In.
