@@ -44,7 +44,9 @@ Sehat Sakoon is a Flutter application designed to streamline and automate variou
 9.  Call/Chat History.
 10.  Chat Bot.
 11.  Add/Edit/Delete/Red/Order/Track Medicines.
-12.  More.
+12.  Push Notification.
+13.  Payment Method(Stripe).
+14.  More.
 
 ## Images:
 ### Authentication
