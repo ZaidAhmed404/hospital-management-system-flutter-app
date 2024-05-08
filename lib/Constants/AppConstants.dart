@@ -24,8 +24,8 @@ class AppConstants {
   String role = "";
   String shareMessage =
       "Hope you're doing well! I recently discovered this amazing doctor and patient app that's a game-changer. It's super convenient for managing health, scheduling appointments, and getting quick consultations. I thought you might find it useful too. How about we check it out together? It could be a fun way to prioritize our health. ";
-  String KommunicateAppId = "17ff5ef8b9001de0a5e1938354e018c81";
-  String KommunicateApiKey = "Ju2ppmUOyYTxJ01TnUq6hhft4UNLWHer";
+  String KommunicateAppId = "3f78ebca2d5ca946c41467a0653e8096a";
+  String KommunicateApiKey = "NcWRWeRpDwFYOFIkV7GUMJEFnkZlLbfg";
   final stripePublishableKey =
       "pk_test_51P7AaADutM4FFoVzXOF0zknGBTiYhc7oowj9H6njatwXXHWpFu75ywccXYNwJ4LRsZqXRmRaqX9EVgIxuUzWcCGn00V38MGXTT";
 
