@@ -37,6 +37,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           builder: (BuildContext context) {
             return Container(
                 height: 300,
+
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -225,7 +226,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       child: Container(
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.all(10),
-        width: widget.width * 0.4,
+        width: widget.width * 0.38,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.white,

@@ -210,9 +210,9 @@ class _LandingScreenState extends State<LandingScreen> {
 
                           try {
                             dynamic conversationObject = {
-                              "appId": "17ff5ef8b9001de0a5e1938354e018c81",
-                              "botIds": ["sehat-sakoon-hsv7d"],
-                              "conversationAssignee": "sehat-sakoon-hsv7d"
+                              "appId": "3f78ebca2d5ca946c41467a0653e8096a",
+                              "botIds": ["sehat-sakoon-qginx"],
+                              "conversationAssignee": "sehat-sakoon-qginx"
                             };
                             await KommunicateFlutterPlugin.buildConversation(
                                     conversationObject)
